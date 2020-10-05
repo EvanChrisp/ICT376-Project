@@ -15,6 +15,7 @@ public class Database extends SQLiteOpenHelper
     public static final String CUSTOMER_PHONE = "phone";
     public static final String CUSTOMER_EMAIL = "email";
     public static final String CUSTOMER_ADDRESS = "address";
+    public static final String CUSTOMER_PASSWORD = "password";
 
     public static final String PRODUCT_TABLE = "PRODUCT";
     public static final String PRODUCT_ID = "id";
@@ -22,6 +23,9 @@ public class Database extends SQLiteOpenHelper
     public static final String PRODUCT_PRICE = "price";
     public static final String PRODUCT_DESCRIPTION = "description";
     public static final String PRODUCT_STOCK = "stock";
+    public static final String PRODUCT_RATING = "rating";
+    public static final String PRODUCT_PLATFORM = "platform";
+
 
     public Database(Context context)
     {
@@ -37,14 +41,17 @@ public class Database extends SQLiteOpenHelper
                     CUSTOMER_LASTNAME + " text, " +
                     CUSTOMER_PHONE+ " text, " +
                     CUSTOMER_EMAIL + " text, " +
+                    CUSTOMER_PASSWORD + " text," +
                     CUSTOMER_ADDRESS + " text)");
 
         db.execSQL("create table " + PRODUCT_TABLE + "(" +
-                PRODUCT_ID + " integer primary key, " +
-                PRODUCT_NAME + " text, " +
-                PRODUCT_PRICE + " text, " +
-                PRODUCT_DESCRIPTION+ " text, " +
-                PRODUCT_STOCK + " text)");
+                    PRODUCT_ID + " integer primary key, " +
+                    PRODUCT_NAME + " text, " +
+                    PRODUCT_PRICE + " text, " +
+                    PRODUCT_DESCRIPTION + " text, " +
+                    PRODUCT_RATING + " text, " +
+                    PRODUCT_PLATFORM + " text, " +
+                    PRODUCT_STOCK + " text)");
     }
 
     @Override
