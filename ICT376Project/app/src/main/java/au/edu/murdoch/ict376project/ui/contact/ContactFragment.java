@@ -16,6 +16,7 @@ import au.edu.murdoch.ict376project.R;
 
 public class ContactFragment extends Fragment {
 
+    // test
     private ContactViewModel contactViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
