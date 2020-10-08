@@ -27,23 +27,23 @@
         android:id="@+id/nav_playstation"
         android:name="au.edu.murdoch.ict376project.ui.playstation.PlaystationFragment"
         android:label="@string/menu_sony"
-        tools:layout="@layout/fragment_contact" />
+        tools:layout="@layout/fragment_playstation" />
 
     <fragment
         android:id="@+id/nav_xbox"
         android:name="au.edu.murdoch.ict376project.ui.xbox.XboxFragment"
         android:label="@string/menu_microsoft"
-        tools:layout="@layout/fragment_contact" />
+        tools:layout="@layout/fragment_xbox" />
 
     <fragment
         android:id="@+id/nav_nintendo"
         android:name="au.edu.murdoch.ict376project.ui.nintendo.NintendoFragment"
         android:label="@string/menu_nintendo"
-        tools:layout="@layout/fragment_contact" />
+        tools:layout="@layout/fragment_nintendo" />
 
     <fragment
         android:id="@+id/nav_pc"
         android:name="au.edu.murdoch.ict376project.ui.pc.PCFragment"
         android:label="@string/menu_pc"
-        tools:layout="@layout/fragment_contact" />
+        tools:layout="@layout/fragment_pc" />
 </navigation>
