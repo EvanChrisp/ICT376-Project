@@ -22,4 +22,28 @@
         android:name="au.edu.murdoch.ict376project.ui.contact.ContactFragment"
         android:label="@string/menu_contact"
         tools:layout="@layout/fragment_contact" />
+
+    <fragment
+        android:id="@+id/nav_playstation"
+        android:name="au.edu.murdoch.ict376project.ui.playstation.PlaystationFragment"
+        android:label="@string/menu_contact"
+        tools:layout="@layout/fragment_contact" />
+
+    <fragment
+        android:id="@+id/nav_xbox"
+        android:name="au.edu.murdoch.ict376project.ui.xbox.XboxFragment"
+        android:label="@string/menu_contact"
+        tools:layout="@layout/fragment_contact" />
+
+    <fragment
+        android:id="@+id/nav_nintendo"
+        android:name="au.edu.murdoch.ict376project.ui.nintendo.NintendoFragment"
+        android:label="@string/menu_contact"
+        tools:layout="@layout/fragment_contact" />
+
+    <fragment
+        android:id="@+id/nav_pc"
+        android:name="au.edu.murdoch.ict376project.ui.pc.PCFragment"
+        android:label="@string/menu_contact"
+        tools:layout="@layout/fragment_contact" />
 </navigation>
