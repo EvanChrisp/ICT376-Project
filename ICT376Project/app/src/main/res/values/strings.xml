@@ -15,4 +15,5 @@
     <string name="menu_sony">Sony Playstation</string>
     <string name="menu_nintendo">Nintendo Switch</string>
     <string name="menu_pc">PC Master Race</string>
+    <string name="menu_login">Login/Logout</string>
 </resources>
