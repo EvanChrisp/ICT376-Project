@@ -133,7 +133,7 @@ public class NintendoFragment extends Fragment {
         //mDualPane = detailsFrame != null && detailsFrame.getVisibility() == View.VISIBLE;
 
         View detailsFrame = getActivity().findViewById(R.id.contactdetails_fragment_container);
-        mDualPane = detailsFrame != null && detailsFrame.getVisibility() == View.VISIBLE;*/
+        mDualPane = detailsFrame != null && detailsFrame.getVisibility() == View.VISIBLE;  */
     }
 }
 
