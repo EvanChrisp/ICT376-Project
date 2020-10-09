@@ -82,7 +82,7 @@ public class Database extends SQLiteOpenHelper
         createItem(3,"Zelda", 69, "3D adventures of Link", "8 years+", "Nintendo", 5);
         createItem(4,"Witcher3", 69, "Third episode of the Witcher", "15 years+", "Nintendo", 5);
         createItem(5,"FIFA", 69, "Football by FIFA", "All ages", "Nintendo", 5);
-        // etc etc etc
+        // etc etc etc etc
     }
 
 

@@ -2,6 +2,8 @@ package au.edu.murdoch.ict376project;
 
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -40,6 +42,21 @@ public class MainActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
+    }
+
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch(item.getItemId()){
+            case R.id.action_settings:
+                Toast.makeText(getApplicationContext(),"You clicked settings", Toast.LENGTH_SHORT).show();
+                // add a go to activity or go to fragment action
+                return true;
+            case R.id.action_cart:
+                Toast.makeText(getApplicationContext(),"You clicked Go to cart", Toast.LENGTH_SHORT).show();
+                // add a go to activity or go to fragment action
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
