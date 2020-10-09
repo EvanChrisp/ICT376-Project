@@ -30,7 +30,7 @@ public class NintendoFragment extends Fragment {
 
     // Database
     Database mydb = null;
-    ArrayList mArrayList;  // the list of all contacts
+    ArrayList mArrayList;  // the list of all products
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -61,17 +61,16 @@ public class NintendoFragment extends Fragment {
         super.onActivityCreated(savedInstanceState);
 
         displayProducts();
-        Toast.makeText(getActivity(), "Called displayProducts", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getActivity(), "Called displayProducts", Toast.LENGTH_SHORT).show();
     }
 
     private void displayProducts() {
 
         if(mydb == null){
             mydb = new Database(getActivity());
-            /*mydb.addProduct("Mario 3d allstars", 69, "3d adventures of Mario", "all ages", "Nintendo", "0");
-            mydb.addProduct("Mario 3d allstars", 69, "3d adventures of Mario", "all ages", "Nintendo", "0");*/
 
-            mArrayList = mydb.getProductList();
+            //mArrayList = mydb.getProductList();
+            mArrayList = mydb.getNintendoProductList();
 
             ArrayList<String> array_list = new  ArrayList<String>();
 
@@ -86,7 +85,7 @@ public class NintendoFragment extends Fragment {
             ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, array_list);
 
             // Display the products in the ListView object
-            obj = (ListView)mLayoutView.findViewById(R.id.productListView);
+            obj = (ListView)mLayoutView.findViewById(R.id.nintendoProductListView);
             obj.setAdapter(arrayAdapter);
 
             //Toast.makeText(getActivity(), something, Toast.LENGTH_SHORT).show();

@@ -116,12 +116,31 @@ public class Database extends SQLiteOpenHelper
     }
 
     public void insertMyShopItems() {
+        // items for database
         addProduct("Mario Odyssey", 69, "3D adventures of Mario", "All ages", "Nintendo", "0");
         addProduct("Mario Kart", 69, "Kart racing with Mario", "All ages", "Nintendo", "0");
         addProduct("Zelda", 69, "3D adventures of Link", "8 years+", "Nintendo", "0");
         addProduct("Witcher3", 69, "Third episode of the Witcher", "15 years+", "Nintendo", "0");
         addProduct("FIFA", 69, "Football by FIFA", "All ages", "Nintendo", "0");
-        // etc etc etc etc
+
+        addProduct("Halo", 89,"Adventures of MasterChief","15 years+", "Xbox", "0");
+        addProduct("FIFA", 79,"footbal by FIFA","All ages", "Xbox", "0");
+        addProduct("Final Fantasy XXV", 99,"JRPG masterpiece","15 years+", "Xbox", "0");
+        addProduct("Forza", 119,"Racing Sim","All ages", "Xbox", "0");
+        addProduct("Gears of War", 59, "3rd person shooter", "15 years+", "Xbox", "0");
+
+        addProduct("Crash Bandicoot", 49, "Adventures of Crash", "All ages", "Playstation", "0");
+        addProduct("Final Fantasy XXV", 99, "JRPG masterpiece", "15 years+", "Playstation", "0");
+        addProduct("Ridge Racer", 99, "Arcade Racer", "All ages", "Playstation", "0");
+        addProduct("Spedierman", 89, "The adventures of Peter Parker", "All ages", "Playstation", "0");
+        addProduct("Crash Bandicoot", 49, "Adventures of Crash", "All ages", "Playstation", "0");
+
+        addProduct("The Witcher3", 49, "Third episode of the Witcher", "15 years+", "PC", "0");
+        addProduct("Call of Duty", 49, "First Person Shooter", "15 years+", "PC", "0");
+        addProduct("MS Flight Simulator", 99, "Flight simulator", "All ages", "PC", "0");
+        addProduct("Monster Hunter World", 79, "The world of monsters", "All ages", "PC", "0");
+        addProduct("Half Life 3", 149, "Third episode of Half Life", "15 years+", "PC", "0");
+
     }
 
     public Cursor getAllProducts(String status){
@@ -142,6 +161,74 @@ public class Database extends SQLiteOpenHelper
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor res = db.rawQuery("select * from products", null);
+        if (res.getCount() >0){
+            res.moveToFirst();
+
+            while(res.isAfterLast()== false){
+                array_list.add(new Pair (res.getInt(res.getColumnIndex(PRODUCT_ID)),res.getString(res.getColumnIndex(PRODUCT_NAME))));
+                res.moveToNext();
+            }
+        }
+        return array_list;
+    }
+
+    public ArrayList <Pair<Integer, String>> getNintendoProductList(){
+        ArrayList<Pair<Integer, String>> array_list = new ArrayList<Pair<Integer, String>>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * from products where platform =?",new String[]{"Nintendo"});
+        //Cursor res = db.rawQuery("select * from products where column = ?",new String[]{"data"});
+        if (res.getCount() >0){
+            res.moveToFirst();
+
+            while(res.isAfterLast()== false){
+                array_list.add(new Pair (res.getInt(res.getColumnIndex(PRODUCT_ID)),res.getString(res.getColumnIndex(PRODUCT_NAME))));
+                res.moveToNext();
+            }
+        }
+        return array_list;
+    }
+
+    public ArrayList <Pair<Integer, String>> getPlaystationProductList(){
+        ArrayList<Pair<Integer, String>> array_list = new ArrayList<Pair<Integer, String>>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * from products where platform =?",new String[]{"Playstation"});
+        //Cursor res = db.rawQuery("select * from products where column = ?",new String[]{"data"});
+        if (res.getCount() >0){
+            res.moveToFirst();
+
+            while(res.isAfterLast()== false){
+                array_list.add(new Pair (res.getInt(res.getColumnIndex(PRODUCT_ID)),res.getString(res.getColumnIndex(PRODUCT_NAME))));
+                res.moveToNext();
+            }
+        }
+        return array_list;
+    }
+
+    public ArrayList <Pair<Integer, String>> getXboxProductList(){
+        ArrayList<Pair<Integer, String>> array_list = new ArrayList<Pair<Integer, String>>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * from products where platform =?",new String[]{"Xbox"});
+        //Cursor res = db.rawQuery("select * from products where column = ?",new String[]{"data"});
+        if (res.getCount() >0){
+            res.moveToFirst();
+
+            while(res.isAfterLast()== false){
+                array_list.add(new Pair (res.getInt(res.getColumnIndex(PRODUCT_ID)),res.getString(res.getColumnIndex(PRODUCT_NAME))));
+                res.moveToNext();
+            }
+        }
+        return array_list;
+    }
+
+    public ArrayList <Pair<Integer, String>> getPCProductList(){
+        ArrayList<Pair<Integer, String>> array_list = new ArrayList<Pair<Integer, String>>();
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * from products where platform =?",new String[]{"PC"});
+        //Cursor res = db.rawQuery("select * from products where column = ?",new String[]{"data"});
         if (res.getCount() >0){
             res.moveToFirst();
 

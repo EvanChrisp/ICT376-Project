@@ -28,8 +28,12 @@ public class MainActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        mydb = new Database(this);
-        mydb.insertMyShopItems();
+        // check for db - if null create from insert my shop items
+        if (mydb == null){
+            mydb = new Database(this);
+            mydb.insertMyShopItems();
+        }
+
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
