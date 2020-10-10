@@ -32,7 +32,9 @@ public class HomeFragment extends Fragment {
 
         for(int i = 1; i < 6; i++)
         {
-            // picture = view.findViewById(int); int value = getResources().getIdentifier(
+            // loop through 6 deals
+            // widget = view.findViewById(getResources().getIdentifier(String name, String type, String package);
+            // String name is the id in the XML - type is "id" for i.d. , package = getActivity().getPackageName()
             ImageView view = root.findViewById(getResources().getIdentifier("deal" + i, "id", getActivity().getPackageName()));
 
             int id = rand.nextInt((20 - 1) + 1) + 1;
