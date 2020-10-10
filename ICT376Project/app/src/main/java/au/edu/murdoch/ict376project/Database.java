@@ -163,6 +163,7 @@ public class Database extends SQLiteOpenHelper
     public Cursor getProductById(int id)
     {
         SQLiteDatabase db = this.getReadableDatabase();
+        // id changed to _id in where clause -> causes errors with cursorAdapters
         Cursor res = db.rawQuery("select * from products where _id = " + id, null);
 
         if (res.getCount() > 0 && res != null)
