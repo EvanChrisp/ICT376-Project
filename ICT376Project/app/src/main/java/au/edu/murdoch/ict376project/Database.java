@@ -14,7 +14,7 @@ import java.util.ArrayList;
 
 public class Database extends SQLiteOpenHelper
 {
-    public static final String DB_NAME = "database.db";
+    public static final String DB_NAME = "database2.db";
 
     // helper
     //private Database mDbHelper;
@@ -38,6 +38,7 @@ public class Database extends SQLiteOpenHelper
     public static final String PRODUCT_ID = "_id";
     public static final String PRODUCT_NAME = "name";
     public static final String PRODUCT_PRICE = "price";
+    public static final String PRODUCT_FILE = "file";
     public static final String PRODUCT_DESCRIPTION = "description";
     public static final String PRODUCT_STATUS = "status";
     public static final String PRODUCT_RATING = "rating";
@@ -61,23 +62,24 @@ public class Database extends SQLiteOpenHelper
     {
         // table creation -> customer table
         db.execSQL("create table " + CUSTOMER_TABLE + "(" +
-                    CUSTOMER_ID + " integer primary key, " +
-                    CUSTOMER_FIRSTNAME + " text, " +
-                    CUSTOMER_LASTNAME + " text, " +
-                    CUSTOMER_PHONE+ " text, " +
-                    CUSTOMER_EMAIL + " text, " +
-                    CUSTOMER_PASSWORD + " text," +
-                    CUSTOMER_ADDRESS + " text)");
+                CUSTOMER_ID + " integer primary key, " +
+                CUSTOMER_FIRSTNAME + " text, " +
+                CUSTOMER_LASTNAME + " text, " +
+                CUSTOMER_PHONE+ " text, " +
+                CUSTOMER_EMAIL + " text, " +
+                CUSTOMER_PASSWORD + " text," +
+                CUSTOMER_ADDRESS + " text)");
 
         // table creation -> product table
         db.execSQL("create table " + PRODUCT_TABLE + "(" +
-                    PRODUCT_ID + " integer primary key, " +
-                    PRODUCT_NAME + " text, " +
-                    PRODUCT_PRICE + " text, " +
-                    PRODUCT_DESCRIPTION + " text, " +
-                    PRODUCT_RATING + " text, " +
-                    PRODUCT_PLATFORM + " text, " +
-                    PRODUCT_STATUS + " text)");
+                PRODUCT_ID + " integer primary key, " +
+                PRODUCT_NAME + " text, " +
+                PRODUCT_PRICE + " text, " +
+                PRODUCT_FILE + " text, " +
+                PRODUCT_DESCRIPTION + " text, " +
+                PRODUCT_RATING + " text, " +
+                PRODUCT_PLATFORM + " text, " +
+                PRODUCT_STATUS + " text)");
     }
 
     @Override
@@ -89,14 +91,15 @@ public class Database extends SQLiteOpenHelper
     }
 
 
-    public void addProduct(String pName, int pPrice, String pDescription, String pRating, String pPlatform, String pStatus) {
+    public void addProduct(int pId, String pName, int pPrice, String pFile, String pDescription, String pRating, String pPlatform, String pStatus) {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues contentValues = new ContentValues();
-        //contentValues.put(PRODUCT_ID, pId);
+        contentValues.put(PRODUCT_ID, pId);
         contentValues.put(PRODUCT_NAME, pName);
         contentValues.put(PRODUCT_PRICE, pPrice);
+        contentValues.put(PRODUCT_FILE, pFile);
         contentValues.put(PRODUCT_DESCRIPTION, pDescription);
         contentValues.put(PRODUCT_STATUS, pStatus);
         contentValues.put(PRODUCT_RATING, pRating);
@@ -117,29 +120,29 @@ public class Database extends SQLiteOpenHelper
 
     public void insertMyShopItems() {
         // items for database
-        addProduct("Mario Odyssey", 69, "3D adventures of Mario", "All ages", "Nintendo", "0");
-        addProduct("Mario Kart", 69, "Kart racing with Mario", "All ages", "Nintendo", "0");
-        addProduct("Zelda", 69, "3D adventures of Link", "8 years+", "Nintendo", "0");
-        addProduct("Witcher3", 69, "Third episode of the Witcher", "15 years+", "Nintendo", "0");
-        addProduct("FIFA", 69, "Football by FIFA", "All ages", "Nintendo", "0");
+        addProduct(1, "Mario Odyssey", 69, "mario_odyssey", "3D adventures of Mario", "All ages", "Nintendo", "0");
+        addProduct(2, "Mario Kart", 69, "mario_kart", "Kart racing with Mario", "All ages", "Nintendo", "0");
+        addProduct(3, "Zelda", 69, "zelda", "3D adventures of Link", "8 years+", "Nintendo", "0");
+        addProduct(4, "Witcher 3", 69, "witcher3", "Third episode of the Witcher", "15 years+", "Nintendo", "0");
+        addProduct(5, "FIFA", 69, "fifa", "Football by FIFA", "All ages", "Nintendo", "0");
 
-        addProduct("Halo", 89,"Adventures of MasterChief","15 years+", "Xbox", "0");
-        addProduct("FIFA", 79,"footbal by FIFA","All ages", "Xbox", "0");
-        addProduct("Final Fantasy XXV", 99,"JRPG masterpiece","15 years+", "Xbox", "0");
-        addProduct("Forza", 119,"Racing Sim","All ages", "Xbox", "0");
-        addProduct("Gears of War", 59, "3rd person shooter", "15 years+", "Xbox", "0");
+        addProduct(6, "Halo", 89, "halo", "Adventures of MasterChief","15 years+", "Xbox", "0");
+        addProduct(7, "FIFA", 79, "fifa", "Football by FIFA","All ages", "Xbox", "0");
+        addProduct(8, "Final Fantasy XXV", 99, "ffxxv", "JRPG masterpiece","15 years+", "Xbox", "0");
+        addProduct(9, "Forza", 119, "forza", "Racing Sim","All ages", "Xbox", "0");
+        addProduct(10, "Gears of War", 59, "gears_of_war", "3rd person shooter", "15 years+", "Xbox", "0");
 
-        addProduct("Crash Bandicoot", 49, "Adventures of Crash", "All ages", "Playstation", "0");
-        addProduct("Final Fantasy XXV", 99, "JRPG masterpiece", "15 years+", "Playstation", "0");
-        addProduct("Ridge Racer", 99, "Arcade Racer", "All ages", "Playstation", "0");
-        addProduct("Spedierman", 89, "The adventures of Peter Parker", "All ages", "Playstation", "0");
-        addProduct("Crash Bandicoot", 49, "Adventures of Crash", "All ages", "Playstation", "0");
+        addProduct(11, "Crash Bandicoot", 49, "crash_bandicoot", "Adventures of Crash", "All ages", "Playstation", "0");
+        addProduct(12, "Final Fantasy XV", 99, "ffxv", "JRPG masterpiece", "15 years+", "Playstation", "0");
+        addProduct(13, "Ridge Racer", 99, "ridge_racer", "Arcade Racer", "All ages", "Playstation", "0");
+        addProduct(14, "Spiderman", 89, "spiderman", "The adventures of Peter Parker", "All ages", "Playstation", "0");
+        addProduct(15, "Crash Bandicoot", 49, "crash_bandicoot", "Adventures of Crash", "All ages", "Playstation", "0");
 
-        addProduct("The Witcher3", 49, "Third episode of the Witcher", "15 years+", "PC", "0");
-        addProduct("Call of Duty", 49, "First Person Shooter", "15 years+", "PC", "0");
-        addProduct("MS Flight Simulator", 99, "Flight simulator", "All ages", "PC", "0");
-        addProduct("Monster Hunter World", 79, "The world of monsters", "All ages", "PC", "0");
-        addProduct("Half Life 3", 149, "Third episode of Half Life", "15 years+", "PC", "0");
+        addProduct(16, "The Witcher3", 49, "witcher3", "Third episode of the Witcher", "15 years+", "PC", "0");
+        addProduct(17, "Call of Duty", 49, "call_of_duty", "First Person Shooter", "15 years+", "PC", "0");
+        addProduct(18, "MS Flight Simulator", 99, "ms_flight_sim", "Flight simulator", "All ages", "PC", "0");
+        addProduct(19, "Monster Hunter World", 79, "monster_hunter", "The world of monsters", "All ages", "PC", "0");
+        addProduct(20, "Half Life 3", 149, "half_life", "Third episode of Half Life", "15 years+", "PC", "0");
 
     }
     public int getTotalItemsCount() {
@@ -157,6 +160,18 @@ public class Database extends SQLiteOpenHelper
         return cnt;
     }
 
+    public Cursor getProductById(int id)
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("select * from products where id = " + id, null);
+
+        if (res.getCount() > 0 && res != null)
+        {
+            res.moveToFirst();
+        }
+        return res;
+    }
+
     public Cursor getCursorProducts(String platform){
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -164,6 +179,25 @@ public class Database extends SQLiteOpenHelper
         Cursor mCursor = db.query(PRODUCT_TABLE,
                 new String[] {PRODUCT_ID, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_DESCRIPTION, PRODUCT_STATUS, PRODUCT_RATING, PRODUCT_PLATFORM},
                 PRODUCT_PLATFORM + " like '%" + platform + "%'",
+                null,
+                null,
+                null,
+                null,
+                null);
+        if (mCursor != null) {
+            // iterate through the cursor rows
+            mCursor.moveToFirst();
+        }
+        return mCursor;
+    }
+
+    public Cursor getCursorSearchProducts(String searchTerms){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        // getting Cursor for all items -> access via the Cursor object -> query
+        Cursor mCursor = db.query(PRODUCT_TABLE,
+                new String[] {PRODUCT_ID, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_DESCRIPTION, PRODUCT_STATUS, PRODUCT_RATING, PRODUCT_PLATFORM},
+                PRODUCT_NAME + " like '%" + searchTerms + "%'",
                 null,
                 null,
                 null,
@@ -260,28 +294,4 @@ public class Database extends SQLiteOpenHelper
         return array_list;
     }
 
-
-    /**
-     *         INSERT DATA INTO DATABASE
-     *         SQLiteDatabase db = (new Database(this)).getWritableDatabase();
-     *         ContentValues values = new ContentValues();
-     *         values.put("firstName", "John");
-     *         values.put("lastName", "Smith");
-     *         values.put("phone", "0428400823");
-     *         values.put("email", "john@gmail.com");
-     *         values.put("address", "23 George Street, Perth");
-     *         db.insert("CUSTOMER", null, values);
-     *
-     *
-     *         SELECT DATA FROM DATABASE
-     *         ArrayList<String> array_list = new ArrayList<>();
-     *         db = (new Database(this)).getReadableDatabase();
-     *         Cursor query = db.rawQuery("select * from CUSTOMER", null);
-     *         query.moveToFirst();
-     *         while(query.isAfterLast() == false)
-     *         {
-     *             array_list.add(query.getString(query.getColumnIndex("firstName")));
-     *             query.moveToNext();
-     *         }
-     */
 }

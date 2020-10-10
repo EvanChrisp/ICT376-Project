@@ -119,4 +119,3 @@ public class XboxFragment extends Fragment {
         }
     }
 }
-

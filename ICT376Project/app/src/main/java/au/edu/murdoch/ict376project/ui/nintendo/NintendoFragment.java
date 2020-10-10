@@ -130,5 +130,3 @@ public class NintendoFragment extends Fragment {
         }
     }
 }
-
-
