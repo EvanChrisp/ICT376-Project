@@ -157,7 +157,7 @@ public class Database extends SQLiteOpenHelper
         return cnt;
     }
 
-    public Cursor getCursorNintendoProducts(String platform){
+    public Cursor getCursorProducts(String platform){
 
         SQLiteDatabase db = this.getWritableDatabase();
         // getting Cursor for all items -> access via the Cursor object -> query

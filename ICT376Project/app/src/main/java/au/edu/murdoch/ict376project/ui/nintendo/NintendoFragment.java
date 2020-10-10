@@ -74,19 +74,28 @@ public class NintendoFragment extends Fragment {
 
     private void displayListView(){
 
+        // get database
         dbHelper = new Database(getActivity());
 
-        Cursor cursor = dbHelper.getCursorNintendoProducts("Nintendo");
+        // cursor = return from db function
+        Cursor cursor = dbHelper.getCursorProducts("Nintendo");
 
+        // columns to return
         String[] columns = new String[]{Database.PRODUCT_NAME, Database.PRODUCT_PLATFORM, Database.PRODUCT_DESCRIPTION};
 
+        // column data goes to this layout (in item_layout.xml) per item
         int[] lvResourceIds = new int[]{R.id.pNameTextView, R.id.pPlatformTextView, R.id.pDescriptionTextView};
 
+        // cursor adapter requires the id to be _id in the database. Please do not change
         SimpleCursorAdapter dataAdapter = new SimpleCursorAdapter(getActivity(),R.layout.item_layout, cursor, columns, lvResourceIds,0);
 
+        // listview - uses the mLayoutView as it is a fragment and not an activity -> listview is displayed in nintendoProductListview container
         listView = (ListView)mLayoutView.findViewById(R.id.nintendoProductListView);
 
+        // listview cannot be null as the db is pre-filled
         assert listView != null;
+
+        // set the adapter and display on screen
         listView.setAdapter(dataAdapter);
     }
 
@@ -119,48 +128,6 @@ public class NintendoFragment extends Fragment {
             //Toast.makeText(getActivity(), something, Toast.LENGTH_SHORT).show();
 
         }
-
-        /*if (mydb == null)
-            mydb = new Database(getActivity());*//*
-
-        mydb.insertMyShopItems();
-        // Get all the contacts from the database
-        Cursor cursor = mydb.getAllProducts("0");
-
-        String[] columns = new String[] {
-                // comes from StoreDatabase.KEY_NAME
-                Database.PRODUCT_NAME
-        };
-
-        int[] to = new int[] {
-                android.R.layout.simple_list_item_1,
-        };
-
-        SimpleCursorAdapter dataAdapter = new SimpleCursorAdapter(getActivity(), R.layout.fragment_nintendo, cursor, columns, to, 0);
-
-        ListView listView = (ListView)mLayoutView.findViewById(R.id.productListView);
-        assert listView != null;
-        listView.setAdapter(dataAdapter);*/
-
-
-       /* ArrayList<String> array_list = new  ArrayList<String>();
-
-        for (int i=0; i<mArrayList.size(); i++){
-            Pair<Integer, String> p = (Pair<Integer, String>)mArrayList.get(i);
-            array_list.add(p.second);
-        }
-        // Put all the contacts in an array
-        ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, array_list);
-
-        // Display the contacts in the ListView object
-        obj = (ListView)mLayoutView.findViewById(R.id.listView1);
-        obj.setAdapter(arrayAdapter);
-
-        // Check the orientation of the display
-        //mDualPane = detailsFrame != null && detailsFrame.getVisibility() == View.VISIBLE;
-
-        View detailsFrame = getActivity().findViewById(R.id.contactdetails_fragment_container);
-        mDualPane = detailsFrame != null && detailsFrame.getVisibility() == View.VISIBLE;  */
     }
 }
 
