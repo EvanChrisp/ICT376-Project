@@ -163,7 +163,7 @@ public class Database extends SQLiteOpenHelper
     public Cursor getProductById(int id)
     {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select * from products where id = " + id, null);
+        Cursor res = db.rawQuery("select * from products where _id = " + id, null);
 
         if (res.getCount() > 0 && res != null)
         {
