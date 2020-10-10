@@ -25,6 +25,13 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Scroll the listView"
+        android:layout_marginBottom="30dp"
+        android:padding="10dp"/>
+
     <ListView
         android:id="@+id/nintendoProductListView"
         android:layout_width="match_parent"

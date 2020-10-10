@@ -24,9 +24,16 @@ import au.edu.murdoch.ict376project.R;
 
 public class NintendoFragment extends Fragment {
 
+    // model class
     private NintendoViewModel nintendoViewModel;
+    // listview variable
     private ListView obj;
+
+    private ListView listView;
+    // layout view for onCreateView
     View mLayoutView;
+
+    private Database dbHelper;
 
     // Database
     Database mydb = null;
@@ -60,28 +67,49 @@ public class NintendoFragment extends Fragment {
 
         super.onActivityCreated(savedInstanceState);
 
-        displayProducts();
-        //Toast.makeText(getActivity(), "Called displayProducts", Toast.LENGTH_SHORT).show();
+        //displayProducts();
+        displayListView();
+        //Toast.makeText(getActivity(), "returning Nintendo products", Toast.LENGTH_SHORT).show();
+    }
+
+    private void displayListView(){
+
+        dbHelper = new Database(getActivity());
+
+        Cursor cursor = dbHelper.getCursorNintendoProducts("Nintendo");
+
+        String[] columns = new String[]{Database.PRODUCT_NAME, Database.PRODUCT_PLATFORM, Database.PRODUCT_DESCRIPTION};
+
+        int[] lvResourceIds = new int[]{R.id.pNameTextView, R.id.pPlatformTextView, R.id.pDescriptionTextView};
+
+        SimpleCursorAdapter dataAdapter = new SimpleCursorAdapter(getActivity(),R.layout.item_layout, cursor, columns, lvResourceIds,0);
+
+        listView = (ListView)mLayoutView.findViewById(R.id.nintendoProductListView);
+
+        assert listView != null;
+        listView.setAdapter(dataAdapter);
     }
 
     private void displayProducts() {
 
         if(mydb == null){
+            // get db
             mydb = new Database(getActivity());
 
-            //mArrayList = mydb.getProductList();
+            // mydb.getNintendoProductList(); returns an arraylist
             mArrayList = mydb.getNintendoProductList();
 
+            // used to store just the names - NOT the id....
             ArrayList<String> array_list = new  ArrayList<String>();
 
-            //String something = "";
-
+            // loop through the returned arraylist from the db
             for (int i=0; i<mArrayList.size(); i++){
+                // there are 2 elements for each row being returned - place each row into Pair p
                 Pair<Integer, String> p = (Pair<Integer, String>)mArrayList.get(i);
+                // array_list can add a string only -> so add in the second of the pair entries - ie, (Pair<Integer, String>)
                 array_list.add(p.second);
-                //something = p.second;
             }
-            // Put all the contacts in an array
+            // need an adapter to populate the list view = new ArrayAdapter(if inside fragment call getActivity() otherwise "this", layout file for listview (built-in simple_list_item_1), from this "data")
             ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, array_list);
 
             // Display the products in the ListView object

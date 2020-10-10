@@ -35,7 +35,7 @@ public class Database extends SQLiteOpenHelper
 
     // product table
     public static final String PRODUCT_TABLE = "products";
-    public static final String PRODUCT_ID = "id";
+    public static final String PRODUCT_ID = "_id";
     public static final String PRODUCT_NAME = "name";
     public static final String PRODUCT_PRICE = "price";
     public static final String PRODUCT_DESCRIPTION = "description";
@@ -142,13 +142,33 @@ public class Database extends SQLiteOpenHelper
         addProduct("Half Life 3", 149, "Third episode of Half Life", "15 years+", "PC", "0");
 
     }
+    public int getTotalItemsCount() {
+        // get the database
+        SQLiteDatabase db = this.getWritableDatabase();
+        // for total items count -> save the query string
+        String countQuery = "SELECT  * FROM " + PRODUCT_TABLE;
+        // cursor object -> rawQuery -> countQuery String with no selection criteria
+        Cursor cursor = db.rawQuery(countQuery, null);
+        // the count equals the cursor object.getCount();
+        int cnt = cursor.getCount();
+        // close the cursor object -> memory leaks
+        cursor.close();
+        // return the count
+        return cnt;
+    }
 
-    public Cursor getAllProducts(String status){
+    public Cursor getCursorNintendoProducts(String platform){
 
         SQLiteDatabase db = this.getWritableDatabase();
         // getting Cursor for all items -> access via the Cursor object -> query
-        Cursor mCursor = db.query(PRODUCT_TABLE, new String[] {PRODUCT_ID, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_DESCRIPTION, PRODUCT_STATUS, PRODUCT_RATING, PRODUCT_PLATFORM},
-                PRODUCT_STATUS + " like '%" + status + "%'",null, null, null, null, null);
+        Cursor mCursor = db.query(PRODUCT_TABLE,
+                new String[] {PRODUCT_ID, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_DESCRIPTION, PRODUCT_STATUS, PRODUCT_RATING, PRODUCT_PLATFORM},
+                PRODUCT_PLATFORM + " like '%" + platform + "%'",
+                null,
+                null,
+                null,
+                null,
+                null);
         if (mCursor != null) {
             // iterate through the cursor rows
             mCursor.moveToFirst();

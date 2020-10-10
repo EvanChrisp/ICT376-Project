@@ -15,6 +15,8 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.google.android.material.navigation.NavigationView;
 
+import java.sql.SQLException;
+
 public class MainActivity extends AppCompatActivity
 {
     Database mydb = null;
@@ -29,10 +31,20 @@ public class MainActivity extends AppCompatActivity
         setSupportActionBar(toolbar);
 
         // check for db - if null create from insert my shop items
-        if (mydb == null){
-            mydb = new Database(this);
+        mydb = new Database(this);
+
+        //check if items are available
+        int total = mydb.getTotalItemsCount();
+        if (total<= 0){
+            //Add some data -> here is where the database is updated with default entries
+            // usually this would be spooled from an updated online database of current inventory
             mydb.insertMyShopItems();
         }
+
+        /*if (mydb == null){
+            mydb = new Database(this);
+            mydb.insertMyShopItems();
+        }*/
 
 
         DrawerLayout drawer = findViewById(R.id.drawer_layout);

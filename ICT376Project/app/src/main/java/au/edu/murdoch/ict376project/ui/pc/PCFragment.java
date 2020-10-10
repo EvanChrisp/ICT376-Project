@@ -64,7 +64,7 @@ public class PCFragment extends Fragment {
 
             ArrayList<String> array_list = new ArrayList<String>();
 
-            //String something = "";
+            //String something = " ";
 
             for (int i = 0; i < mArrayList.size(); i++) {
                 Pair<Integer, String> p = (Pair<Integer, String>) mArrayList.get(i);
