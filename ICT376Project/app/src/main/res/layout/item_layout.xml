@@ -13,19 +13,19 @@
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="@android:color/black"
         android:textSize="20dp"
-        android:id="@+id/pNameTextView" />
+        android:id="@+id/pIdTextView" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="@android:color/black"
-        android:id="@+id/pPlatformTextView"
+        android:id="@+id/pNameTextView"
         android:textStyle="bold"/>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="@android:color/black"
-        android:id="@+id/pDescriptionTextView" />
+        android:id="@+id/pPlatformTextView" />
 
 </LinearLayout>

@@ -178,7 +178,7 @@ public class Database extends SQLiteOpenHelper
         SQLiteDatabase db = this.getWritableDatabase();
         // getting Cursor for all items -> access via the Cursor object -> query
         Cursor mCursor = db.query(PRODUCT_TABLE,
-                new String[] {PRODUCT_ID, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_DESCRIPTION, PRODUCT_STATUS, PRODUCT_RATING, PRODUCT_PLATFORM},
+                new String[] {PRODUCT_ID, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_DESCRIPTION, PRODUCT_STATUS, PRODUCT_FILE, PRODUCT_RATING, PRODUCT_PLATFORM},
                 PRODUCT_PLATFORM + " like '%" + platform + "%'",
                 null,
                 null,
