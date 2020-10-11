@@ -123,22 +123,22 @@ public class Database extends SQLiteOpenHelper
         addProduct(1, "Mario Odyssey", 69, "mario_odyssey", "3D adventures of Mario", "All ages", "Nintendo", "0");
         addProduct(2, "Mario Kart", 69, "mario_kart", "Kart racing with Mario", "All ages", "Nintendo", "0");
         addProduct(3, "Zelda", 69, "zelda", "3D adventures of Link", "8 years+", "Nintendo", "0");
-        addProduct(4, "Witcher 3", 69, "witcher3", "Third episode of the Witcher", "15 years+", "Nintendo", "0");
-        addProduct(5, "FIFA", 69, "fifa", "Football by FIFA", "All ages", "Nintendo", "0");
+        addProduct(4, "Witcher 3", 69, "witcher3_nintendo", "Third episode of the Witcher", "15 years+", "Nintendo", "0");
+        addProduct(5, "FIFA 19", 69, "fifa_nintendo", "Football by FIFA", "All ages", "Nintendo", "0");
 
         addProduct(6, "Halo", 89, "halo", "Adventures of MasterChief","15 years+", "Xbox", "0");
-        addProduct(7, "FIFA", 79, "fifa", "Football by FIFA","All ages", "Xbox", "0");
-        addProduct(8, "Final Fantasy XXV", 99, "ffxxv", "JRPG masterpiece","15 years+", "Xbox", "0");
+        addProduct(7, "FIFA 19", 79, "fifa_xbox", "Football by FIFA","All ages", "Xbox", "0");
+        addProduct(8, "Final Fantasy XXV", 99, "ffxv_xbox", "JRPG masterpiece","15 years+", "Xbox", "0");
         addProduct(9, "Forza", 119, "forza", "Racing Sim","All ages", "Xbox", "0");
         addProduct(10, "Gears of War", 59, "gears_of_war", "3rd person shooter", "15 years+", "Xbox", "0");
 
         addProduct(11, "Crash Bandicoot", 49, "crash_bandicoot", "Adventures of Crash", "All ages", "Playstation", "0");
-        addProduct(12, "Final Fantasy XV", 99, "ffxv", "JRPG masterpiece", "15 years+", "Playstation", "0");
+        addProduct(12, "Final Fantasy XV", 99, "ffxv_ps", "JRPG masterpiece", "15 years+", "Playstation", "0");
         addProduct(13, "Ridge Racer", 99, "ridge_racer", "Arcade Racer", "All ages", "Playstation", "0");
         addProduct(14, "Spiderman", 89, "spiderman", "The adventures of Peter Parker", "All ages", "Playstation", "0");
-        addProduct(15, "Crash Bandicoot", 49, "crash_bandicoot", "Adventures of Crash", "All ages", "Playstation", "0");
+        addProduct(15, "Red Dead Redemption 2", 69, "rdr2", "Open-world wild west", "15 years+", "Playstation", "0");
 
-        addProduct(16, "The Witcher3", 49, "witcher3", "Third episode of the Witcher", "15 years+", "PC", "0");
+        addProduct(16, "The Witcher3", 49, "witcher3_pc", "Third episode of the Witcher", "15 years+", "PC", "0");
         addProduct(17, "Call of Duty", 49, "call_of_duty", "First Person Shooter", "15 years+", "PC", "0");
         addProduct(18, "MS Flight Simulator", 99, "ms_flight_sim", "Flight simulator", "All ages", "PC", "0");
         addProduct(19, "Monster Hunter World", 79, "monster_hunter", "The world of monsters", "All ages", "PC", "0");
