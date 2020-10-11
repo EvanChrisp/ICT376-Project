@@ -3,6 +3,7 @@ package au.edu.murdoch.ict376project;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.math.BigDecimal;
@@ -24,6 +25,7 @@ public class DetailsActivity extends AppCompatActivity {
         TextView status = (TextView)findViewById(R.id.detailsStatus);
         TextView rating = (TextView)findViewById(R.id.detailsRating);
         TextView platform = (TextView)findViewById(R.id.detailsPlatform);
+        //ImageView image = (ImageView)findViewById(R.id.)
 
         assert name != null;
         name.setText("Item Name: " + bundle.getString("name"));
@@ -37,6 +39,9 @@ public class DetailsActivity extends AppCompatActivity {
 
         assert file != null;
         file.setText(bundle.getString("file"));
+
+
+
         assert description != null;
         description.setText("Game Description: " +bundle.getString("description"));
 

@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
@@ -84,13 +85,32 @@ public class NintendoFragment extends Fragment {
         Cursor cursor = dbHelper.getCursorProducts("Nintendo");
 
         // columns to return
-        final String[] columns = new String[]{Database.PRODUCT_ID, Database.PRODUCT_NAME, Database.PRODUCT_PLATFORM,};
+        final String[] columns = new String[]{Database.PRODUCT_ID, Database.PRODUCT_NAME, Database.PRODUCT_PLATFORM, Database.PRODUCT_FILE};
 
         // column data goes to this layout (in item_layout.xml) per item
-        int[] lvResourceIds = new int[]{R.id.pIdTextView, R.id.pNameTextView, R.id.pPlatformTextView};
+        int[] lvResourceIds = new int[]{R.id.pIdTextView, R.id.pNameTextView, R.id.pPlatformTextView, R.id.pImageHolder};
 
         // cursor adapter requires the id to be _id in the database. Please do not change
         SimpleCursorAdapter dataAdapter = new SimpleCursorAdapter(getActivity(),R.layout.item_layout, cursor, columns, lvResourceIds,0);
+
+        // the setViewBinder of the data adapter takes every view called R.id.pImageHolder and replaces it with the resId
+        // which as per the db changes for each different game
+        dataAdapter.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
+            @Override
+            public boolean setViewValue(View view, Cursor cursor, int i) {
+                if (view.getId() == R.id.pImageHolder) {
+                    ImageView simpleImageView = (ImageView) view;
+                    int resId = getResources().getIdentifier(
+                            cursor.getString(cursor.getColumnIndex("file")),
+                            "drawable",
+                            getActivity().getPackageName());
+                    simpleImageView.setImageResource(resId);
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        });
 
         // listview - uses the mLayoutView as it is a fragment and not an activity -> listview is displayed in nintendoProductListview container
         listView = (ListView)mLayoutView.findViewById(R.id.nintendoProductListView);
