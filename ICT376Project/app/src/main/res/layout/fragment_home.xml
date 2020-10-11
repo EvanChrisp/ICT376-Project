@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginRight="5dp"
-    tools:context=".ui.home.HomeFragment">
+    tools:context=".ui.home.HomeFragment"
+    android:layout_marginEnd="5dp">
 
     <ScrollView
         android:layout_width="409dp"
@@ -33,12 +34,13 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="24dp"
                     android:ems="10"
-                    android:hint="Search Games"
+                    android:hint="@string/search_games"
                     android:inputType="textPersonName"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toStartOf="@+id/button11"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:autofillHints="" />
 
                 <Button
                     android:id="@+id/button11"
@@ -47,7 +49,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="8dp"
                     android:layout_marginRight="8dp"
-                    android:text="Search"
+                    android:text="@string/search"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -59,13 +61,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_marginBottom="5dp"
-                android:text=" Deals of the Week"
+                android:text="@string/deals_of_the_week"
                 android:textColor="#000000"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:layout_marginStart="5dp" />
 
             <HorizontalScrollView
                 android:layout_width="match_parent"
-                android:layout_height="180dp">
+                android:layout_height="match_parent">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -83,8 +86,10 @@
                             android:layout_height="125dp"
                             android:layout_marginLeft="10dp"
                             android:layout_marginRight="5dp"
-                            android:layout_weight="1"
-                            android:src="@drawable/ic_launcher_background" />
+                            android:src="@drawable/ic_launcher_background"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="5dp"
+                            android:contentDescription="@string/deal_1" />
 
                         <ImageView
                             android:id="@+id/deal2"
@@ -92,34 +97,39 @@
                             android:layout_height="125dp"
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="10dp"
-                            android:layout_weight="1"
                             android:baselineAlignBottom="false"
                             android:clickable="false"
-                            android:src="@drawable/ic_launcher_background" />
+                            android:src="@drawable/ic_launcher_background"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="10dp"
+                            android:contentDescription="@string/deal_2" />
 
                         <ImageView
                             android:id="@+id/deal3"
                             android:layout_width="125dp"
                             android:layout_height="125dp"
                             android:layout_marginRight="10dp"
-                            android:layout_weight="1"
-                            android:src="@drawable/ic_launcher_background" />
+                            android:src="@drawable/ic_launcher_background"
+                            android:layout_marginEnd="10dp"
+                            android:contentDescription="@string/deal_3" />
 
                         <ImageView
                             android:id="@+id/deal4"
                             android:layout_width="125dp"
                             android:layout_height="125dp"
                             android:layout_marginRight="10dp"
-                            android:layout_weight="1"
-                            android:src="@drawable/ic_launcher_background" />
+                            android:src="@drawable/ic_launcher_background"
+                            android:layout_marginEnd="10dp"
+                            android:contentDescription="@string/deal_4" />
 
                         <ImageView
                             android:id="@+id/deal5"
                             android:layout_width="125dp"
                             android:layout_height="125dp"
                             android:layout_marginRight="10dp"
-                            android:layout_weight="1"
-                            android:src="@drawable/ic_launcher_background" />
+                            android:src="@drawable/ic_launcher_background"
+                            android:layout_marginEnd="10dp"
+                            android:contentDescription="@string/deal_5" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -131,48 +141,186 @@
                         <TextView
                             android:id="@+id/dealtext1"
                             android:layout_width="125dp"
-                            android:layout_height="match_parent"
+                            android:layout_height="40dp"
                             android:layout_marginLeft="10dp"
                             android:layout_marginRight="10dp"
-                            android:layout_weight="1"
                             android:gravity="center_horizontal"
-                            android:text="Deal 1" />
+                            android:text="@string/deal_1" />
 
                         <TextView
                             android:id="@+id/dealtext2"
                             android:layout_width="125dp"
-                            android:layout_height="match_parent"
+                            android:layout_height="40dp"
                             android:layout_marginRight="10dp"
-                            android:layout_weight="1"
                             android:gravity="center_horizontal"
-                            android:text="Deal 2" />
+                            android:text="@string/deal_2"
+                            android:layout_marginEnd="10dp" />
 
                         <TextView
                             android:id="@+id/dealtext3"
                             android:layout_width="125dp"
-                            android:layout_height="match_parent"
+                            android:layout_height="40dp"
                             android:layout_marginRight="10dp"
-                            android:layout_weight="1"
                             android:gravity="center_horizontal"
-                            android:text="Deal 3" />
+                            android:text="@string/deal_3"
+                            android:layout_marginEnd="10dp" />
 
                         <TextView
                             android:id="@+id/dealtext4"
                             android:layout_width="125dp"
-                            android:layout_height="match_parent"
+                            android:layout_height="40dp"
                             android:layout_marginRight="10dp"
-                            android:layout_weight="1"
                             android:gravity="center_horizontal"
-                            android:text="Deal 4" />
+                            android:text="@string/deal_4"
+                            android:layout_marginEnd="10dp" />
 
                         <TextView
                             android:id="@+id/dealtext5"
                             android:layout_width="125dp"
-                            android:layout_height="match_parent"
+                            android:layout_height="40dp"
                             android:layout_marginRight="10dp"
-                            android:layout_weight="1"
                             android:gravity="center_horizontal"
-                            android:text="Deal 5" />
+                            android:text="@string/deal_5"
+                            android:layout_marginEnd="10dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="-15dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:id="@+id/dealprice1"
+                            android:layout_width="125dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginRight="10dp"
+                            android:gravity="center" >
+
+                            <TextView
+                                android:id="@+id/dealoldprice1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="@string/dealoldprice"
+                                android:layout_marginStart="5dp" />
+
+                            <TextView
+                                android:id="@+id/dealnewprice1"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/dealnewprice" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/dealprice2"
+                            android:layout_width="125dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginRight="10dp"
+                            android:gravity="center" >
+
+                            <TextView
+                                android:id="@+id/dealoldprice2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="@string/dealoldprice"
+                                android:layout_marginStart="5dp" />
+
+                            <TextView
+                                android:id="@+id/dealnewprice2"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/dealnewprice" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/dealprice3"
+                            android:layout_width="125dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginRight="10dp"
+                            android:gravity="center" >
+
+                            <TextView
+                                android:id="@+id/dealoldprice3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="@string/dealoldprice"
+                                android:layout_marginStart="5dp" />
+
+                            <TextView
+                                android:id="@+id/dealnewprice3"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/dealnewprice" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/dealprice4"
+                            android:layout_width="125dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginRight="10dp"
+                            android:gravity="center" >
+
+                            <TextView
+                                android:id="@+id/dealoldprice4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="@string/dealoldprice"
+                                android:layout_marginStart="5dp" />
+
+                            <TextView
+                                android:id="@+id/dealnewprice4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/dealnewprice" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/dealprice5"
+                            android:layout_width="125dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="10dp"
+                            android:layout_marginRight="10dp"
+                            android:gravity="center" >
+
+                            <TextView
+                                android:id="@+id/dealoldprice5"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="5dp"
+                                android:layout_weight="1"
+                                android:gravity="center"
+                                android:text="@string/dealoldprice"
+                                android:layout_marginStart="5dp" />
+
+                            <TextView
+                                android:id="@+id/dealnewprice5"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:text="@string/dealnewprice" />
+                        </LinearLayout>
                     </LinearLayout>
 
                 </LinearLayout>
@@ -189,8 +337,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="20dp"
-                    android:text="Search by Console"
-                    android:textColor="#000000" />
+                    android:text="@string/search_by_console"
+                    android:textColor="#000000"
+                    android:layout_marginStart="10dp" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -203,14 +352,16 @@
                         android:layout_height="100dp"
                         android:layout_marginBottom="10dp"
                         android:layout_weight="1"
-                        android:src="@drawable/ic_pc" />
+                        android:src="@drawable/ic_pc"
+                        android:contentDescription="@string/menu_pc" />
 
                     <ImageView
                         android:id="@+id/imageView17"
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
-                        android:src="@drawable/ic_playstation" />
+                        android:src="@drawable/ic_playstation"
+                        android:contentDescription="@string/menu_sony" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -223,14 +374,16 @@
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:layout_weight="1"
-                        android:src="@drawable/ic_xbox" />
+                        android:src="@drawable/ic_xbox"
+                        android:contentDescription="@string/menu_microsoft" />
 
                     <ImageView
                         android:id="@+id/imageView20"
                         android:layout_width="100dp"
                         android:layout_height="100dp"
                         android:layout_weight="1"
-                        android:src="@drawable/ic_nintendo" />
+                        android:src="@drawable/ic_nintendo"
+                        android:contentDescription="@string/menu_nintendo" />
 
                 </LinearLayout>
 
@@ -240,8 +393,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="20dp"
-                    android:text="Latest Releases"
-                    android:textColor="#000000" />
+                    android:text="@string/latest_releases"
+                    android:textColor="#000000"
+                    android:layout_marginStart="10dp" />
 
             </LinearLayout>
 
@@ -266,8 +420,10 @@
                             android:layout_height="125dp"
                             android:layout_marginLeft="10dp"
                             android:layout_marginRight="5dp"
-                            android:layout_weight="1"
-                            android:src="@drawable/ic_launcher_background" />
+                            android:src="@drawable/ic_launcher_background"
+                            android:layout_marginStart="10dp"
+                            android:layout_marginEnd="5dp"
+                            android:contentDescription="@string/latest_1" />
 
                         <ImageView
                             android:id="@+id/latest2"
@@ -275,34 +431,39 @@
                             android:layout_height="125dp"
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="10dp"
-                            android:layout_weight="1"
                             android:baselineAlignBottom="false"
                             android:clickable="false"
-                            android:src="@drawable/ic_launcher_background" />
+                            android:src="@drawable/ic_launcher_background"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="10dp"
+                            android:contentDescription="@string/latest_2" />
 
                         <ImageView
                             android:id="@+id/latest3"
                             android:layout_width="125dp"
                             android:layout_height="125dp"
                             android:layout_marginRight="10dp"
-                            android:layout_weight="1"
-                            android:src="@drawable/ic_launcher_background" />
+                            android:src="@drawable/ic_launcher_background"
+                            android:layout_marginEnd="10dp"
+                            android:contentDescription="@string/latest_3" />
 
                         <ImageView
                             android:id="@+id/latest4"
                             android:layout_width="125dp"
                             android:layout_height="125dp"
                             android:layout_marginRight="10dp"
-                            android:layout_weight="1"
-                            android:src="@drawable/ic_launcher_background" />
+                            android:src="@drawable/ic_launcher_background"
+                            android:layout_marginEnd="10dp"
+                            android:contentDescription="@string/latest_4" />
 
                         <ImageView
                             android:id="@+id/latest5"
                             android:layout_width="125dp"
                             android:layout_height="125dp"
                             android:layout_marginRight="10dp"
-                            android:layout_weight="1"
-                            android:src="@drawable/ic_launcher_background" />
+                            android:src="@drawable/ic_launcher_background"
+                            android:layout_marginEnd="10dp"
+                            android:contentDescription="@string/latest_5" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -317,45 +478,44 @@
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10dp"
                             android:layout_marginRight="10dp"
-                            android:layout_weight="1"
                             android:gravity="center_horizontal"
-                            android:text="Latest 1" />
+                            android:text="@string/latest_1" />
 
                         <TextView
                             android:id="@+id/latest2text"
                             android:layout_width="125dp"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="10dp"
-                            android:layout_weight="1"
                             android:gravity="center_horizontal"
-                            android:text="Latest 2" />
+                            android:text="@string/latest_2"
+                            android:layout_marginEnd="10dp" />
 
                         <TextView
                             android:id="@+id/latest3text"
                             android:layout_width="125dp"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="10dp"
-                            android:layout_weight="1"
                             android:gravity="center_horizontal"
-                            android:text="Latest 3" />
+                            android:text="@string/latest_3"
+                            android:layout_marginEnd="10dp" />
 
                         <TextView
                             android:id="@+id/latest4text"
                             android:layout_width="125dp"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="10dp"
-                            android:layout_weight="1"
                             android:gravity="center_horizontal"
-                            android:text="Latest 4" />
+                            android:text="@string/latest_4"
+                            android:layout_marginEnd="10dp" />
 
                         <TextView
                             android:id="@+id/latest5text"
                             android:layout_width="125dp"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="10dp"
-                            android:layout_weight="1"
                             android:gravity="center_horizontal"
-                            android:text="Latest 5" />
+                            android:text="@string/latest_5"
+                            android:layout_marginEnd="10dp" />
                     </LinearLayout>
 
                 </LinearLayout>

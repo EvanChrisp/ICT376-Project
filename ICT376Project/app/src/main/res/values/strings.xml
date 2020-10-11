@@ -7,13 +7,34 @@
     <string name="nav_header_desc">Navigation header</string>
     <string name="action_settings">Settings</string>
     <string name="action_cart">Go to cart</string>
-
     <string name="menu_home">Home</string>
     <string name="menu_search">Search</string>
     <string name="menu_contact">Contact</string>
     <string name="menu_microsoft">Microsoft Xbox</string>
     <string name="menu_sony">Sony Playstation</string>
     <string name="menu_nintendo">Nintendo Switch</string>
-    <string name="menu_pc">PC Master Race</string>
+    <string name="menu_pc">PC </string>
     <string name="menu_login">Login/Logout</string>
+    <string name="deal_5">Deal 5</string>
+    <string name="deal_4">Deal 4</string>
+    <string name="deal_3">Deal 3</string>
+    <string name="deal_2">Deal 2</string>
+    <string name="deal_1">Deal 1</string>
+    <string name="price_1">Price 1</string>
+    <string name="price_2">Price 2</string>
+    <string name="price_3">Price 3</string>
+    <string name="price_4">Price 4</string>
+    <string name="price_5">Price 5</string>
+    <string name="search_by_console">Search by Console</string>
+    <string name="latest_releases">Latest Releases</string>
+    <string name="search_games">Search Games</string>
+    <string name="search">Search</string>
+    <string name="deals_of_the_week">Deals of the Week</string>
+    <string name="latest_1">Latest 1</string>
+    <string name="latest_2">Latest 2</string>
+    <string name="latest_3">Latest 3</string>
+    <string name="latest_4">Latest 4</string>
+    <string name="latest_5">Latest 5</string>
+    <string name="dealoldprice">dealoldprice</string>
+    <string name="dealnewprice">dealnewprice</string>
 </resources>

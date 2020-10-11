@@ -123,7 +123,7 @@ public class Database extends SQLiteOpenHelper
         addProduct(1, "Mario Odyssey", 69, "mario_odyssey", "3D adventures of Mario", "All ages", "Nintendo", "0");
         addProduct(2, "Mario Kart", 69, "mario_kart", "Kart racing with Mario", "All ages", "Nintendo", "0");
         addProduct(3, "Zelda", 69, "zelda", "3D adventures of Link", "8 years+", "Nintendo", "0");
-        addProduct(4, "Witcher 3", 69, "witcher3_nintendo", "Third episode of the Witcher", "15 years+", "Nintendo", "0");
+        addProduct(4, "The Witcher 3", 69, "witcher3_nintendo", "Third episode of the Witcher", "15 years+", "Nintendo", "0");
         addProduct(5, "FIFA 19", 69, "fifa_nintendo", "Football by FIFA", "All ages", "Nintendo", "0");
 
         addProduct(6, "Halo", 89, "halo", "Adventures of MasterChief","15 years+", "Xbox", "0");
@@ -138,11 +138,11 @@ public class Database extends SQLiteOpenHelper
         addProduct(14, "Spiderman", 89, "spiderman", "The adventures of Peter Parker", "All ages", "Playstation", "0");
         addProduct(15, "Red Dead Redemption 2", 69, "rdr2", "Open-world wild west", "15 years+", "Playstation", "0");
 
-        addProduct(16, "The Witcher3", 49, "witcher3_pc", "Third episode of the Witcher", "15 years+", "PC", "0");
+        addProduct(16, "The Witcher 3", 49, "witcher3_pc", "Third episode of the Witcher", "15 years+", "PC", "0");
         addProduct(17, "Call of Duty", 49, "call_of_duty", "First Person Shooter", "15 years+", "PC", "0");
         addProduct(18, "MS Flight Simulator", 99, "ms_flight_sim", "Flight simulator", "All ages", "PC", "0");
         addProduct(19, "Monster Hunter World", 79, "monster_hunter", "The world of monsters", "All ages", "PC", "0");
-        addProduct(20, "Half Life 3", 149, "half_life", "Third episode of Half Life", "15 years+", "PC", "0");
+        addProduct(20, "Half-Life 3", 149, "half_life", "Third episode of Half Life", "15 years+", "PC", "0");
 
     }
     public int getTotalItemsCount() {

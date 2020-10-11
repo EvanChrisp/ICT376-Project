@@ -1,6 +1,7 @@
 package au.edu.murdoch.ict376project.ui.home;
 
 import android.database.Cursor;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -49,10 +50,14 @@ public class HomeFragment extends Fragment {
             // String name is the id in the XML - type is "id" for i.d. , package = getActivity().getPackageName()
             ImageView image = root.findViewById(getResources().getIdentifier("deal" + i, "id", getActivity().getPackageName()));
             TextView name = root.findViewById(getResources().getIdentifier("dealtext" + i, "id", getActivity().getPackageName()));
+            TextView priceOld = root.findViewById(getResources().getIdentifier("dealoldprice" + i, "id", getActivity().getPackageName()));
+            TextView priceNew = root.findViewById(getResources().getIdentifier("dealnewprice" + i, "id", getActivity().getPackageName()));
 
             // name of the entry in column no. (the one called "file") - as a String
             String mFile = res.getString(res.getColumnIndex("file"));
             String mName = res.getString(res.getColumnIndex("name"));
+            String mPrice = res.getString(res.getColumnIndex("price"));
+
             // type is drawable
             String mDefType = "drawable";
             // package = getActivity().getPackageName();
@@ -60,8 +65,13 @@ public class HomeFragment extends Fragment {
             // resource id = getResources().getIdentifier(String name, String defType, String defPackage);
             int resId = getResources().getIdentifier(mFile, mDefType, mDefPackage);
             // set the view to the relevant id
+
             image.setImageResource(resId);
             name.setText(mName);
+            priceOld.setText("$" + mPrice);
+            priceOld.setPaintFlags(priceOld.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+            double price = Integer.parseInt(mPrice) * 0.8;
+            priceNew.setText("$" + (int)price);
 
             i++;
         }
