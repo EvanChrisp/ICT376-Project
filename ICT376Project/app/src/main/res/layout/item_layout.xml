@@ -8,7 +8,7 @@
     android:background="@android:color/white">
 
     <ImageView
-        android:layout_width="90dp"
+        android:layout_width="110dp"
         android:layout_height="160dp"
         android:src="@drawable/ic_launcher_background"
         android:id="@+id/pImageHolder"
