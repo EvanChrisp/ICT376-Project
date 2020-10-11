@@ -25,7 +25,7 @@ public class DetailsActivity extends AppCompatActivity {
         TextView status = (TextView)findViewById(R.id.detailsStatus);
         TextView rating = (TextView)findViewById(R.id.detailsRating);
         TextView platform = (TextView)findViewById(R.id.detailsPlatform);
-        //ImageView image = (ImageView)findViewById(R.id.)
+        ImageView image = (ImageView)findViewById(R.id.detailsImageView);
 
         assert name != null;
         name.setText("Item Name: " + bundle.getString("name"));
@@ -40,7 +40,12 @@ public class DetailsActivity extends AppCompatActivity {
         assert file != null;
         file.setText(bundle.getString("file"));
 
-
+        assert image != null;
+        int resId = getResources().getIdentifier(
+                bundle.getString("file"),
+                "drawable",
+                getPackageName());
+        image.setImageResource(resId);
 
         assert description != null;
         description.setText("Game Description: " +bundle.getString("description"));
