@@ -25,6 +25,7 @@
         android:layout_below="@+id/detailsHeader"
         android:layout_marginBottom="10dp"
         />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -34,46 +35,7 @@
         android:layout_marginBottom="10dp"
         android:textStyle="bold"
         />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/detailsPrice"
-        android:text="Product Price"
-        android:layout_below="@+id/detailsFile"
-        android:layout_marginBottom="50dp"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/detailsFile"
-        android:text="Product File"
-        android:layout_below="@+id/detailsStatus"
-        android:layout_marginBottom="10dp"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/detailsDescription"
-        android:text="Product Description"
-        android:layout_below="@+id/detailsPlatform"
-        android:layout_marginBottom="10dp"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/detailsStatus"
-        android:text="Product Status"
-        android:layout_below="@+id/detailsRating"
-        android:layout_marginBottom="10dp"
-        />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/detailsRating"
-        android:text="Product Rating"
-        android:layout_below="@+id/detailsDescription"
-        android:layout_marginBottom="10dp"
-        />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -82,11 +44,66 @@
         android:layout_below="@+id/detailsName"
         android:layout_marginBottom="10dp"
         />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/detailsDescription"
+        android:text="Product Description"
+        android:layout_below="@+id/detailsPlatform"
+        android:layout_marginBottom="10dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/detailsRating"
+        android:text="Product Rating"
+        android:layout_below="@+id/detailsDescription"
+        android:layout_marginBottom="10dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/detailsStatus"
+        android:text="Product Status"
+        android:layout_below="@+id/detailsRating"
+        android:layout_marginBottom="10dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/detailsFile"
+        android:text="Product File"
+        android:layout_below="@+id/detailsStatus"
+        android:layout_marginBottom="10dp"
+        />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/detailsPrice"
+        android:text="Product Price"
+        android:layout_below="@+id/detailsFile"
+        android:layout_marginBottom="50dp"
+        />
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Add to cart"
+        android:id="@+id/detailsCartButton"
         android:layout_below="@+id/detailsPrice"
+        android:layout_marginBottom="20dp"
+        />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Go to checkout"
+        android:layout_below="@+id/detailsCartButton"
         />
 
 </RelativeLayout>

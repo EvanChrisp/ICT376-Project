@@ -26,25 +26,32 @@ public class DetailsActivity extends AppCompatActivity {
         TextView platform = (TextView)findViewById(R.id.detailsPlatform);
 
         assert name != null;
-        name.setText(bundle.getString("name"));
+        name.setText("Item Name: " + bundle.getString("name"));
         assert price != null;
-        price.setText(bundle.getString("price"));
+        price.setText("Price: " +"$ " +bundle.getString("price")+".00");
 
         // passed from fragment as int -> must convert to use setText on TextView below
         String convertId = Integer.toString(bundle.getInt("_id"));
         assert convertId != null;
-        itemId.setText(convertId);
+        itemId.setText("SKU No: " +convertId);
 
         assert file != null;
         file.setText(bundle.getString("file"));
         assert description != null;
-        description.setText(bundle.getString("description"));
+        description.setText("Game Description: " +bundle.getString("description"));
+
         assert status != null;
-        status.setText(bundle.getString("status"));
+        if(status.equals("0")){
+            status.setText("Please order below");
+        } else {
+            status.setText("Already in cart");
+        }
+        //status.setText(bundle.getString("status"));
+
         assert rating != null;
-        rating.setText(bundle.getString("rating"));
+        rating.setText("ESRB Rating: " +bundle.getString("rating"));
         assert platform != null;
-        platform.setText(bundle.getString("platform"));
+        platform.setText("Platform: " +bundle.getString("platform"));
         /*BigDecimal priceVal = BigDecimal.valueOf(bundle.getInt("price"),2); // we had stored price as a whole integer to include cents e.g 1.00 was stored as 100
         assert price != null;
         price.setText("Price: $"+priceVal);*/
