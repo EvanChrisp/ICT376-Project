@@ -94,7 +94,10 @@ public class CheckoutActivity extends AppCompatActivity {
     }
     @Override
     public boolean onSupportNavigateUp() {
-        onBackPressed();
+        //onBackPressed();
+        // replaced onBackPressed with return to main activity instead
+        Intent intent = new Intent(CheckoutActivity.this, MainActivity.class);
+        startActivity(intent);
         return true;
     }
 }
