@@ -39,7 +39,7 @@ public class SearchFragment extends Fragment {
     String searchTerms = "FIFA"; // hardcoded search terms
     EditText searchBox;
     Button searchButton;
-    String str;
+    String str = "Fifa";
 
     // Database
     Database mydb = null;
