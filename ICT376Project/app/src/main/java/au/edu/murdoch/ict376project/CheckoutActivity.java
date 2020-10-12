@@ -77,7 +77,7 @@ public class CheckoutActivity extends AppCompatActivity {
 
                 // Get the item _id and use itemId to set the cart item back to status="0"
                 int itemId =  cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
-                db.addToCart(itemId,"0");
+                db.removeFromCart(itemId,"0");
                 Intent intent = new Intent(CheckoutActivity.this, CheckoutActivity.class);
                 startActivity(intent);
             }

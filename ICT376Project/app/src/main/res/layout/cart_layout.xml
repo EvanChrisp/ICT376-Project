@@ -8,12 +8,12 @@
     android:background="@android:color/white">
 
     <ImageView
-        android:layout_width="65dp"
-        android:layout_height="80dp"
+        android:layout_width="48dp"
+        android:layout_height="60dp"
         android:src="@drawable/ic_launcher_background"
         android:id="@+id/cImageHolder"
         android:scaleType="fitXY"
-        android:paddingRight="20dp"
+        android:paddingRight="10dp"
         />
     <LinearLayout
         android:orientation="vertical"

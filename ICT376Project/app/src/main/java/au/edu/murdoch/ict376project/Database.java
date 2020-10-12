@@ -126,7 +126,7 @@ public class Database extends SQLiteOpenHelper
     }
 
     // change the value of status to "0" or "1" - Zero is not added to cart, One is added to cart
-    public boolean removefromCart (Integer id, String val){
+    public boolean removeFromCart (Integer id, String val){
         // get database
         SQLiteDatabase db = this.getWritableDatabase();
         // create new contentValues object
