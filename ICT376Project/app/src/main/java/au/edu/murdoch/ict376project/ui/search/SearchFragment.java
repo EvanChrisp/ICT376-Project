@@ -73,10 +73,10 @@ public class SearchFragment extends Fragment {
         Cursor cursor = dbHelper.getCursorSearchProducts(searchTerms);
 
         // columns to return
-        String[] columns = new String[]{Database.PRODUCT_ID, Database.PRODUCT_NAME, Database.PRODUCT_PLATFORM,};
+        String[] columns = new String[]{Database.PRODUCT_ID, Database.PRODUCT_NAME, Database.PRODUCT_PLATFORM, Database.PRODUCT_FILE};
 
         // column data goes to this layout (in item_layout.xml) per item
-        int[] lvResourceIds = new int[]{R.id.pIdTextView, R.id.pNameTextView, R.id.pPlatformTextView};
+        int[] lvResourceIds = new int[]{R.id.pIdTextView, R.id.pNameTextView, R.id.pPlatformTextView, R.id.pImageHolder};
 
         // cursor adapter requires the id to be _id in the database. Please do not change
         SimpleCursorAdapter dataAdapter = new SimpleCursorAdapter(getActivity(),R.layout.item_layout, cursor, columns, lvResourceIds,0);

@@ -29,7 +29,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Scroll the listView"
+        android:text="Scroll through your cart - click on item to delete from the cart. Payment options are located at the bottom of the Shopping cart"
         android:layout_marginBottom="30dp"
         android:padding="16dp"/>
 
