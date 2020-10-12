@@ -109,6 +109,22 @@ public class Database extends SQLiteOpenHelper
         //return true;
     }
 
+    // change the value of status to "0" or "1" - Zero is not added to cart, One is added to cart
+    public boolean addToCart (Integer id, String val){
+        // get database
+        SQLiteDatabase db = this.getWritableDatabase();
+        // create new contentValues object
+        ContentValues contentValues = new ContentValues();
+        // put status value into contentValues
+        contentValues.put(PRODUCT_STATUS, val);
+        // adding means updating database table ->
+        db.update(PRODUCT_TABLE, contentValues, "_id= ? ", new String[]{Integer.toString(id)});
+        // after entry remember to close the database -> memory leaks
+        db.close();
+        // if successful -> return is true
+        return true;
+    }
+
     public void deleteAllItems() {
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -165,6 +181,19 @@ public class Database extends SQLiteOpenHelper
         SQLiteDatabase db = this.getReadableDatabase();
         // id changed to _id in where clause -> causes errors with cursorAdapters
         Cursor res = db.rawQuery("select * from products where _id = " + id, null);
+
+        if (res.getCount() > 0 && res != null)
+        {
+            res.moveToFirst();
+        }
+        return res;
+    }
+
+    public Cursor getShoppingCart(String cartStatus)
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        // id changed to _id in where clause -> causes errors with cursorAdapters
+        Cursor res = db.rawQuery("select * from products where status = " + cartStatus, null);
 
         if (res.getCount() > 0 && res != null)
         {

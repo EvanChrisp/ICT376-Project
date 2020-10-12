@@ -1,5 +1,6 @@
 package au.edu.murdoch.ict376project;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -71,8 +72,9 @@ public class MainActivity extends AppCompatActivity
                 // add a go to activity or go to fragment action
                 return true;
             case R.id.action_cart:
-                Toast.makeText(getApplicationContext(),"You clicked Go to cart", Toast.LENGTH_SHORT).show();
-                // add a go to activity or go to fragment action
+                //Toast.makeText(getApplicationContext(),"You clicked Go to cart", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(this, CheckoutActivity.class);
+                startActivity(intent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
