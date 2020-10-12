@@ -14,6 +14,7 @@ import android.widget.SimpleCursorAdapter;
 public class CheckoutActivity extends AppCompatActivity {
     Database dbHelper;
     ListView listView;
+    Database db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +67,21 @@ public class CheckoutActivity extends AppCompatActivity {
 
         // set the adapter and display on screen
         listView.setAdapter(dataAdapter);
+
+        db = new Database(this);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> listView, View view, int position, long id) {
+                Cursor cursor = (Cursor)listView.getItemAtPosition(position);
+
+                // Get the item _id and use itemId to set the cart item back to status="0"
+                int itemId =  cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
+                db.addToCart(itemId,"0");
+                Intent intent = new Intent(CheckoutActivity.this, CheckoutActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 }
