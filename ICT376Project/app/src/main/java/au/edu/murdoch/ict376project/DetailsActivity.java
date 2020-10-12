@@ -50,13 +50,12 @@ public class DetailsActivity extends AppCompatActivity {
         assert description != null;
         description.setText("Game Description: " +bundle.getString("description"));
 
-        assert status != null;
-        if(status.equals("0")){
+        // if(String called "status" from bundle is equal to "0" -> that means it has not been added to cart
+        if(bundle.getString("status").equals("0")){
             status.setText("Please order below");
         } else {
             status.setText("Already in cart");
         }
-        //status.setText(bundle.getString("status"));
 
         assert rating != null;
         rating.setText("ESRB Rating: " +bundle.getString("rating"));

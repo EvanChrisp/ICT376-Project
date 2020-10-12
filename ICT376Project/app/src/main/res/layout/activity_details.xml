@@ -3,115 +3,123 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     tools:context=".DetailsActivity"
     android:padding="30dp"
     >
 
-    <TextView
+    <!--<TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="This is the Details Activity"
         android:id="@+id/detailsHeader"
         android:textSize="20dp"
-        android:layout_marginBottom="50dp"
-        />
-
-    <ImageView
-        android:layout_width="180dp"
-        android:layout_height="320dp"
-        android:id="@+id/detailsImageView"
-        android:layout_below="@+id/detailsHeader"
-        android:src="@drawable/ic_launcher_background"
-        />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/detailsId"
-        android:text="Product ID"
-        android:layout_below="@+id/detailsImageView"
         android:layout_marginBottom="10dp"
-        />
+        />-->
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+        <ImageView
+            android:layout_width="160dp"
+            android:layout_height="280dp"
+            android:id="@+id/detailsImageView"
+            android:src="@drawable/ic_launcher_background"
+            />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/detailsName"
-        android:text="Product Name"
-        android:layout_below="@+id/detailsId"
-        android:layout_marginBottom="10dp"
-        android:textStyle="bold"
-        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/detailsId"
+            android:text="Product ID"
+            android:layout_below="@+id/detailsImageView"
+            android:layout_marginBottom="10dp"
+            />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/detailsPlatform"
-        android:text="Product Platform"
-        android:layout_below="@+id/detailsName"
-        android:layout_marginBottom="10dp"
-        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/detailsName"
+            android:text="Product Name"
+            android:layout_below="@+id/detailsId"
+            android:layout_marginBottom="10dp"
+            android:textStyle="bold"
+            />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/detailsDescription"
-        android:text="Product Description"
-        android:layout_below="@+id/detailsPlatform"
-        android:layout_marginBottom="10dp"
-        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/detailsPlatform"
+            android:text="Product Platform"
+            android:layout_below="@+id/detailsName"
+            android:layout_marginBottom="10dp"
+            />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/detailsRating"
-        android:text="Product Rating"
-        android:layout_below="@+id/detailsDescription"
-        android:layout_marginBottom="10dp"
-        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/detailsDescription"
+            android:text="Product Description"
+            android:layout_below="@+id/detailsPlatform"
+            android:layout_marginBottom="10dp"
+            />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/detailsStatus"
-        android:text="Product Status"
-        android:layout_below="@+id/detailsRating"
-        android:layout_marginBottom="10dp"
-        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/detailsRating"
+            android:text="Product Rating"
+            android:layout_below="@+id/detailsDescription"
+            android:layout_marginBottom="10dp"
+            />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/detailsFile"
-        android:text="Product File"
-        android:layout_below="@+id/detailsStatus"
-        android:layout_marginBottom="10dp"
-        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/detailsStatus"
+            android:text="Product Status"
+            android:layout_below="@+id/detailsRating"
+            android:layout_marginBottom="10dp"
+            />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/detailsPrice"
-        android:text="Product Price"
-        android:layout_below="@+id/detailsFile"
-        android:layout_marginBottom="50dp"
-        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/detailsFile"
+            android:text="Product File"
+            android:layout_below="@+id/detailsStatus"
+            android:visibility="invisible"
+            />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add to cart"
-        android:id="@+id/detailsCartButton"
-        android:layout_below="@+id/detailsPrice"
-        android:layout_marginBottom="20dp"
-        />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/detailsPrice"
+            android:text="Product Price"
+            android:layout_below="@+id/detailsFile"
+            android:layout_marginBottom="20dp"
+            />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Go to checkout"
-        android:layout_below="@+id/detailsCartButton"
-        />
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add to cart"
+            android:id="@+id/detailsCartButton"
+            android:layout_below="@+id/detailsPrice"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Go to checkout"
+            android:layout_below="@+id/detailsPrice"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentLeft="true"
+            />
+        </RelativeLayout>
+    </ScrollView>
 
 </RelativeLayout>
