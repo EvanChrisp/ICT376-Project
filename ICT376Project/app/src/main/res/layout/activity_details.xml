@@ -1,13 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     tools:context=".DetailsActivity"
-    android:padding="30dp"
     >
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?android:attr/colorFocusedHighlight"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </com.google.android.material.appbar.AppBarLayout>
     <!--<TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -18,11 +30,14 @@
         />-->
     <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
+        android:layout_height="fill_parent"
+        android:padding="30dp">
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" >
         <ImageView
+            android:paddingTop="30dp"
+            android:paddingBottom="10dp"
             android:layout_width="160dp"
             android:layout_height="280dp"
             android:id="@+id/detailsImageView"

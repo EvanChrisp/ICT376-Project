@@ -1,6 +1,7 @@
 package au.edu.murdoch.ict376project;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -21,6 +22,11 @@ public class DetailsActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         final Bundle bundle = getIntent().getExtras();
 
@@ -81,9 +87,9 @@ public class DetailsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // if successfully adding 1 to status on the item ->
                 if (db.addToCart(bundle.getInt("_id"), "1")) {
-                    Intent intent = new Intent(DetailsActivity.this, MainActivity.class);
+                    //Intent intent = new Intent(DetailsActivity.this, MainActivity.class);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    startActivity(intent);
+                    //startActivity(intent);
                     //finish();
                     Toast.makeText(DetailsActivity.this, "Successfully added to shopping cart", Toast.LENGTH_SHORT).show();
                 } else {
@@ -104,5 +110,13 @@ public class DetailsActivity extends AppCompatActivity {
             }
 
         });
+
+
     }
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
 }
