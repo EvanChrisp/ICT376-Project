@@ -3,14 +3,19 @@ package au.edu.murdoch.ict376project.ui.search;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -31,7 +36,10 @@ public class SearchFragment extends Fragment {
     View mLayoutView;
     private Database dbHelper;
     private ListView listView;
-    String searchTerms = "FIFA";
+    String searchTerms = "FIFA"; // hardcoded search terms
+    EditText searchBox;
+    Button searchButton;
+    String str;
 
     // Database
     Database mydb = null;
@@ -70,7 +78,7 @@ public class SearchFragment extends Fragment {
         dbHelper = new Database(getActivity());
 
         // cursor = return from db function - hard coded searchTerms ***** - searches for FIFA
-        Cursor cursor = dbHelper.getCursorSearchProducts(searchTerms);
+        Cursor cursor = dbHelper.getCursorSearchProducts(str);
 
         // columns to return
         String[] columns = new String[]{Database.PRODUCT_ID, Database.PRODUCT_NAME, Database.PRODUCT_PLATFORM, Database.PRODUCT_FILE};
@@ -135,5 +143,39 @@ public class SearchFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        // set the listener for the searchBox
+        searchBox = (EditText)mLayoutView.findViewById(R.id.searchFragmentEditText);
+        searchBox.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                //
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                //
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                str = editable.toString();
+            }
+        });
+
+        searchButton = (Button)mLayoutView.findViewById(R.id.searchFragmentButton);
+
+        // use str from afterTextChanged()
+        str = searchBox.getText().toString();
+
+        // set listener for search button
+        searchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                displayListView();
+                Toast.makeText(getActivity(),str, Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 }
