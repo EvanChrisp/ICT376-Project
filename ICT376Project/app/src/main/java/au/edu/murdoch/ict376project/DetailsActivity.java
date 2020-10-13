@@ -30,15 +30,15 @@ public class DetailsActivity extends AppCompatActivity {
 
         final Bundle bundle = getIntent().getExtras();
 
-        TextView name = (TextView) findViewById(R.id.detailsName);
-        TextView price = (TextView) findViewById(R.id.detailsPrice);
-        TextView itemId = (TextView) findViewById(R.id.detailsId);
-        TextView file = (TextView) findViewById(R.id.detailsFile);
-        TextView description = (TextView) findViewById(R.id.detailsDescription);
-        TextView status = (TextView) findViewById(R.id.detailsStatus);
-        TextView rating = (TextView) findViewById(R.id.detailsRating);
-        TextView platform = (TextView) findViewById(R.id.detailsPlatform);
-        ImageView image = (ImageView) findViewById(R.id.detailsImageView);
+        TextView name = findViewById(R.id.detailsName);
+        TextView price = findViewById(R.id.detailsPrice);
+        TextView itemId = findViewById(R.id.detailsId);
+        TextView file = findViewById(R.id.detailsFile);
+        TextView description = findViewById(R.id.detailsDescription);
+        TextView status = findViewById(R.id.detailsStatus);
+        TextView rating = findViewById(R.id.detailsRating);
+        TextView platform = findViewById(R.id.detailsPlatform);
+        ImageView image = findViewById(R.id.detailsImageView);
 
         assert name != null;
         name.setText("Item Name: " + bundle.getString("name"));
