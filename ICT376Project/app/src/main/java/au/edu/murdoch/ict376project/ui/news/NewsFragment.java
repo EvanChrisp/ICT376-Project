@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,8 +20,6 @@ import au.edu.murdoch.ict376project.ui.playstation.PlaystationFragment;
 
 public class NewsFragment extends Fragment {
 
-    private NewsViewModel newsViewModel;
-
     public static NewsFragment newInstance(){
 
         NewsFragment newsf = new NewsFragment();
@@ -30,18 +30,22 @@ public class NewsFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        newsViewModel = ViewModelProviders.of(this).get(NewsViewModel.class);
-
+        // int the View
         View mLayoutView = inflater.inflate(R.layout.fragment_news, container, false);
 
-        final TextView textView = mLayoutView.findViewById(R.id.text_news);
+        // int view using View NB. you need permissions to access internet - go to manifest file
+        WebView webView = (WebView)mLayoutView.findViewById(R.id.webView1);
+        // do something
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
 
-        newsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
+        WebViewClientImpl webViewClient = new WebViewClientImpl(getActivity());
+        webView.setWebViewClient(webViewClient);
+
+        webView.loadUrl("https://www.ign.com");
+
         return mLayoutView;
     }
+
+
 }
