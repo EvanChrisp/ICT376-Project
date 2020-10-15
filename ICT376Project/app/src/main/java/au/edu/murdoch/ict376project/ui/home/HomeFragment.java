@@ -17,17 +17,16 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import java.util.Random;
 
-import androidx.lifecycle.ViewModelProviders;
 import au.edu.murdoch.ict376project.Database;
 import au.edu.murdoch.ict376project.DetailsActivity;
 import au.edu.murdoch.ict376project.R;
 import au.edu.murdoch.ict376project.ui.pc.PCFragment;
-import au.edu.murdoch.ict376project.ui.search.SearchViewModel;
 
 public class HomeFragment extends Fragment
 {
@@ -51,14 +50,12 @@ public class HomeFragment extends Fragment
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-
+    public void onActivityCreated(Bundle savedInstanceState)
+    {
         super.onActivityCreated(savedInstanceState);
 
         searchItems();
         loopDeals();
-
-
     }
 
     //check if game already exists in deals of the week
@@ -105,9 +102,8 @@ public class HomeFragment extends Fragment
         view.setText("$" + (int)price);
     }
 
-    private void loopDeals(){
-
-
+    private void loopDeals()
+    {
         int i = 1;
         int[] ids = new int[5];
         Random rand = new Random();
@@ -169,11 +165,24 @@ public class HomeFragment extends Fragment
 
             i++;
         }
-}
+
+        ImageView test = getActivity().findViewById(R.id.imageViewPC);
+        test.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                Fragment fragment = new PCFragment();
+                FragmentManager fm = getChildFragmentManager();
+                FragmentTransaction transaction = fm.beginTransaction();
+                transaction.replace(R.id.contentFragment, fragment);
+                transaction.commit();
+            }
+        });
+    }
 
     private void searchItems() {
         // int view
-        searchBox = (EditText)getActivity().findViewById(R.id.editTextTextPersonName2);
+        searchBox = getActivity().findViewById(R.id.editTextTextPersonName2);
         // set the listener for the searchBox
         searchBox.addTextChangedListener(new TextWatcher() {
             @Override
@@ -192,7 +201,7 @@ public class HomeFragment extends Fragment
             }
         });
 
-        searchButton = (Button) getActivity().findViewById(R.id.HomeSearchButton);
+        searchButton = getActivity().findViewById(R.id.HomeSearchButton);
 
         // use str from afterTextChanged()
         str = searchBox.getText().toString();
