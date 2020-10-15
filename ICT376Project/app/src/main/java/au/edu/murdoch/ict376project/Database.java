@@ -25,13 +25,14 @@ public class Database extends SQLiteOpenHelper
 
     // customer table
     public static final String CUSTOMER_TABLE = "customers";
-    public static final String CUSTOMER_ID = "id";
+    public static final String CUSTOMER_ID = "_id";
     public static final String CUSTOMER_FIRSTNAME = "firstName";
     public static final String CUSTOMER_LASTNAME = "lastName";
     public static final String CUSTOMER_PHONE = "phone";
     public static final String CUSTOMER_EMAIL = "email";
     public static final String CUSTOMER_ADDRESS = "address";
     public static final String CUSTOMER_PASSWORD = "password";
+    // public static final String CUSTOMER_IS_LOGGED_IN = "loggedin";
 
     // product table
     public static final String PRODUCT_TABLE = "products";
@@ -69,6 +70,10 @@ public class Database extends SQLiteOpenHelper
                 CUSTOMER_EMAIL + " text, " +
                 CUSTOMER_PASSWORD + " text," +
                 CUSTOMER_ADDRESS + " text)");
+        // need to add in either
+        // CUSTOMER_LOGGED_IN + " text, " +
+        // OR
+        // CUSTOMER_LOGGED_IN + " integer, " +
 
         // table creation -> product table
         db.execSQL("create table " + PRODUCT_TABLE + "(" +
@@ -88,6 +93,24 @@ public class Database extends SQLiteOpenHelper
         db.execSQL("DROP TABLE IF EXISTS " + CUSTOMER_TABLE);
         db.execSQL("DROP TABLE IF EXISTS " + PRODUCT_TABLE);
         onCreate(db);
+    }
+
+    public void addUserDetails(int pId, String pName, int pPrice, String pFile, String pDescription, String pRating, String pPlatform, String pStatus) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(PRODUCT_ID, pId);
+        contentValues.put(PRODUCT_NAME, pName);
+        contentValues.put(PRODUCT_PRICE, pPrice);
+        contentValues.put(PRODUCT_FILE, pFile);
+        contentValues.put(PRODUCT_DESCRIPTION, pDescription);
+        contentValues.put(PRODUCT_STATUS, pStatus);
+        contentValues.put(PRODUCT_RATING, pRating);
+        contentValues.put(PRODUCT_PLATFORM, pPlatform);
+
+        db.insert(PRODUCT_TABLE, null, contentValues);
+        //return true;
     }
 
 
@@ -224,6 +247,7 @@ public class Database extends SQLiteOpenHelper
         }
         return res;
     }
+
 
     public Cursor getShoppingCart(String cartStatus)
     {
