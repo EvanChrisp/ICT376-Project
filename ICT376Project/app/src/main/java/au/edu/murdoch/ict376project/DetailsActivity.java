@@ -85,7 +85,7 @@ public class DetailsActivity extends AppCompatActivity {
         cartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // if successfully adding 1 to status on the item ->
+                // if successfully adding 1 to status on the item ->    //
                 if (db.addToCart(bundle.getInt("_id"), "1")) {
                     //Intent intent = new Intent(DetailsActivity.this, MainActivity.class);
                     //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);

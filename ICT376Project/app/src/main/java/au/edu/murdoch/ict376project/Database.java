@@ -158,10 +158,10 @@ public class Database extends SQLiteOpenHelper
         addProduct(4, "The Witcher 3", 69, "witcher3_nintendo", "Third episode of the Witcher", "15 years+", "Nintendo", "0");
         addProduct(5, "FIFA 19", 69, "fifa_nintendo", "Football by FIFA", "All ages", "Nintendo", "0");
         addProduct(6, "Pokemon Shield", 69, "pokemon_shield", "Pokemon Shield Edition", "All ages", "Nintendo", "0");
-        addProduct(7, "Pokemon Sword", 69, "pokemon_sword". "Pokemom Sword Edition", "All ages", "Nintendo", "0");
+        addProduct(7, "Pokemon Sword", 69, "pokemon_sword", "Pokemom Sword Edition", "All ages", "Nintendo", "0");
         addProduct(8, "Pokemon Mystery Dungeon", 69, "pokemon_mystery_dungeon", "Pokemon Mystery Dungeon Remake", "All ages", "Nintendo", "0");
-        addProduct(9, "Mario Party", 69, "mario_party", "Latest Mario Party" "All ages", "Nintendo", "0");
-        addproduct(10, "Overcooked 2", 69, "overcooked_2", "Cook with friends", "All ages", "Nintendo", "0");
+        addProduct(9, "Mario Party", 69, "mario_party", "Latest Mario Party","All ages", "Nintendo", "0");
+        addProduct(10, "Overcooked 2", 69, "overcooked_2", "Cook with friends", "All ages", "Nintendo", "0");
 
         addProduct(11, "Halo", 89, "halo", "Adventures of MasterChief","15 years+", "Xbox", "0");
         addProduct(12, "FIFA 19", 79, "fifa_xbox", "Football by FIFA","All ages", "Xbox", "0");

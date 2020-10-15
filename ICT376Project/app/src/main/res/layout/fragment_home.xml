@@ -356,7 +356,7 @@
                         android:contentDescription="@string/menu_pc" />
 
                     <ImageView
-                        android:id="@+id/imageViewPS7"
+                        android:id="@+id/imageViewPS"
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
