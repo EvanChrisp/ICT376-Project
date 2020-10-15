@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
@@ -32,6 +34,12 @@ public class LoginFragment extends Fragment {
     // model class
     private LoginViewModel loginViewModel;
     View mLayoutView;
+    EditText username;
+    EditText password;
+    EditText rePassword;
+    Button loginButton;
+    Button registerButton;
+    Button clickToRegisterButton;
 
 
     // Database
@@ -66,7 +74,55 @@ public class LoginFragment extends Fragment {
 
         super.onActivityCreated(savedInstanceState);
 
+        rePassword = (EditText)mLayoutView.findViewById(R.id.rePasswordEt);
+        clickToRegisterButton = (Button)mLayoutView.findViewById(R.id.clickToRegisterUserPwdButton);
+        loginButton = (Button)mLayoutView.findViewById(R.id.loginButton);
+
+        registerButton = (Button)mLayoutView.findViewById(R.id.registerUserPwdButton);
+
+        // when user wants to register - the register button is invisible at the start
+        clickToRegisterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // clicking the "click to register button"
+                // will make the confirm pwd box visible and
+                rePassword.setVisibility(View.VISIBLE);
+                // set the register button to visible
+                registerButton.setVisibility(View.VISIBLE);
+                // which then makes the click to register button not needed and this invisible
+                clickToRegisterButton.setVisibility((View.INVISIBLE));
+            }
+        });
+
+        registerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // clicking the "register" button does nothing but give a toast msg indicating that this is mainly working. No db hoolup yet.
+                Toast.makeText(getActivity().getApplicationContext(), "Thanks for registering!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        loginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // clicking the "login" button does nothing but give a toast msg indicating that the user needs to enter the correct details
+                Toast.makeText(getActivity().getApplicationContext(), "This does not work yet!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+
+
+
         Toast.makeText(getActivity(), "This is the login fragment", Toast.LENGTH_SHORT).show();
+    }
+
+    public void registerMode(){
+
+    }
+
+    public void loginMode(){
+
     }
 
 }
