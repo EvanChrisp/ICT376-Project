@@ -47,6 +47,45 @@
             android:id="@+id/searchFragmentButton"
             android:layout_gravity="right"/>
     </LinearLayout>
+     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/PSCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="PlayStation" />
+
+        <CheckBox
+            android:id="@+id/XboxCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Xbox" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/SwitchCheckBox"
+            android:layout_width="88dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Nintendo Switch" />
+
+        <CheckBox
+            android:id="@+id/PCCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="PC" />
+    </LinearLayout>
     <ListView
         android:id="@+id/searchProductListView"
         android:layout_width="match_parent"
