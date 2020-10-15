@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -31,6 +32,11 @@ public class HomeFragment extends Fragment
         int[] ids = new int[5];
         Random rand = new Random();
         Database db = new Database(getActivity()); //get db
+         Button search = (Button) root.findViewById(R.id.HomeSearchButton);
+        ImageView PSIcon=(ImageView) root.findViewById(R.id.imageViewPS);
+        ImageView XboxIcon=(ImageView) root.findViewById(R.id.imageViewXbox);
+        ImageView SwitchIcon=(ImageView) root.findViewById(R.id.imageViewSwitch);
+        ImageView PCIcon=(ImageView) root.findViewById(R.id.imageViewPC);
 
         // loop through 5 deals
         while(i <= 5)
