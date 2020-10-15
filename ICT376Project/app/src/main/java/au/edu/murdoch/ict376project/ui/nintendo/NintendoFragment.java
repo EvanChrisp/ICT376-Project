@@ -25,6 +25,7 @@ import androidx.lifecycle.ViewModelProviders;
 import au.edu.murdoch.ict376project.Database;
 import au.edu.murdoch.ict376project.DetailsActivity;
 import au.edu.murdoch.ict376project.R;
+import au.edu.murdoch.ict376project.ui.pc.PCFragment;
 
 public class NintendoFragment extends Fragment {
 
@@ -42,6 +43,12 @@ public class NintendoFragment extends Fragment {
     // Database
     Database mydb = null;
     ArrayList mArrayList;  // the list of all products
+
+    public static NintendoFragment newInstance(){
+
+        NintendoFragment ninf = new NintendoFragment();
+        return ninf;
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 

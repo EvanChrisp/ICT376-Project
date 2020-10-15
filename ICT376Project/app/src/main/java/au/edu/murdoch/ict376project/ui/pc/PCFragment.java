@@ -37,6 +37,12 @@ public class PCFragment extends Fragment {
     Database mydb = null;
     ArrayList mArrayList;  // the list of all products
 
+    public static PCFragment newInstance(){
+
+        PCFragment pcf = new PCFragment();
+        return pcf;
+    }
+
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         pcViewModel = ViewModelProviders.of(this).get(PCViewModel.class);

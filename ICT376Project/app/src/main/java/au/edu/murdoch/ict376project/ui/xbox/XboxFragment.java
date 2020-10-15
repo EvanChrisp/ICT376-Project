@@ -24,6 +24,7 @@ import androidx.lifecycle.ViewModelProviders;
 import au.edu.murdoch.ict376project.Database;
 import au.edu.murdoch.ict376project.DetailsActivity;
 import au.edu.murdoch.ict376project.R;
+import au.edu.murdoch.ict376project.ui.pc.PCFragment;
 
 
 public class XboxFragment extends Fragment {
@@ -38,6 +39,12 @@ public class XboxFragment extends Fragment {
     // Database
     Database mydb = null;
     ArrayList mArrayList;  // the list of all products
+
+    public static XboxFragment newInstance(){
+
+        XboxFragment xbf = new XboxFragment();
+        return xbf;
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 

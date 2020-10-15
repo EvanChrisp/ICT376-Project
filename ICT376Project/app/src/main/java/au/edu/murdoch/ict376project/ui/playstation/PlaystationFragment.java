@@ -24,6 +24,7 @@ import androidx.lifecycle.ViewModelProviders;
 import au.edu.murdoch.ict376project.Database;
 import au.edu.murdoch.ict376project.DetailsActivity;
 import au.edu.murdoch.ict376project.R;
+import au.edu.murdoch.ict376project.ui.pc.PCFragment;
 
 public class PlaystationFragment extends Fragment {
 
@@ -37,6 +38,12 @@ public class PlaystationFragment extends Fragment {
     // Database
     Database mydb = null;
     ArrayList mArrayList;  // the list of all products
+
+    public static PlaystationFragment newInstance(){
+
+        PlaystationFragment psf = new PlaystationFragment();
+        return psf;
+    }
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 

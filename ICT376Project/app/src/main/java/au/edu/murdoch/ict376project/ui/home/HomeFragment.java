@@ -23,10 +23,13 @@ import androidx.fragment.app.FragmentTransaction;
 
 import java.util.Random;
 
+import au.edu.murdoch.ict376project.CheckoutActivity;
 import au.edu.murdoch.ict376project.Database;
 import au.edu.murdoch.ict376project.DetailsActivity;
+import au.edu.murdoch.ict376project.PlatformActivity;
 import au.edu.murdoch.ict376project.R;
 import au.edu.murdoch.ict376project.ui.pc.PCFragment;
+import au.edu.murdoch.ict376project.ui.search.SearchFragment;
 
 public class HomeFragment extends Fragment
 {
@@ -40,11 +43,74 @@ public class HomeFragment extends Fragment
     String str;
     //private SearchViewModel homeViewModel;
     private Database db;
+    ViewGroup myContainer;
+    View root;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        //homeViewModel = ViewModelProviders.of(this).get(SearchViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
+        root = inflater.inflate(R.layout.fragment_home, container, false);
+
+        int i = 1;
+        int[] ids = new int[5];
+        Random rand = new Random();
+        db = new Database(getActivity()); //get db
+        // loop through 5 deals
+        while(i <= 5)
+        {
+            int id = rand.nextInt(20 - 1 + 1) + 1;
+            if(duplicateDeal(id, ids))
+            {
+                continue;
+            }
+            ids[i - 1] = id;
+
+            // get cursor returned from db
+            final Cursor res = db.getProductById(id);
+
+            // String name is the id in the XML - type is "id" for i.d. , package = getActivity().getPackageName()
+            ImageView image = root.findViewById(getResources().getIdentifier("deal" + i, "id", getActivity().getPackageName()));
+            setDealImage(image, res);
+
+            TextView name = root.findViewById(getResources().getIdentifier("dealtext" + i, "id", getActivity().getPackageName()));
+            setDealName(name, res);
+
+            TextView priceOld = root.findViewById(getResources().getIdentifier("dealoldprice" + i, "id", getActivity().getPackageName()));
+            setDealOldPrice(priceOld, res);
+
+            TextView priceNew = root.findViewById(getResources().getIdentifier("dealnewprice" + i, "id", getActivity().getPackageName()));
+            setDealNewPrice(priceNew, res);
+
+            image.setOnClickListener(new View.OnClickListener()
+            {
+                public void onClick(View v)
+                {
+                    String mPrice = res.getString(res.getColumnIndexOrThrow("price"));
+                    double mPriceDouble = Integer.parseInt(mPrice) * 0.8;
+                    int mPriceInt = (int)mPriceDouble;
+
+                    String name =  res.getString(res.getColumnIndexOrThrow("name"));
+                    String description =  res.getString(res.getColumnIndexOrThrow("description"));
+                    String file =  res.getString(res.getColumnIndexOrThrow("file"));
+                    String status =  res.getString(res.getColumnIndexOrThrow("status"));
+                    String rating =  res.getString(res.getColumnIndexOrThrow("rating"));
+                    String platform =  res.getString(res.getColumnIndexOrThrow("platform"));
+                    String price =  Integer.toString(mPriceInt);
+                    int itemId =  res.getInt(res.getColumnIndexOrThrow("_id"));
+                    Intent intent = new Intent(getActivity(), DetailsActivity.class);
+                    intent.putExtra("name", name);
+                    intent.putExtra("description", description);
+                    intent.putExtra("file", file);
+                    intent.putExtra("status", status);
+                    intent.putExtra("rating", rating);
+                    intent.putExtra("platform", platform);
+                    intent.putExtra("price", price);
+                    intent.putExtra("_id", itemId);
+                    startActivity(intent);
+                }
+            });
+
+            i++;
+        }
 
         return root;
     }
@@ -56,6 +122,55 @@ public class HomeFragment extends Fragment
 
         searchItems();
         loopDeals();
+
+        ImageView pc = root.findViewById(R.id.imageViewPC);
+        pc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle dataBundle = new Bundle();
+                dataBundle.putInt("platform", 1);
+                Intent intent = new Intent(getActivity().getApplicationContext(), PlatformActivity.class);
+                intent.putExtras(dataBundle);
+                startActivity(intent);
+            }
+        });
+
+        ImageView xbox = root.findViewById(R.id.imageViewXbox);
+        xbox.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle dataBundle = new Bundle();
+                dataBundle.putInt("platform", 2);
+                Intent intent = new Intent(getActivity().getApplicationContext(), PlatformActivity.class);
+                intent.putExtras(dataBundle);
+                startActivity(intent);
+            }
+        });
+
+        ImageView ps = root.findViewById(R.id.imageViewPS);
+        ps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle dataBundle = new Bundle();
+                dataBundle.putInt("platform", 3);
+                Intent intent = new Intent(getActivity().getApplicationContext(), PlatformActivity.class);
+                intent.putExtras(dataBundle);
+                startActivity(intent);
+            }
+        });
+
+        ImageView nintendo = root.findViewById(R.id.imageViewSwitch);
+        nintendo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Bundle dataBundle = new Bundle();
+                dataBundle.putInt("platform", 4);
+                Intent intent = new Intent(getActivity().getApplicationContext(), PlatformActivity.class);
+                intent.putExtras(dataBundle);
+                startActivity(intent);
+            }
+        });
+
     }
 
     //check if game already exists in deals of the week
@@ -166,18 +281,7 @@ public class HomeFragment extends Fragment
             i++;
         }
 
-        ImageView test = getActivity().findViewById(R.id.imageViewPC);
-        test.setOnClickListener(new View.OnClickListener()
-        {
-            public void onClick(View v)
-            {
-                Fragment fragment = new PCFragment();
-                FragmentManager fm = getChildFragmentManager();
-                FragmentTransaction transaction = fm.beginTransaction();
-                transaction.replace(R.id.contentFragment, fragment);
-                transaction.commit();
-            }
-        });
+
     }
 
     private void searchItems() {
