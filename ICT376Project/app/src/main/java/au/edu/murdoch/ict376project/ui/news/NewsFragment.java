@@ -14,24 +14,34 @@ import androidx.lifecycle.ViewModelProviders;
 
 import au.edu.murdoch.ict376project.R;
 import au.edu.murdoch.ict376project.ui.contact.ContactViewModel;
+import au.edu.murdoch.ict376project.ui.playstation.PlaystationFragment;
 
 public class NewsFragment extends Fragment {
 
-    // test
-    private ContactViewModel contactViewModel;
+    private NewsViewModel newsViewModel;
 
-    public View onCreateView(@NonNull LayoutInflater inflater,
-                             ViewGroup container, Bundle savedInstanceState) {
-        contactViewModel =
-                ViewModelProviders.of(this).get(ContactViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_contact, container, false);
-        final TextView textView = root.findViewById(R.id.text_contact);
-        contactViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
+    public static NewsFragment newInstance(){
+
+        NewsFragment newsf = new NewsFragment();
+
+        return newsf;
+    }
+
+
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        newsViewModel = ViewModelProviders.of(this).get(NewsViewModel.class);
+
+        View mLayoutView = inflater.inflate(R.layout.fragment_news, container, false);
+
+        final TextView textView = mLayoutView.findViewById(R.id.text_news);
+
+        newsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
             }
         });
-        return root;
+        return mLayoutView;
     }
 }
