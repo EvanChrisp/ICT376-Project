@@ -44,12 +44,12 @@ public class LoginFragment extends Fragment {
         loginViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
 
         // declare view -> inflate (this fragment, into this container, false);
-        mLayoutView = inflater.inflate(R.layout.fragment_nintendo, container, false);
+        mLayoutView = inflater.inflate(R.layout.fragment_login, container, false);
 
         // textView = resource
-        final TextView textView = mLayoutView.findViewById(R.id.text_nintendo);
+        final TextView textView = mLayoutView.findViewById(R.id.text_login);
 
-        // use the nintendoViewModel to set the text to String s
+        // use the loginViewModel to set the text to String s
         loginViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
