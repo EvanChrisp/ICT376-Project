@@ -17,6 +17,8 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
@@ -26,6 +28,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import au.edu.murdoch.ict376project.Database;
 import au.edu.murdoch.ict376project.DetailsActivity;
+import au.edu.murdoch.ict376project.MainActivity;
 import au.edu.murdoch.ict376project.R;
 import au.edu.murdoch.ict376project.ui.nintendo.NintendoViewModel;
 
@@ -38,6 +41,7 @@ public class LoginFragment extends Fragment {
     View mLayoutView;
     EditText usernameEt, passwordEt, rePasswordEt;
     Button loginButton, registerButton, clickToRegisterButton;
+    TextView loginMsg;
 
 
     // Database
@@ -77,6 +81,7 @@ public class LoginFragment extends Fragment {
         rePasswordEt = (EditText)mLayoutView.findViewById(R.id.rePasswordEt);
         clickToRegisterButton = (Button)mLayoutView.findViewById(R.id.clickToRegisterUserPwdButton);
         loginButton = (Button)mLayoutView.findViewById(R.id.loginButton);
+        loginMsg = (TextView)mLayoutView.findViewById(R.id.loginMsg);
 
         registerButton = (Button)mLayoutView.findViewById(R.id.registerUserPwdButton);
 
@@ -97,31 +102,57 @@ public class LoginFragment extends Fragment {
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // clicking the "register" button does nothing but give a toast msg indicating that this is mainly working. No db hoolup yet.
                 //Toast.makeText(getActivity().getApplicationContext(), "Thanks for registering!", Toast.LENGTH_SHORT).show();
                 String myUsername = usernameEt.getText().toString();
                 String myPwd = passwordEt.getText().toString();
                 String myPwd2 = rePasswordEt.getText().toString();
 
-                //Toast.makeText(getActivity().getApplicationContext(), "This does not work yet!", Toast.LENGTH_SHORT).show();
-
                 // get db
                 mydb = new Database(getActivity());
 
+                // check if name is taken
                 Boolean isTaken = mydb.checkName(myUsername,myPwd);
 
-                if(isTaken){
-                    Toast.makeText(getActivity().getApplicationContext(), "That username is taken", Toast.LENGTH_SHORT).show();
+                // check for empty fields
+                if((myUsername.equals(""))|| (myPwd.equals(""))){
+                    Toast.makeText(getActivity().getApplicationContext(), "Please enter all details", Toast.LENGTH_SHORT).show();
+                    loginMsg.setVisibility(View.VISIBLE);
+                    loginMsg.setText("Please enter all details !");
                 }else{
+                    // check if username is already taken
+                    if(isTaken){
+                        Toast.makeText(getActivity().getApplicationContext(), "That username is taken", Toast.LENGTH_SHORT).show();
+                        loginMsg.setVisibility(View.VISIBLE);
+                        loginMsg.setText("That username is already taken!");
+                    }else if(!myPwd.equals(myPwd2)){
+                        // check if passwords match
+                        Toast.makeText(getActivity().getApplicationContext(), "Passwords do not match - try again", Toast.LENGTH_SHORT).show();
+                        loginMsg.setVisibility(View.VISIBLE);
+                        loginMsg.setText("Passwords do not match - try again!");
+                        }else{
+                            // now that user is not null, not already taken and passwords match - enter into db
+                            mydb.insertUserPwd(myUsername, myPwd);
+                            Toast.makeText(getActivity().getApplicationContext(), "Thank you for registering", Toast.LENGTH_SHORT).show();
+                            loginMsg.setVisibility(View.VISIBLE);
+                            loginMsg.setText("You have been registered!");
+                        }
+                    }
+
+
+
+                /*else{
                     if(mydb.insertUserPwd(myUsername, myPwd) && myPwd.equals(myPwd2)){
 
                         Toast.makeText(getActivity().getApplicationContext(), "Thank you for registering", Toast.LENGTH_SHORT).show();
+                        loginMsg.setVisibility(View.VISIBLE);
+                        loginMsg.setText("You have been registered!");
+
                     } else{
                         Toast.makeText(getActivity().getApplicationContext(), "Passwords do not match - try again", Toast.LENGTH_SHORT).show();
+                        loginMsg.setVisibility(View.VISIBLE);
+                        loginMsg.setText("Passwords do not match - try again!");
                     }
-                }
-
-                // check if password and confirm password as the same
+                }*/
 
                 mydb.close();
             }
@@ -135,23 +166,30 @@ public class LoginFragment extends Fragment {
                 String myPwd = passwordEt.getText().toString();
                 //Toast.makeText(getActivity().getApplicationContext(), "This does not work yet!", Toast.LENGTH_SHORT).show();
 
+                // get db
+                mydb = new Database(getActivity());
+
+                boolean loginTrue = mydb.checkPassword(myUsername, myPwd);
+
+                if(loginTrue){
+                    Toast.makeText(getActivity().getApplicationContext(), "Login authenticated - welcome " +myUsername, Toast.LENGTH_SHORT).show();
+                    loginMsg.setVisibility(View.VISIBLE);
+                    loginMsg.setText("Login authenticated");
+                    Intent intent = new Intent(getActivity(), MainActivity.class);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(getActivity().getApplicationContext(), "Login NOT authenticated - are you registered?", Toast.LENGTH_SHORT).show();
+                    loginMsg.setVisibility(View.VISIBLE);
+                    loginMsg.setText("Login NOT authenticated - are you registered?");
+                }
+
 
             }
         });
 
-
-
-
-
-        Toast.makeText(getActivity(), "This is the login fragment", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getActivity(), "This is the login fragment", Toast.LENGTH_SHORT).show();
     }
 
-    public void registerMode(){
 
-    }
-
-    public void loginMode(){
-
-    }
 
 }
