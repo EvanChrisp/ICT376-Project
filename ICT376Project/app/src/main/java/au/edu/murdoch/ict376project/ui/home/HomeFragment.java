@@ -182,7 +182,7 @@ public class HomeFragment extends Fragment
         // name of the entry in column no. (the one called "file") - as a String
         String mFile = res.getString(res.getColumnIndexOrThrow("file"));
         String mDefType = "drawable";
-        String mDefPackage = requireActivity().getPackageName();
+        String mDefPackage = getActivity().getPackageName();
 
         // resource id = getResources().getIdentifier(String name, String defType, String defPackage);
         int resId = getResources().getIdentifier(mFile, mDefType, mDefPackage);
