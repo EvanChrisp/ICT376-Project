@@ -23,11 +23,13 @@ public class PlatformActivity extends AppCompatActivity {
         setContentView(R.layout.activity_platform);
 
         Bundle extras = getIntent().getExtras();
+        assert extras != null;
         int platform = extras.getInt("platform", 0);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        assert getSupportActionBar() != null;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 

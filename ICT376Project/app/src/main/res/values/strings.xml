@@ -34,7 +34,8 @@
     <string name="latest_2">Latest 2</string>
     <string name="latest_3">Latest 3</string>
     <string name="latest_4">Latest 4</string>
-    <string name="latest_5">Latest 5</string>
     <string name="dealoldprice">dealoldprice</string>
     <string name="dealnewprice">dealnewprice</string>
+    <string name="priceOld">$%1$s</string>
+    <string name="priceNew">$%1$d</string>
 </resources>

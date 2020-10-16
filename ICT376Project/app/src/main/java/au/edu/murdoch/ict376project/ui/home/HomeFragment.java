@@ -17,100 +17,25 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentActivity;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
 import java.util.Random;
 
-import au.edu.murdoch.ict376project.CheckoutActivity;
 import au.edu.murdoch.ict376project.Database;
 import au.edu.murdoch.ict376project.DetailsActivity;
 import au.edu.murdoch.ict376project.PlatformActivity;
 import au.edu.murdoch.ict376project.R;
-import au.edu.murdoch.ict376project.ui.pc.PCFragment;
-import au.edu.murdoch.ict376project.ui.search.SearchFragment;
 
 public class HomeFragment extends Fragment
 {
 
     EditText searchBox;
-    ImageView PSIcon;
-    ImageView XboxIcon;
-    ImageView SwitchIcon;
-    ImageView PCIcon;
     Button searchButton;
     String str;
-    //private SearchViewModel homeViewModel;
-    private Database db;
-    ViewGroup myContainer;
     View root;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         root = inflater.inflate(R.layout.fragment_home, container, false);
-
-        int i = 1;
-        int[] ids = new int[5];
-        Random rand = new Random();
-        db = new Database(getActivity()); //get db
-        // loop through 5 deals
-        while(i <= 5)
-        {
-            int id = rand.nextInt(20 - 1 + 1) + 1;
-            if(duplicateDeal(id, ids))
-            {
-                continue;
-            }
-            ids[i - 1] = id;
-
-            // get cursor returned from db
-            final Cursor res = db.getProductById(id);
-
-            // String name is the id in the XML - type is "id" for i.d. , package = getActivity().getPackageName()
-            ImageView image = root.findViewById(getResources().getIdentifier("deal" + i, "id", getActivity().getPackageName()));
-            setDealImage(image, res);
-
-            TextView name = root.findViewById(getResources().getIdentifier("dealtext" + i, "id", getActivity().getPackageName()));
-            setDealName(name, res);
-
-            TextView priceOld = root.findViewById(getResources().getIdentifier("dealoldprice" + i, "id", getActivity().getPackageName()));
-            setDealOldPrice(priceOld, res);
-
-            TextView priceNew = root.findViewById(getResources().getIdentifier("dealnewprice" + i, "id", getActivity().getPackageName()));
-            setDealNewPrice(priceNew, res);
-
-            image.setOnClickListener(new View.OnClickListener()
-            {
-                public void onClick(View v)
-                {
-                    String mPrice = res.getString(res.getColumnIndexOrThrow("price"));
-                    double mPriceDouble = Integer.parseInt(mPrice) * 0.8;
-                    int mPriceInt = (int)mPriceDouble;
-
-                    String name =  res.getString(res.getColumnIndexOrThrow("name"));
-                    String description =  res.getString(res.getColumnIndexOrThrow("description"));
-                    String file =  res.getString(res.getColumnIndexOrThrow("file"));
-                    String status =  res.getString(res.getColumnIndexOrThrow("status"));
-                    String rating =  res.getString(res.getColumnIndexOrThrow("rating"));
-                    String platform =  res.getString(res.getColumnIndexOrThrow("platform"));
-                    String price =  Integer.toString(mPriceInt);
-                    int itemId =  res.getInt(res.getColumnIndexOrThrow("_id"));
-                    Intent intent = new Intent(getActivity(), DetailsActivity.class);
-                    intent.putExtra("name", name);
-                    intent.putExtra("description", description);
-                    intent.putExtra("file", file);
-                    intent.putExtra("status", status);
-                    intent.putExtra("rating", rating);
-                    intent.putExtra("platform", platform);
-                    intent.putExtra("price", price);
-                    intent.putExtra("_id", itemId);
-                    startActivity(intent);
-                }
-            });
-
-            i++;
-        }
 
         return root;
     }
@@ -122,6 +47,7 @@ public class HomeFragment extends Fragment
 
         searchItems();
         loopDeals();
+        loopLatest();
 
         ImageView pc = root.findViewById(R.id.imageViewPC);
         pc.setOnClickListener(new View.OnClickListener() {
@@ -129,7 +55,7 @@ public class HomeFragment extends Fragment
             public void onClick(View view) {
                 Bundle dataBundle = new Bundle();
                 dataBundle.putInt("platform", 1);
-                Intent intent = new Intent(getActivity().getApplicationContext(), PlatformActivity.class);
+                Intent intent = new Intent(requireActivity().getApplicationContext(), PlatformActivity.class);
                 intent.putExtras(dataBundle);
                 startActivity(intent);
             }
@@ -141,7 +67,7 @@ public class HomeFragment extends Fragment
             public void onClick(View view) {
                 Bundle dataBundle = new Bundle();
                 dataBundle.putInt("platform", 2);
-                Intent intent = new Intent(getActivity().getApplicationContext(), PlatformActivity.class);
+                Intent intent = new Intent(requireActivity().getApplicationContext(), PlatformActivity.class);
                 intent.putExtras(dataBundle);
                 startActivity(intent);
             }
@@ -153,7 +79,7 @@ public class HomeFragment extends Fragment
             public void onClick(View view) {
                 Bundle dataBundle = new Bundle();
                 dataBundle.putInt("platform", 3);
-                Intent intent = new Intent(getActivity().getApplicationContext(), PlatformActivity.class);
+                Intent intent = new Intent(requireActivity().getApplicationContext(), PlatformActivity.class);
                 intent.putExtras(dataBundle);
                 startActivity(intent);
             }
@@ -165,12 +91,11 @@ public class HomeFragment extends Fragment
             public void onClick(View view) {
                 Bundle dataBundle = new Bundle();
                 dataBundle.putInt("platform", 4);
-                Intent intent = new Intent(getActivity().getApplicationContext(), PlatformActivity.class);
+                Intent intent = new Intent(requireActivity().getApplicationContext(), PlatformActivity.class);
                 intent.putExtras(dataBundle);
                 startActivity(intent);
             }
         });
-
     }
 
     //check if game already exists in deals of the week
@@ -189,7 +114,7 @@ public class HomeFragment extends Fragment
         // name of the entry in column no. (the one called "file") - as a String
         String mFile = res.getString(res.getColumnIndexOrThrow("file"));
         String mDefType = "drawable";
-        String mDefPackage = getActivity().getPackageName();
+        String mDefPackage = requireActivity().getPackageName();
 
         // resource id = getResources().getIdentifier(String name, String defType, String defPackage);
         int resId = getResources().getIdentifier(mFile, mDefType, mDefPackage);
@@ -206,7 +131,7 @@ public class HomeFragment extends Fragment
     private void setDealOldPrice(TextView view, Cursor res)
     {
         String mPrice = res.getString(res.getColumnIndexOrThrow("price"));
-        view.setText("$" + mPrice);
+        view.setText(getString(R.string.priceOld, mPrice));
         view.setPaintFlags(view.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
     }
 
@@ -214,7 +139,7 @@ public class HomeFragment extends Fragment
     {
         String mPrice = res.getString(res.getColumnIndexOrThrow("price"));
         double price = Integer.parseInt(mPrice) * 0.8;
-        view.setText("$" + (int)price);
+        view.setText(getString(R.string.priceNew, (int)price));
     }
 
     private void loopDeals()
@@ -222,7 +147,9 @@ public class HomeFragment extends Fragment
         int i = 1;
         int[] ids = new int[5];
         Random rand = new Random();
-        db = new Database(getActivity()); //get db
+        //private SearchViewModel homeViewModel;
+        Database db = new Database(getActivity()); //get db
+
         // loop through 5 deals
         while(i <= 5)
         {
@@ -237,16 +164,16 @@ public class HomeFragment extends Fragment
             final Cursor res = db.getProductById(id);
 
             // String name is the id in the XML - type is "id" for i.d. , package = getActivity().getPackageName()
-            ImageView image = getActivity().findViewById(getResources().getIdentifier("deal" + i, "id", getActivity().getPackageName()));
+            ImageView image = requireActivity().findViewById(getResources().getIdentifier("deal" + i, "id", requireActivity().getPackageName()));
             setDealImage(image, res);
 
-            TextView name = getActivity().findViewById(getResources().getIdentifier("dealtext" + i, "id", getActivity().getPackageName()));
+            TextView name = requireActivity().findViewById(getResources().getIdentifier("dealtext" + i, "id", requireActivity().getPackageName()));
             setDealName(name, res);
 
-            TextView priceOld = getActivity().findViewById(getResources().getIdentifier("dealoldprice" + i, "id", getActivity().getPackageName()));
+            TextView priceOld = requireActivity().findViewById(getResources().getIdentifier("dealoldprice" + i, "id", requireActivity().getPackageName()));
             setDealOldPrice(priceOld, res);
 
-            TextView priceNew = getActivity().findViewById(getResources().getIdentifier("dealnewprice" + i, "id", getActivity().getPackageName()));
+            TextView priceNew = requireActivity().findViewById(getResources().getIdentifier("dealnewprice" + i, "id", requireActivity().getPackageName()));
             setDealNewPrice(priceNew, res);
 
             image.setOnClickListener(new View.OnClickListener()
@@ -280,13 +207,63 @@ public class HomeFragment extends Fragment
 
             i++;
         }
+    }
 
+    private void loopLatest()
+    {
+        int i = 1;
+        Database db = new Database(getActivity()); //get db
+        int j = 10;
 
+        while(i <= 4)
+        {
+            // get cursor returned from db
+            final Cursor res = db.getProductById(j);
+
+            // String name is the id in the XML - type is "id" for i.d. , package = getActivity().getPackageName()
+            ImageView image = requireActivity().findViewById(getResources().getIdentifier("latest" + i, "id", requireActivity().getPackageName()));
+            setDealImage(image, res);
+
+            TextView name = requireActivity().findViewById(getResources().getIdentifier("latesttext" + i, "id", requireActivity().getPackageName()));
+            setDealName(name, res);
+
+            image.setOnClickListener(new View.OnClickListener()
+            {
+                public void onClick(View v)
+                {
+                    String mPrice = res.getString(res.getColumnIndexOrThrow("price"));
+                    double mPriceDouble = Integer.parseInt(mPrice) * 0.8;
+                    int mPriceInt = (int)mPriceDouble;
+
+                    String name =  res.getString(res.getColumnIndexOrThrow("name"));
+                    String description =  res.getString(res.getColumnIndexOrThrow("description"));
+                    String file =  res.getString(res.getColumnIndexOrThrow("file"));
+                    String status =  res.getString(res.getColumnIndexOrThrow("status"));
+                    String rating =  res.getString(res.getColumnIndexOrThrow("rating"));
+                    String platform =  res.getString(res.getColumnIndexOrThrow("platform"));
+                    String price =  Integer.toString(mPriceInt);
+                    int itemId =  res.getInt(res.getColumnIndexOrThrow("_id"));
+                    Intent intent = new Intent(getActivity(), DetailsActivity.class);
+                    intent.putExtra("name", name);
+                    intent.putExtra("description", description);
+                    intent.putExtra("file", file);
+                    intent.putExtra("status", status);
+                    intent.putExtra("rating", rating);
+                    intent.putExtra("platform", platform);
+                    intent.putExtra("price", price);
+                    intent.putExtra("_id", itemId);
+                    startActivity(intent);
+                }
+            });
+
+            i++;
+            j+=10;
+        }
     }
 
     private void searchItems() {
         // int view
-        searchBox = getActivity().findViewById(R.id.editTextTextPersonName2);
+        searchBox = requireActivity().findViewById(R.id.search);
         // set the listener for the searchBox
         searchBox.addTextChangedListener(new TextWatcher() {
             @Override
@@ -305,7 +282,7 @@ public class HomeFragment extends Fragment
             }
         });
 
-        searchButton = getActivity().findViewById(R.id.HomeSearchButton);
+        searchButton = requireActivity().findViewById(R.id.button11);
 
         // use str from afterTextChanged()
         str = searchBox.getText().toString();
@@ -319,10 +296,4 @@ public class HomeFragment extends Fragment
             }
         });
     }
-
-    private void testToast(){
-        Toast.makeText(getActivity().getApplicationContext(),"Test toast in onActivity", Toast.LENGTH_SHORT).show();
-    }
-
-
 }

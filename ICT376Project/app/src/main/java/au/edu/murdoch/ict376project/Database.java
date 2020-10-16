@@ -179,7 +179,8 @@ public class Database extends SQLiteOpenHelper
 
         Cursor cursor = db.rawQuery("select * from customers where username = ? and password = ?", new String[]{username, password});
 
-        if(cursor.getCount()>0){
+        if(cursor.getCount()>0)
+        {
             /*ContentValues contentValues = new ContentValues();
             contentValues.put(CUSTOMER_IS_LOGGED_IN, 1);*/
             return true;
@@ -240,12 +241,13 @@ public class Database extends SQLiteOpenHelper
         // id changed to _id in where clause -> causes errors with cursorAdapters
         Cursor res = db.rawQuery("select * from customers where username = " + username, null);
 
-        if (res.getCount() > 0 && res != null)
+        if (res.getCount() > 0)
         {
             res.moveToFirst();
         }
 
         int id = res.getInt(res.getColumnIndexOrThrow("username"));
+        res.close();
 
         return id;
     }
@@ -459,11 +461,12 @@ public class Database extends SQLiteOpenHelper
         if (res.getCount() >0){
             res.moveToFirst();
 
-            while(res.isAfterLast()== false){
+            while(!res.isAfterLast()){
                 array_list.add(new Pair (res.getInt(res.getColumnIndex(PRODUCT_ID)),res.getString(res.getColumnIndex(PRODUCT_NAME))));
                 res.moveToNext();
             }
         }
+        res.close();
         return array_list;
     }
 
@@ -476,11 +479,12 @@ public class Database extends SQLiteOpenHelper
         if (res.getCount() >0){
             res.moveToFirst();
 
-            while(res.isAfterLast()== false){
+            while(!res.isAfterLast()){
                 array_list.add(new Pair (res.getInt(res.getColumnIndex(PRODUCT_ID)),res.getString(res.getColumnIndex(PRODUCT_NAME))));
                 res.moveToNext();
             }
         }
+        res.close();
         return array_list;
     }
 
@@ -493,11 +497,12 @@ public class Database extends SQLiteOpenHelper
         if (res.getCount() >0){
             res.moveToFirst();
 
-            while(res.isAfterLast()== false){
+            while(!res.isAfterLast()){
                 array_list.add(new Pair (res.getInt(res.getColumnIndex(PRODUCT_ID)),res.getString(res.getColumnIndex(PRODUCT_NAME))));
                 res.moveToNext();
             }
         }
+        res.close();
         return array_list;
     }
 
@@ -510,11 +515,12 @@ public class Database extends SQLiteOpenHelper
         if (res.getCount() >0){
             res.moveToFirst();
 
-            while(res.isAfterLast()== false){
+            while(!res.isAfterLast()){
                 array_list.add(new Pair (res.getInt(res.getColumnIndex(PRODUCT_ID)),res.getString(res.getColumnIndex(PRODUCT_NAME))));
                 res.moveToNext();
             }
         }
+        res.close();
         return array_list;
     }
 
@@ -527,11 +533,12 @@ public class Database extends SQLiteOpenHelper
         if (res.getCount() >0){
             res.moveToFirst();
 
-            while(res.isAfterLast()== false){
+            while(!res.isAfterLast()){
                 array_list.add(new Pair (res.getInt(res.getColumnIndex(PRODUCT_ID)),res.getString(res.getColumnIndex(PRODUCT_NAME))));
                 res.moveToNext();
             }
         }
+        res.close();
         return array_list;
     }
 
