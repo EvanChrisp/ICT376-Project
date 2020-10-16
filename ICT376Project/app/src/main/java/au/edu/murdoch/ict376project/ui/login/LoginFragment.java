@@ -33,13 +33,11 @@ public class LoginFragment extends Fragment {
 
     // model class
     private LoginViewModel loginViewModel;
+
+    // views
     View mLayoutView;
-    EditText username;
-    EditText password;
-    EditText rePassword;
-    Button loginButton;
-    Button registerButton;
-    Button clickToRegisterButton;
+    EditText usernameEt, passwordEt, rePasswordEt;
+    Button loginButton, registerButton, clickToRegisterButton;
 
 
     // Database
@@ -74,7 +72,9 @@ public class LoginFragment extends Fragment {
 
         super.onActivityCreated(savedInstanceState);
 
-        rePassword = (EditText)mLayoutView.findViewById(R.id.rePasswordEt);
+        usernameEt = (EditText)mLayoutView.findViewById(R.id.usernameEt);
+        passwordEt = (EditText)mLayoutView.findViewById(R.id.passwordEt);
+        rePasswordEt = (EditText)mLayoutView.findViewById(R.id.rePasswordEt);
         clickToRegisterButton = (Button)mLayoutView.findViewById(R.id.clickToRegisterUserPwdButton);
         loginButton = (Button)mLayoutView.findViewById(R.id.loginButton);
 
@@ -86,7 +86,7 @@ public class LoginFragment extends Fragment {
             public void onClick(View view) {
                 // clicking the "click to register button"
                 // will make the confirm pwd box visible and
-                rePassword.setVisibility(View.VISIBLE);
+                rePasswordEt.setVisibility(View.VISIBLE);
                 // set the register button to visible
                 registerButton.setVisibility(View.VISIBLE);
                 // which then makes the click to register button not needed and this invisible
@@ -98,7 +98,32 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 // clicking the "register" button does nothing but give a toast msg indicating that this is mainly working. No db hoolup yet.
-                Toast.makeText(getActivity().getApplicationContext(), "Thanks for registering!", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity().getApplicationContext(), "Thanks for registering!", Toast.LENGTH_SHORT).show();
+                String myUsername = usernameEt.getText().toString();
+                String myPwd = passwordEt.getText().toString();
+                String myPwd2 = rePasswordEt.getText().toString();
+
+                //Toast.makeText(getActivity().getApplicationContext(), "This does not work yet!", Toast.LENGTH_SHORT).show();
+
+                // get db
+                mydb = new Database(getActivity());
+
+                Boolean isTaken = mydb.checkName(myUsername,myPwd);
+
+                if(isTaken){
+                    Toast.makeText(getActivity().getApplicationContext(), "That username is taken", Toast.LENGTH_SHORT).show();
+                }else{
+                    if(mydb.insertUserPwd(myUsername, myPwd) && myPwd.equals(myPwd2)){
+
+                        Toast.makeText(getActivity().getApplicationContext(), "Thank you for registering", Toast.LENGTH_SHORT).show();
+                    } else{
+                        Toast.makeText(getActivity().getApplicationContext(), "Passwords do not match - try again", Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                // check if password and confirm password as the same
+
+                mydb.close();
             }
         });
 
@@ -106,7 +131,11 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 // clicking the "login" button does nothing but give a toast msg indicating that the user needs to enter the correct details
-                Toast.makeText(getActivity().getApplicationContext(), "This does not work yet!", Toast.LENGTH_SHORT).show();
+                String myUsername = usernameEt.getText().toString();
+                String myPwd = passwordEt.getText().toString();
+                //Toast.makeText(getActivity().getApplicationContext(), "This does not work yet!", Toast.LENGTH_SHORT).show();
+
+
             }
         });
 

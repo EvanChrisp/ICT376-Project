@@ -31,8 +31,9 @@ public class Database extends SQLiteOpenHelper
     public static final String CUSTOMER_PHONE = "phone";
     public static final String CUSTOMER_EMAIL = "email";
     public static final String CUSTOMER_ADDRESS = "address";
+    public static final String CUSTOMER_USERNAME = "username";
     public static final String CUSTOMER_PASSWORD = "password";
-    // public static final String CUSTOMER_IS_LOGGED_IN = "loggedin";
+    public static final String CUSTOMER_IS_LOGGED_IN = "loggedin";
 
     // product table
     public static final String PRODUCT_TABLE = "products";
@@ -68,8 +69,10 @@ public class Database extends SQLiteOpenHelper
                 CUSTOMER_LASTNAME + " text, " +
                 CUSTOMER_PHONE+ " text, " +
                 CUSTOMER_EMAIL + " text, " +
+                CUSTOMER_USERNAME + " text," +
                 CUSTOMER_PASSWORD + " text," +
-                CUSTOMER_ADDRESS + " text)");
+                CUSTOMER_ADDRESS + " text," +
+                CUSTOMER_IS_LOGGED_IN + " integer)");
         // need to add in either
         // CUSTOMER_LOGGED_IN + " text, " +
         // OR
@@ -95,7 +98,26 @@ public class Database extends SQLiteOpenHelper
         onCreate(db);
     }
 
-    public void addUserDetails(int pId, String pName, int pPrice, String pFile, String pDescription, String pRating, String pPlatform, String pStatus) {
+    public void addAllUserDetails(int cId, String cFname, String cLname, String cPhone, String cEmail, String cUsername, String cPassword, String cAddress, int cLoggedin) {
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(CUSTOMER_ID, cId);
+        contentValues.put(CUSTOMER_FIRSTNAME, cFname);
+        contentValues.put(CUSTOMER_LASTNAME, cLname);
+        contentValues.put(CUSTOMER_PHONE, cPhone);
+        contentValues.put(CUSTOMER_EMAIL, cEmail);
+        contentValues.put(CUSTOMER_USERNAME, cUsername);
+        contentValues.put(CUSTOMER_PASSWORD, cPassword);
+        contentValues.put(CUSTOMER_ADDRESS, cAddress);
+        contentValues.put(CUSTOMER_IS_LOGGED_IN, cLoggedin);
+
+        db.insert(CUSTOMER_TABLE, null, contentValues);
+        //return true;
+    }
+
+    /*public void addUserDetails(int pId, String pName, int pPrice, String pFile, String pDescription, String pRating, String pPlatform, String pStatus) {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -111,6 +133,48 @@ public class Database extends SQLiteOpenHelper
 
         db.insert(PRODUCT_TABLE, null, contentValues);
         //return true;
+    }*/
+
+    public Boolean insertUserPwd(String username, String password){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(CUSTOMER_USERNAME, username);
+        contentValues.put(CUSTOMER_PASSWORD, password);
+
+        db.insert(CUSTOMER_TABLE, null, contentValues);
+
+        return true;
+
+    }
+
+    // does username already exist?
+    public Boolean checkName(String username, String password){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery("select * from customers where username = ?", new String[]{username});
+
+        if(cursor.getCount()>0){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    public Boolean checkPassword(String username, String password){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        Cursor cursor = db.rawQuery("select * from customers where username = ? and password = ?", new String[]{username, password});
+
+        if(cursor.getCount()>0){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
 
