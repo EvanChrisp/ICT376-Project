@@ -34,7 +34,6 @@
     <ListView
         android:id="@+id/playstationProductListView"
         android:layout_width="match_parent"
-        android:layout_height="386dp"
-        android:drawSelectorOnTop="false"
-        />
+        android:layout_height="wrap_content"
+        android:drawSelectorOnTop="false" />
 </LinearLayout>

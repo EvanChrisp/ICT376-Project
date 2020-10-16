@@ -3,71 +3,35 @@ package au.edu.murdoch.ict376project.ui.nintendo;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+
 import au.edu.murdoch.ict376project.Database;
 import au.edu.murdoch.ict376project.DetailsActivity;
 import au.edu.murdoch.ict376project.R;
-import au.edu.murdoch.ict376project.ui.pc.PCFragment;
 
-public class NintendoFragment extends Fragment {
-
-    // model class
-    private NintendoViewModel nintendoViewModel;
-    // listview variable
-    private ListView obj;
-
-    private ListView listView;
+public class NintendoFragment extends Fragment
+{
     // layout view for onCreateView
     View mLayoutView;
 
-    private Database dbHelper;
-
-    // Database
-    Database mydb = null;
-    ArrayList mArrayList;  // the list of all products
-
-    public static NintendoFragment newInstance(){
-
-        NintendoFragment ninf = new NintendoFragment();
-        return ninf;
+    public static NintendoFragment newInstance()
+    {
+        return new NintendoFragment();
     }
 
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        // data comes from the nintendoViewModel class
-        nintendoViewModel = ViewModelProviders.of(this).get(NintendoViewModel.class);
-
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
         // declare view -> inflate (this fragment, into this container, false);
         mLayoutView = inflater.inflate(R.layout.fragment_nintendo, container, false);
-
-        // textView = resource
-        final TextView textView = mLayoutView.findViewById(R.id.text_nintendo);
-
-        // use the nintendoViewModel to set the text to String s
-        nintendoViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
 
         // now return the view
         return mLayoutView;
@@ -86,7 +50,7 @@ public class NintendoFragment extends Fragment {
     private void displayListView(){
 
         // get database
-        dbHelper = new Database(getActivity());
+        Database dbHelper = new Database(getActivity());
 
         // cursor = return from db function
         Cursor cursor = dbHelper.getCursorProducts("Nintendo");
@@ -110,7 +74,7 @@ public class NintendoFragment extends Fragment {
                     int resId = getResources().getIdentifier(
                             cursor.getString(cursor.getColumnIndex("file")),
                             "drawable",
-                            getActivity().getPackageName());
+                            requireActivity().getPackageName());
                     simpleImageView.setImageResource(resId);
                     return true;
                 } else {
@@ -120,7 +84,7 @@ public class NintendoFragment extends Fragment {
         });
 
         // listview - uses the mLayoutView as it is a fragment and not an activity -> listview is displayed in nintendoProductListview container
-        listView = (ListView)mLayoutView.findViewById(R.id.nintendoProductListView);
+        ListView listView = mLayoutView.findViewById(R.id.nintendoProductListView);
 
         // listview cannot be null as the db is pre-filled
         assert listView != null;
@@ -154,36 +118,5 @@ public class NintendoFragment extends Fragment {
                 startActivity(intent);
             }
         });
-    }
-
-    private void displayProducts() {
-
-        if(mydb == null){
-            // get db
-            mydb = new Database(getActivity());
-
-            // mydb.getNintendoProductList(); returns an arraylist
-            mArrayList = mydb.getNintendoProductList();
-
-            // used to store just the names - NOT the id....
-            ArrayList<String> array_list = new  ArrayList<String>();
-
-            // loop through the returned arraylist from the db
-            for (int i=0; i<mArrayList.size(); i++){
-                // there are 2 elements for each row being returned - place each row into Pair p
-                Pair<Integer, String> p = (Pair<Integer, String>)mArrayList.get(i);
-                // array_list can add a string only -> so add in the second of the pair entries - ie, (Pair<Integer, String>)
-                array_list.add(p.second);
-            }
-            // need an adapter to populate the list view = new ArrayAdapter(if inside fragment call getActivity() otherwise "this", layout file for listview (built-in simple_list_item_1), from this "data")
-            ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, array_list);
-
-            // Display the products in the ListView object
-            obj = (ListView)mLayoutView.findViewById(R.id.nintendoProductListView);
-            obj.setAdapter(arrayAdapter);
-
-            //Toast.makeText(getActivity(), something, Toast.LENGTH_SHORT).show();
-
-        }
     }
 }

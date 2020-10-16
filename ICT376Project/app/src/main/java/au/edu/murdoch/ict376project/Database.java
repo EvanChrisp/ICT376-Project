@@ -365,7 +365,7 @@ public class Database extends SQLiteOpenHelper
         addProduct(32, "Command and Conquer Red Alert 3", 30, "c_and_c_red_alert_3", "Wacky Strategy Game", "15 years+", "PC", "0");
         addProduct(33, "Among Us", 5, "among_us", "Social Deception game with friends", "15 years+", "PC", "0");
         addProduct(34, "Dark Souls 3", 44, "dark_souls_3_pc", "Final Game of Dark Souls Trilogy", "15 years+", "PC", "0");
-        addProduct(35, "Rainbow Six Siege", 30, "rainbow_six_siege_PC", "Team Based Shooter", "15 years+", "PC", "0");
+        addProduct(35, "Rainbow Six Siege", 30, "rainbow_six_siege", "Team Based Shooter", "15 years+", "PC", "0");
         addProduct(36, "The Witcher 3", 49, "witcher3_pc", "Third episode of the Witcher", "15 years+", "PC", "0");
         addProduct(37, "Call of Duty", 49, "call_of_duty", "First Person Shooter", "15 years+", "PC", "0");
         addProduct(38, "MS Flight Simulator", 99, "ms_flight_sim", "Flight simulator", "All ages", "PC", "0");

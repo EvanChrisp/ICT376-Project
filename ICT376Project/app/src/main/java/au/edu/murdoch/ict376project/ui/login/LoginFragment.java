@@ -1,23 +1,14 @@
 package au.edu.murdoch.ict376project.ui.login;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -27,10 +18,8 @@ import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import au.edu.murdoch.ict376project.Database;
-import au.edu.murdoch.ict376project.DetailsActivity;
 import au.edu.murdoch.ict376project.MainActivity;
 import au.edu.murdoch.ict376project.R;
-import au.edu.murdoch.ict376project.ui.nintendo.NintendoViewModel;
 
 public class LoginFragment extends Fragment {
 

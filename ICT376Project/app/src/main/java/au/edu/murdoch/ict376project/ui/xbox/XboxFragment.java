@@ -3,63 +3,34 @@ package au.edu.murdoch.ict376project.ui.xbox;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
-import android.widget.TextView;
-
-import java.util.ArrayList;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+
 import au.edu.murdoch.ict376project.Database;
 import au.edu.murdoch.ict376project.DetailsActivity;
 import au.edu.murdoch.ict376project.R;
-import au.edu.murdoch.ict376project.ui.pc.PCFragment;
 
 
-public class XboxFragment extends Fragment {
-
-    private XboxViewModel xboxViewModel;
-    private ListView obj;
+public class XboxFragment extends Fragment
+{
     View mLayoutView;
-    private Database dbHelper;
-    private ListView listView;
-
-
-    // Database
-    Database mydb = null;
-    ArrayList mArrayList;  // the list of all products
 
     public static XboxFragment newInstance(){
 
-        XboxFragment xbf = new XboxFragment();
-        return xbf;
+        return new XboxFragment();
     }
 
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        xboxViewModel = ViewModelProviders.of(this).get(XboxViewModel.class);
-
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
         mLayoutView = inflater.inflate(R.layout.fragment_xbox, container, false);
-
-        final TextView textView = mLayoutView.findViewById(R.id.text_xbox);
-
-        xboxViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
 
         return mLayoutView;
     }
@@ -77,7 +48,7 @@ public class XboxFragment extends Fragment {
     private void displayListView(){
 
         // get database
-        dbHelper = new Database(getActivity());
+        Database dbHelper = new Database(getActivity());
 
         // cursor = return from db function
         Cursor cursor = dbHelper.getCursorProducts("Xbox");
@@ -101,7 +72,7 @@ public class XboxFragment extends Fragment {
                     int resId = getResources().getIdentifier(
                             cursor.getString(cursor.getColumnIndex("file")),
                             "drawable",
-                            getActivity().getPackageName());
+                            requireActivity().getPackageName());
                     simpleImageView.setImageResource(resId);
                     return true;
                 } else {
@@ -111,7 +82,7 @@ public class XboxFragment extends Fragment {
         });
 
         // listview - uses the mLayoutView as it is a fragment and not an activity -> listview is displayed in nintendoProductListview container
-        listView = (ListView)mLayoutView.findViewById(R.id.xboxProductListView);
+        ListView listView = mLayoutView.findViewById(R.id.xboxProductListView);
 
         // listview cannot be null as the db is pre-filled
         assert listView != null;
@@ -145,34 +116,5 @@ public class XboxFragment extends Fragment {
                 startActivity(intent);
             }
         });
-    }
-
-    private void displayProducts() {
-
-        if (mydb == null) {
-            mydb = new Database(getActivity());
-
-            //mArrayList = mydb.getProductList();
-            mArrayList = mydb.getXboxProductList();
-
-            ArrayList<String> array_list = new ArrayList<String>();
-
-            //String something = "";
-
-            for (int i = 0; i < mArrayList.size(); i++) {
-                Pair<Integer, String> p = (Pair<Integer, String>) mArrayList.get(i);
-                array_list.add(p.second);
-                //something = p.second;
-            }
-            // Put all the contacts in an array
-            ArrayAdapter arrayAdapter = new ArrayAdapter(getActivity(), android.R.layout.simple_list_item_1, array_list);
-
-            // Display the products in the ListView object
-            obj = (ListView) mLayoutView.findViewById(R.id.xboxProductListView);
-            obj.setAdapter(arrayAdapter);
-
-            //Toast.makeText(getActivity(), something, Toast.LENGTH_SHORT).show();
-
-        }
     }
 }

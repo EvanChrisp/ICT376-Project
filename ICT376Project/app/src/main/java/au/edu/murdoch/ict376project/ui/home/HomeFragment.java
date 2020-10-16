@@ -27,7 +27,6 @@ import au.edu.murdoch.ict376project.R;
 
 public class HomeFragment extends Fragment
 {
-
     EditText searchBox;
     Button searchButton;
     String str;
@@ -231,17 +230,13 @@ public class HomeFragment extends Fragment
             {
                 public void onClick(View v)
                 {
-                    String mPrice = res.getString(res.getColumnIndexOrThrow("price"));
-                    double mPriceDouble = Integer.parseInt(mPrice) * 0.8;
-                    int mPriceInt = (int)mPriceDouble;
-
                     String name =  res.getString(res.getColumnIndexOrThrow("name"));
                     String description =  res.getString(res.getColumnIndexOrThrow("description"));
                     String file =  res.getString(res.getColumnIndexOrThrow("file"));
                     String status =  res.getString(res.getColumnIndexOrThrow("status"));
                     String rating =  res.getString(res.getColumnIndexOrThrow("rating"));
                     String platform =  res.getString(res.getColumnIndexOrThrow("platform"));
-                    String price =  Integer.toString(mPriceInt);
+                    String price = res.getString(res.getColumnIndexOrThrow("price"));
                     int itemId =  res.getInt(res.getColumnIndexOrThrow("_id"));
                     Intent intent = new Intent(getActivity(), DetailsActivity.class);
                     intent.putExtra("name", name);
