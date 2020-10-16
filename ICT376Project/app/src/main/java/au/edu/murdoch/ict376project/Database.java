@@ -135,6 +135,17 @@ public class Database extends SQLiteOpenHelper
         //return true;
     }*/
 
+    public Boolean updateLogStatus(int id, int status){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(CUSTOMER_IS_LOGGED_IN, status);
+
+        db.update(CUSTOMER_TABLE, contentValues, "loggedin= ? ", new String[]{Integer.toString(id)});
+
+        return true;
+    }
+
     public Boolean insertUserPwd(String username, String password){
 
         SQLiteDatabase db = this.getWritableDatabase();
@@ -145,7 +156,6 @@ public class Database extends SQLiteOpenHelper
         db.insert(CUSTOMER_TABLE, null, contentValues);
 
         return true;
-
     }
 
     // does username already exist?
@@ -170,12 +180,89 @@ public class Database extends SQLiteOpenHelper
         Cursor cursor = db.rawQuery("select * from customers where username = ? and password = ?", new String[]{username, password});
 
         if(cursor.getCount()>0){
+            /*ContentValues contentValues = new ContentValues();
+            contentValues.put(CUSTOMER_IS_LOGGED_IN, 1);*/
             return true;
         }
         else{
             return false;
         }
     }
+
+    /*// try this.....
+    public int logIn (String username, String password){
+        // get db
+        int userId;
+        SQLiteDatabase db = this.getWritableDatabase();
+        //get cursor for customer where username and password entered match the db
+        Cursor cursor = db.rawQuery("select * from customers where username = ? and password = ?", new String[]{username, password});
+        // if there is more than zero responses.
+        if(cursor.getCount()>0 && cursor != null){
+            cursor.moveToFirst();
+            // get int value of user id
+            userId = cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
+            // create new content values
+            ContentValues contentValues = new ContentValues();
+            // put data (1) into column CUSTOMER_IS_LOGGED_IN
+            contentValues.put(CUSTOMER_IS_LOGGED_IN, 1);
+
+            // adding means updating database table ->
+            db.update(CUSTOMER_TABLE, contentValues, "_id= ? ", new String[]{Integer.toString(userId)});
+            // after entry remember to close the database -> memory leaks
+            db.close();
+        }
+        else{
+            return 0;
+        }
+
+        return userId;
+    }*/
+
+    /*public Boolean logOut(Integer id){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+        contentValues.put(CUSTOMER_IS_LOGGED_IN, 0);
+
+        // adding means updating database table ->
+        db.update(CUSTOMER_TABLE, contentValues, "_id= ? ", new String[]{Integer.toString(id)});
+        // after entry remember to close the database -> memory leaks
+        db.close();
+
+        return true;
+
+    }*/
+
+    public int getUserById(String username)
+    {
+        SQLiteDatabase db = this.getReadableDatabase();
+        // id changed to _id in where clause -> causes errors with cursorAdapters
+        Cursor res = db.rawQuery("select * from customers where username = " + username, null);
+
+        if (res.getCount() > 0 && res != null)
+        {
+            res.moveToFirst();
+        }
+
+        int id = res.getInt(res.getColumnIndexOrThrow("username"));
+
+        return id;
+    }
+
+    /*public Cursor getLoggedInUserById()
+    {
+        int i = 1;
+        SQLiteDatabase db = this.getReadableDatabase();
+        // id changed to _id in where clause -> causes errors with cursorAdapters
+        Cursor res = db.rawQuery("select * from customers where loggedin = " + i, null);
+
+        if (res.getCount() > 0 && res != null)
+        {
+            res.moveToFirst();
+        }
+        return res;
+    }*/
 
 
     public void addProduct(int pId, String pName, int pPrice, String pFile, String pDescription, String pRating, String pPlatform, String pStatus) {
