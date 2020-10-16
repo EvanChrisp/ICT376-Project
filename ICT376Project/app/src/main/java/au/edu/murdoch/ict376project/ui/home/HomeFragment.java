@@ -32,12 +32,14 @@ public class HomeFragment extends Fragment
     String str;
     View root;
     private Database db;
+    ImageView image;
+    TextView name, priceOld, priceNew;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         root = inflater.inflate(R.layout.fragment_home, container, false);
 
-        int i = 1;
+        /*int i = 1;
         int[] ids = new int[5];
         Random rand = new Random();
         db = new Database(getActivity()); //get db
@@ -55,16 +57,16 @@ public class HomeFragment extends Fragment
             final Cursor res = db.getProductById(id);
 
             // String name is the id in the XML - type is "id" for i.d. , package = getActivity().getPackageName()
-            ImageView image = root.findViewById(getResources().getIdentifier("deal" + i, "id", getActivity().getPackageName()));
+            image = root.findViewById(getResources().getIdentifier("deal" + i, "id", getActivity().getPackageName()));
             setDealImage(image, res);
 
-            TextView name = root.findViewById(getResources().getIdentifier("dealtext" + i, "id", getActivity().getPackageName()));
+            name = root.findViewById(getResources().getIdentifier("dealtext" + i, "id", getActivity().getPackageName()));
             setDealName(name, res);
 
-            TextView priceOld = root.findViewById(getResources().getIdentifier("dealoldprice" + i, "id", getActivity().getPackageName()));
+            priceOld = root.findViewById(getResources().getIdentifier("dealoldprice" + i, "id", getActivity().getPackageName()));
             setDealOldPrice(priceOld, res);
 
-            TextView priceNew = root.findViewById(getResources().getIdentifier("dealnewprice" + i, "id", getActivity().getPackageName()));
+            priceNew = root.findViewById(getResources().getIdentifier("dealnewprice" + i, "id", getActivity().getPackageName()));
             setDealNewPrice(priceNew, res);
 
             image.setOnClickListener(new View.OnClickListener()
@@ -97,8 +99,9 @@ public class HomeFragment extends Fragment
             });
 
             i++;
-        }
+        }*/
 
+        loopDeals();
         loopLatest();
         searchItems();
 
@@ -207,14 +210,11 @@ public class HomeFragment extends Fragment
         view.setText(getString(R.string.priceNew, (int)price));
     }
 
-    private void loopDeals()
-    {
+    private void loopDeals() {
         int i = 1;
         int[] ids = new int[5];
         Random rand = new Random();
-        //private SearchViewModel homeViewModel;
-        Database db = new Database(getActivity()); //get db
-
+        db = new Database(getActivity()); //get db
         // loop through 5 deals
         while(i <= 5)
         {
@@ -229,16 +229,16 @@ public class HomeFragment extends Fragment
             final Cursor res = db.getProductById(id);
 
             // String name is the id in the XML - type is "id" for i.d. , package = getActivity().getPackageName()
-            ImageView image = root.findViewById(getResources().getIdentifier("deal" + i, "id", requireActivity().getPackageName()));
+            image = root.findViewById(getResources().getIdentifier("deal" + i, "id", getActivity().getPackageName()));
             setDealImage(image, res);
 
-            TextView name = root.findViewById(getResources().getIdentifier("dealtext" + i, "id", requireActivity().getPackageName()));
+            name = root.findViewById(getResources().getIdentifier("dealtext" + i, "id", getActivity().getPackageName()));
             setDealName(name, res);
 
-            TextView priceOld = root.findViewById(getResources().getIdentifier("dealoldprice" + i, "id", requireActivity().getPackageName()));
+            priceOld = root.findViewById(getResources().getIdentifier("dealoldprice" + i, "id", getActivity().getPackageName()));
             setDealOldPrice(priceOld, res);
 
-            TextView priceNew = root.findViewById(getResources().getIdentifier("dealnewprice" + i, "id", requireActivity().getPackageName()));
+            priceNew = root.findViewById(getResources().getIdentifier("dealnewprice" + i, "id", getActivity().getPackageName()));
             setDealNewPrice(priceNew, res);
 
             image.setOnClickListener(new View.OnClickListener()
