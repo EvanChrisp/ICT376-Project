@@ -34,7 +34,7 @@ public class LoginFragment extends Fragment {
     View mLayoutView;
     EditText usernameEt, passwordEt, rePasswordEt;
     Button loginButton, logoutButton, registerButton, clickToRegisterButton;
-    TextView loginMsg;
+    TextView loginMsg, loginStatus;
     String storedUserName;
 
 
@@ -61,6 +61,25 @@ public class LoginFragment extends Fragment {
             }
         });
 
+        loginStatus = mLayoutView.findViewById(R.id.loginStatus);
+
+        // 1. get instance of shared preferences (prefs is the private pref file that stores the values put into in (below....)
+        SharedPreferences userDetails = getActivity().getSharedPreferences("prefs", MODE_PRIVATE);
+
+        // 2. String name
+        String storedUserName;
+
+        // 3. init with value from shared prefs - if username in the userDetails object is NOT null
+        if(userDetails.getString("username","")!= null){
+            storedUserName = userDetails.getString("username", "");
+
+            if(storedUserName.equals("")){
+                loginStatus.setText("You are logged in anonymously");
+            }else{
+                loginStatus.setText("You are currently logged in as " +storedUserName);
+            }
+        }
+
         // now return the view
         return mLayoutView;
     }
@@ -79,6 +98,7 @@ public class LoginFragment extends Fragment {
         loginButton = (Button)mLayoutView.findViewById(R.id.loginButton);
         loginMsg = (TextView)mLayoutView.findViewById(R.id.loginMsg);
         logoutButton = (Button)mLayoutView.findViewById(R.id.logoutButton);
+
 
         registerButton = (Button)mLayoutView.findViewById(R.id.registerUserPwdButton);
 
@@ -179,7 +199,7 @@ public class LoginFragment extends Fragment {
 
                         storedUserName = userDetails.getString("username", "");
 
-                        Toast.makeText(getActivity().getApplicationContext(), "Login authenticated - welcome (from shared preferences storage) " +storedUserName, Toast.LENGTH_LONG).show();
+                        Toast.makeText(getActivity().getApplicationContext(), "Login authenticated!", Toast.LENGTH_SHORT).show();
                         loginMsg.setVisibility(View.VISIBLE);
                         loginMsg.setText("Login authenticated");
                         Intent intent = new Intent(getActivity(), MainActivity.class);
@@ -210,7 +230,7 @@ public class LoginFragment extends Fragment {
                     Toast.makeText(getActivity().getApplicationContext(), "There is no user currently logged in!", Toast.LENGTH_LONG).show();
                 }else{
                     // to log out current user -> change the object values to "" with isLoggedIn now false rather than true
-                    Toast.makeText(getActivity().getApplicationContext(), "(From shared preferences storage)" +storedUserName+ ", you have successfully logged out: ", Toast.LENGTH_LONG).show();
+                    Toast.makeText(getActivity().getApplicationContext(), "Thanks for shopping with us " +storedUserName+ ", you have successfully logged out: ", Toast.LENGTH_LONG).show();
 
                     // get instance of shared preferences
                     SharedPreferences.Editor editor = getActivity().getSharedPreferences("prefs", MODE_PRIVATE).edit();

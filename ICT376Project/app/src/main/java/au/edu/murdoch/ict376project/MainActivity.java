@@ -1,6 +1,7 @@
 package au.edu.murdoch.ict376project;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -57,6 +58,24 @@ public class MainActivity extends AppCompatActivity
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
+
+        // 1. get instance of shared preferences (prefs is the private pref file that stores the values put into in (below....)
+        SharedPreferences userDetails = getSharedPreferences("prefs", MODE_PRIVATE);
+
+        // 2. String name
+        String storedUserName;
+
+        // 3. init with value from shared prefs - if username in the userDetails object is NOT null
+        if(userDetails.getString("username","")!= null){
+            storedUserName = userDetails.getString("username", "");
+
+            if(storedUserName.equals("")){
+                Toast.makeText(this,"You are currently logged in anonymously", Toast.LENGTH_LONG).show();
+            }else{
+                Toast.makeText(this,"Welcome back " +storedUserName+"!", Toast.LENGTH_LONG).show();
+            }
+        }
+
     }
 
     @Override
@@ -86,6 +105,8 @@ public class MainActivity extends AppCompatActivity
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         return NavigationUI.navigateUp(navController, mAppBarConfiguration) || super.onSupportNavigateUp();
     }
+
+
 
 
 }
