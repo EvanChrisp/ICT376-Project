@@ -35,8 +35,7 @@ public class LoginFragment extends Fragment {
     EditText usernameEt, passwordEt, rePasswordEt;
     Button loginButton, logoutButton, registerButton, clickToRegisterButton;
     TextView loginMsg;
-    int userId;
-    int id;
+    String storedUserName;
 
 
     // Database
@@ -164,18 +163,25 @@ public class LoginFragment extends Fragment {
                     // todo - add in logic to find userid and set the logged in status in db
 
                     if(loginTrue){
-                        SharedPreferences.Editor editor = getActivity().getSharedPreferences("userdetails", MODE_PRIVATE).edit();
+                        // using SharedPreferences.Editor called editor to do the work
 
-                        editor.putString("email", myUsername);
+                        // 1. get instance of shared preferences (prefs is the private pref file that stores the values put into in (below....)
+                        SharedPreferences userDetails = getActivity().getSharedPreferences("prefs", MODE_PRIVATE);
+
+                        // 2. create editor object (this stores the details)
+                        SharedPreferences.Editor editor = userDetails.edit();
+                        // 3. store the username, password and login status of current logged in user -> called "username" store the value from editText (myUsername) etc
+                        editor.putString("username", myUsername);
                         editor.putString("password", myPwd);
                         editor.putBoolean("isLoggedIn", true);
-                        //any other detail you want to save
+                        // 4. values are applied to private file "prefs"
                         editor.apply();
 
-                        Toast.makeText(getActivity().getApplicationContext(), "Login authenticated - welcome " +myUsername, Toast.LENGTH_SHORT).show();
+                        storedUserName = userDetails.getString("username", "");
+
+                        Toast.makeText(getActivity().getApplicationContext(), "Login authenticated - welcome (from shared preferences storage) " +storedUserName, Toast.LENGTH_LONG).show();
                         loginMsg.setVisibility(View.VISIBLE);
                         loginMsg.setText("Login authenticated");
-                        Toast.makeText(getActivity().getApplicationContext(), "Success, login id is: " +id, Toast.LENGTH_SHORT).show();
                         Intent intent = new Intent(getActivity(), MainActivity.class);
                         startActivity(intent);
                     }else{
@@ -193,18 +199,36 @@ public class LoginFragment extends Fragment {
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // get instance of sharedpreferences (that has files stored in "prefs" file
+                SharedPreferences userDetails = getActivity().getSharedPreferences("prefs", MODE_PRIVATE);
+                // it already exists, so storedUserName string = the String value in the userDetails object
+                storedUserName = userDetails.getString("username", "");
                 // TODO add some logout functionality for logged out status (you need to call db and find the logged in flag)
-                Toast.makeText(getActivity().getApplicationContext(), "You have logged out: " +id, Toast.LENGTH_SHORT).show();
-                SharedPreferences.Editor editor = getActivity().getSharedPreferences("userdetails", MODE_PRIVATE).edit();
-                editor.putString("password", "");
-                editor.putString("email", "");
-                editor.putBoolean("isLoggedIn", false);
-                editor.apply();
 
-                Intent intent = new Intent(getActivity().getApplicationContext(), MainActivity.class);
-                intent.putExtra("finish", true);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
+                // check if already logged out - ie, storedUserName will already be ""
+                if(storedUserName.equals("")){
+                    Toast.makeText(getActivity().getApplicationContext(), "There is no user currently logged in!", Toast.LENGTH_LONG).show();
+                }else{
+                    // to log out current user -> change the object values to "" with isLoggedIn now false rather than true
+                    Toast.makeText(getActivity().getApplicationContext(), "(From shared preferences storage)" +storedUserName+ ", you have successfully logged out: ", Toast.LENGTH_LONG).show();
+
+                    // get instance of shared preferences
+                    SharedPreferences.Editor editor = getActivity().getSharedPreferences("prefs", MODE_PRIVATE).edit();
+                    // overwriting the userdetails object username/password value to "" and setting the isLoggedIn boolen to false
+                    editor.putString("username", "");
+                    editor.putString("password", "");
+                    editor.putBoolean("isLoggedIn", false);
+                    editor.apply();
+
+
+                    Intent intent = new Intent(getActivity().getApplicationContext(), MainActivity.class);
+                    intent.putExtra("finish", true);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    startActivity(intent);
+                }
+
+
+
 
                 //finish();
             }
