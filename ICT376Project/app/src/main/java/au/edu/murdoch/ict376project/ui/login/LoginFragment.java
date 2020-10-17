@@ -1,6 +1,7 @@
 package au.edu.murdoch.ict376project.ui.login;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,8 @@ import androidx.lifecycle.ViewModelProviders;
 import au.edu.murdoch.ict376project.Database;
 import au.edu.murdoch.ict376project.MainActivity;
 import au.edu.murdoch.ict376project.R;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class LoginFragment extends Fragment {
 
@@ -161,6 +164,14 @@ public class LoginFragment extends Fragment {
                     // todo - add in logic to find userid and set the logged in status in db
 
                     if(loginTrue){
+                        SharedPreferences.Editor editor = getActivity().getSharedPreferences("userdetails", MODE_PRIVATE).edit();
+
+                        editor.putString("email", myUsername);
+                        editor.putString("password", myPwd);
+                        editor.putBoolean("isLoggedIn", true);
+                        //any other detail you want to save
+                        editor.apply();
+
                         Toast.makeText(getActivity().getApplicationContext(), "Login authenticated - welcome " +myUsername, Toast.LENGTH_SHORT).show();
                         loginMsg.setVisibility(View.VISIBLE);
                         loginMsg.setText("Login authenticated");
@@ -184,6 +195,18 @@ public class LoginFragment extends Fragment {
             public void onClick(View view) {
                 // TODO add some logout functionality for logged out status (you need to call db and find the logged in flag)
                 Toast.makeText(getActivity().getApplicationContext(), "You have logged out: " +id, Toast.LENGTH_SHORT).show();
+                SharedPreferences.Editor editor = getActivity().getSharedPreferences("userdetails", MODE_PRIVATE).edit();
+                editor.putString("password", "");
+                editor.putString("email", "");
+                editor.putBoolean("isLoggedIn", false);
+                editor.apply();
+
+                Intent intent = new Intent(getActivity().getApplicationContext(), MainActivity.class);
+                intent.putExtra("finish", true);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+
+                //finish();
             }
         });
 

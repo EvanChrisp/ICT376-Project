@@ -39,68 +39,6 @@ public class HomeFragment extends Fragment
     {
         root = inflater.inflate(R.layout.fragment_home, container, false);
 
-        /*int i = 1;
-        int[] ids = new int[5];
-        Random rand = new Random();
-        db = new Database(getActivity()); //get db
-        // loop through 5 deals
-        while(i <= 5)
-        {
-            int id = rand.nextInt(20 - 1 + 1) + 1;
-            if(duplicateDeal(id, ids))
-            {
-                continue;
-            }
-            ids[i - 1] = id;
-
-            // get cursor returned from db
-            final Cursor res = db.getProductById(id);
-
-            // String name is the id in the XML - type is "id" for i.d. , package = getActivity().getPackageName()
-            image = root.findViewById(getResources().getIdentifier("deal" + i, "id", getActivity().getPackageName()));
-            setDealImage(image, res);
-
-            name = root.findViewById(getResources().getIdentifier("dealtext" + i, "id", getActivity().getPackageName()));
-            setDealName(name, res);
-
-            priceOld = root.findViewById(getResources().getIdentifier("dealoldprice" + i, "id", getActivity().getPackageName()));
-            setDealOldPrice(priceOld, res);
-
-            priceNew = root.findViewById(getResources().getIdentifier("dealnewprice" + i, "id", getActivity().getPackageName()));
-            setDealNewPrice(priceNew, res);
-
-            image.setOnClickListener(new View.OnClickListener()
-            {
-                public void onClick(View v)
-                {
-                    String mPrice = res.getString(res.getColumnIndexOrThrow("price"));
-                    double mPriceDouble = Integer.parseInt(mPrice) * 0.8;
-                    int mPriceInt = (int)mPriceDouble;
-
-                    String name =  res.getString(res.getColumnIndexOrThrow("name"));
-                    String description =  res.getString(res.getColumnIndexOrThrow("description"));
-                    String file =  res.getString(res.getColumnIndexOrThrow("file"));
-                    String status =  res.getString(res.getColumnIndexOrThrow("status"));
-                    String rating =  res.getString(res.getColumnIndexOrThrow("rating"));
-                    String platform =  res.getString(res.getColumnIndexOrThrow("platform"));
-                    String price =  Integer.toString(mPriceInt);
-                    int itemId =  res.getInt(res.getColumnIndexOrThrow("_id"));
-                    Intent intent = new Intent(getActivity(), DetailsActivity.class);
-                    intent.putExtra("name", name);
-                    intent.putExtra("description", description);
-                    intent.putExtra("file", file);
-                    intent.putExtra("status", status);
-                    intent.putExtra("rating", rating);
-                    intent.putExtra("platform", platform);
-                    intent.putExtra("price", price);
-                    intent.putExtra("_id", itemId);
-                    startActivity(intent);
-                }
-            });
-
-            i++;
-        }*/
-
         loopDeals();
         loopLatest();
         searchItems();
