@@ -33,7 +33,7 @@ public class LoginFragment extends Fragment {
     // views
     View mLayoutView;
     EditText usernameEt, passwordEt, rePasswordEt;
-    Button loginButton, logoutButton, registerButton, clickToRegisterButton;
+    Button loginButton, logoutButton, registerButton, clickToRegisterButton, clickToReturnToLogin, clickToReturnToRegister;
     TextView loginMsg, loginStatus;
     String storedUserName;
 
@@ -62,12 +62,12 @@ public class LoginFragment extends Fragment {
         });
 
         loginStatus = mLayoutView.findViewById(R.id.loginStatus);
+        loginButton = (Button)mLayoutView.findViewById(R.id.loginButton);
 
         // 1. get instance of shared preferences (prefs is the private pref file that stores the values put into in (below....)
         SharedPreferences userDetails = getActivity().getSharedPreferences("prefs", MODE_PRIVATE);
 
         // 2. String name
-        String storedUserName;
 
         // 3. init with value from shared prefs - if username in the userDetails object is NOT null
         if(userDetails.getString("username","")!= null){
@@ -77,6 +77,7 @@ public class LoginFragment extends Fragment {
                 loginStatus.setText("You are logged in anonymously");
             }else{
                 loginStatus.setText("You are currently logged in as " +storedUserName);
+                loginButton.setVisibility(View.INVISIBLE);
             }
         }
 
@@ -98,28 +99,53 @@ public class LoginFragment extends Fragment {
         loginButton = (Button)mLayoutView.findViewById(R.id.loginButton);
         loginMsg = (TextView)mLayoutView.findViewById(R.id.loginMsg);
         logoutButton = (Button)mLayoutView.findViewById(R.id.logoutButton);
+        clickToReturnToLogin = (Button)mLayoutView.findViewById(R.id.clickToReturnToLogin);
+        clickToReturnToRegister = (Button)mLayoutView.findViewById(R.id.clickToReturnToRegister);
 
 
         registerButton = (Button)mLayoutView.findViewById(R.id.registerUserPwdButton);
+
+        clickToReturnToLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(!storedUserName.equals("")){
+                    Toast.makeText(getActivity().getApplicationContext(),"Please log out first", Toast.LENGTH_LONG).show();
+                }else{
+                    clickToReturnToLogin.setVisibility(View.INVISIBLE);
+                    loginButton.setVisibility(View.VISIBLE);
+                    clickToRegisterButton.setVisibility(View.VISIBLE);
+                    rePasswordEt.setVisibility(View.INVISIBLE);
+                    registerButton.setVisibility(View.INVISIBLE);
+                }
+
+            }
+        });
+
+        clickToReturnToRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loginButton.setVisibility(View.INVISIBLE);
+                clickToReturnToRegister.setVisibility(View.INVISIBLE);
+                clickToReturnToLogin.setVisibility(View.VISIBLE);
+                rePasswordEt.setVisibility(View.VISIBLE);
+            }
+        });
 
         // when user wants to register - the register button is invisible at the start
         clickToRegisterButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // clicking the "click to register button"
-                // will make the confirm pwd box visible and
+                loginButton.setVisibility(View.INVISIBLE);
+                clickToRegisterButton.setVisibility(View.INVISIBLE);
+                clickToReturnToLogin.setVisibility(View.VISIBLE);
                 rePasswordEt.setVisibility(View.VISIBLE);
-                // set the register button to visible
                 registerButton.setVisibility(View.VISIBLE);
-                // which then makes the click to register button not needed and this invisible
-                clickToRegisterButton.setVisibility((View.INVISIBLE));
             }
         });
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //Toast.makeText(getActivity().getApplicationContext(), "Thanks for registering!", Toast.LENGTH_SHORT).show();
                 String myUsername = usernameEt.getText().toString();
                 String myPwd = passwordEt.getText().toString();
                 String myPwd2 = rePasswordEt.getText().toString();
@@ -152,7 +178,12 @@ public class LoginFragment extends Fragment {
 
                             Toast.makeText(getActivity().getApplicationContext(), "Thank you for registering", Toast.LENGTH_SHORT).show();
                             loginMsg.setVisibility(View.VISIBLE);
-                            loginMsg.setText("You have been registered!");
+                            loginMsg.setText("You have been registered - click LOGIN");
+                            clickToReturnToLogin.setVisibility(View.INVISIBLE);
+                            loginButton.setVisibility(View.VISIBLE);
+                            clickToRegisterButton.setVisibility(View.VISIBLE);
+                            rePasswordEt.setVisibility(View.INVISIBLE);
+                            registerButton.setVisibility(View.INVISIBLE);
                         }
                     }
 
@@ -165,10 +196,9 @@ public class LoginFragment extends Fragment {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // clicking the "login" button does nothing but give a toast msg indicating that the user needs to enter the correct details
+
                 String myUsername = usernameEt.getText().toString();
                 String myPwd = passwordEt.getText().toString();
-                //Toast.makeText(getActivity().getApplicationContext(), "This does not work yet!", Toast.LENGTH_SHORT).show();
 
                 // get db
                 mydb = new Database(getActivity());
