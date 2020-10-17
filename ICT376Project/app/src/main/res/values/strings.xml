@@ -38,4 +38,20 @@
     <string name="dealnewprice">dealnewprice</string>
     <string name="priceOld">$%1$s</string>
     <string name="priceNew">$%1$d</string>
+    <string name="enterCredentials">Please enter your credentials</string>
+    <string name="enterUserName">Enter your username</string>
+    <string name="returnToRegisterMode">Return to Register Mode</string>
+    <string name="enterPassword">Enter your password</string>
+    <string name="retypePassword">Retype your password</string>
+    <string name="login">Login</string>
+    <string name="clickToRegister">Click to Register</string>
+    <string name="register">Register</string>
+    <string name="logout">Logout</string>
+    <string name="anonymousLogin">Currently anonymously logged in</string>
+    <string name="returnToLoginMode">Return to Login Mode</string>
+    <string name="contactUsEmail">erecustomerhelp@eregames.com.au</string>
+    <string name="contactUsPhone">Phone</string>
+    <string name="contactUsPhoneNumber">08 9544 1010</string>
+    <string name="contactUsTitle">Contact Us</string>
+    <string name="contactUsEmailHeader">Email</string>
 </resources>

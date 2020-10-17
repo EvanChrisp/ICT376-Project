@@ -10,7 +10,12 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:padding="30dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
             android:id="@+id/TitleLayout"
@@ -21,10 +26,11 @@
 
             <TextView
                 android:id="@+id/Title"
-                android:layout_width="183dp"
-                android:layout_height="73dp"
-                android:text="Contacts"
-                android:textSize="50dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/contactUsTitle"
+                android:textSize="30sp"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -32,53 +38,117 @@
             android:id="@+id/EmailLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/EmailTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Email"
-                android:textSize="30dp"
+                android:text="@string/contactUsEmailHeader"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <TextView
+                android:padding="10dp"
                 android:id="@+id/Email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="erecustomerhelp@eregames.com.au"
-                android:textSize="20dp" />
+                android:text="@string/contactUsEmail"
+                android:textSize="16sp" />
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/PhoneLayout"
-            android:layout_width="412dp"
-            android:layout_height="69dp"
-            android:orientation="vertical">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="20dp">
 
             <TextView
                 android:id="@+id/PhoneNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Phone"
-                android:textSize="30dp"
+                android:text="@string/contactUsPhone"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
             <TextView
+                android:padding="10dp"
                 android:id="@+id/Number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="08 9544 1010"
-                android:textSize="20dp" />
-
+                android:text="@string/contactUsPhoneNumber"
+                android:textSize="16sp" />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/text_contact"
+        <LinearLayout
+            android:id="@+id/businessDetails"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:textSize="20sp" />
+            android:orientation="vertical"
+            android:paddingTop="20dp">
+
+            <TextView
+                android:id="@+id/businessHours"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Opening Hours"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:paddingTop="10dp"
+                android:paddingLeft="10dp"
+                android:id="@+id/monFri"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Mon-Fri 8am - 5pm"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/weekend"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Sat-Sun 12pm - 4pm"
+                android:textSize="16sp"
+                android:paddingLeft="10dp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/AddressLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/AddressTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Address"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:paddingTop="10dp"
+                android:paddingLeft="10dp"
+                android:id="@+id/address1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="300 Wellington Street,"
+                android:textSize="16sp" />
+            <TextView
+                android:paddingLeft="10dp"
+                android:id="@+id/address2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Perth, WA 6000 Australia"
+                android:textSize="16sp" />
+        </LinearLayout>
+
 
     </LinearLayout>
 
