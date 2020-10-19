@@ -2,6 +2,7 @@ package au.edu.murdoch.ict376project.ui.search;
 
 import android.content.Intent;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -14,68 +15,42 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import java.util.ArrayList;
+import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 
 import au.edu.murdoch.ict376project.Database;
 import au.edu.murdoch.ict376project.DetailsActivity;
 import au.edu.murdoch.ict376project.R;
 
-public class SearchFragment extends Fragment {
-
-    private SearchViewModel searchViewModel;
-    private ListView obj;
+public class SearchFragment extends Fragment
+{
     View mLayoutView;
-    private Database dbHelper;
-    private ListView listView;
-    String searchTerms = "FIFA"; // hardcoded search terms
     EditText searchBox;
     Button searchButton;
-    String str = "Fifa";
+    public static String str = "Fifa";
 
-    // Database
-    Database mydb = null;
-    ArrayList mArrayList;  // the list of all products
-
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        searchViewModel = ViewModelProviders.of(this).get(SearchViewModel.class);
-
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
         mLayoutView = inflater.inflate(R.layout.fragment_search, container, false);
-
-        final TextView textView = mLayoutView.findViewById(R.id.text_search);
-
-        searchViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });
 
         return mLayoutView;
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-
+    public void onActivityCreated(Bundle savedInstanceState)
+    {
         super.onActivityCreated(savedInstanceState);
 
         displayListView();
-
     }
 
-    private void displayListView(){
-
+    private void displayListView()
+    {
         // get database
-        dbHelper = new Database(getActivity());
+        Database dbHelper = new Database(getActivity());
 
         // cursor = return from db function - hard coded searchTerms ***** - searches for FIFA
         Cursor cursor = dbHelper.getCursorSearchProducts(str);
@@ -109,7 +84,7 @@ public class SearchFragment extends Fragment {
         });
 
         // listview - uses the mLayoutView as it is a fragment and not an activity -> listview is displayed in nintendoProductListview container
-        listView = (ListView)mLayoutView.findViewById(R.id.searchProductListView);
+        ListView listView = (ListView) mLayoutView.findViewById(R.id.searchProductListView);
 
         // listview cannot be null as the db is pre-filled
         assert listView != null;
@@ -169,13 +144,15 @@ public class SearchFragment extends Fragment {
         str = searchBox.getText().toString();
 
         // set listener for search button
-        searchButton.setOnClickListener(new View.OnClickListener() {
+        searchButton.setOnClickListener(new View.OnClickListener()
+        {
+            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
-            public void onClick(View view) {
+            public void onClick(View view)
+            {
                 displayListView();
-                Toast.makeText(getActivity(),str, Toast.LENGTH_SHORT).show();
+
             }
         });
-
     }
 }

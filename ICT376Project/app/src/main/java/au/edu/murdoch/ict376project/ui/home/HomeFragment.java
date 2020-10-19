@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import java.util.Random;
 
@@ -24,6 +25,7 @@ import au.edu.murdoch.ict376project.Database;
 import au.edu.murdoch.ict376project.DetailsActivity;
 import au.edu.murdoch.ict376project.PlatformActivity;
 import au.edu.murdoch.ict376project.R;
+import au.edu.murdoch.ict376project.ui.search.SearchFragment;
 
 public class HomeFragment extends Fragment
 {
@@ -291,11 +293,15 @@ public class HomeFragment extends Fragment
         str = searchBox.getText().toString();
 
         // set listener for search button
-        searchButton.setOnClickListener(new View.OnClickListener() {
+        searchButton.setOnClickListener(new View.OnClickListener()
+        {
             @Override
-            public void onClick(View view) {
-                //displayListView();
-                Toast.makeText(getActivity(),"You searched for: " +str, Toast.LENGTH_SHORT).show();
+            public void onClick(View view)
+            {
+                Fragment mSearch = new SearchFragment();
+                FragmentManager fragmentManager = getParentFragmentManager();
+                SearchFragment.str = searchBox.getText().toString();
+                fragmentManager.beginTransaction().replace(R.id.nav_host_fragment, mSearch).addToBackStack(null).commit();
             }
         });
     }

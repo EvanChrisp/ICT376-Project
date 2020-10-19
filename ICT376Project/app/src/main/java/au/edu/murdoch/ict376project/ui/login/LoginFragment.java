@@ -24,12 +24,8 @@ import au.edu.murdoch.ict376project.R;
 
 import static android.content.Context.MODE_PRIVATE;
 
-public class LoginFragment extends Fragment {
-
-
-    // model class
-    private LoginViewModel loginViewModel;
-
+public class LoginFragment extends Fragment
+{
     // views
     View mLayoutView;
     EditText usernameEt, passwordEt, rePasswordEt;
@@ -42,11 +38,8 @@ public class LoginFragment extends Fragment {
     Database mydb = null;
     ArrayList mArrayList;  // the list of all products
 
-    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        // data comes from the nintendoViewModel class
-        loginViewModel = ViewModelProviders.of(this).get(LoginViewModel.class);
-
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
+    {
         // declare view -> inflate (this fragment, into this container, false);
         mLayoutView = inflater.inflate(R.layout.fragment_login, container, false);
 

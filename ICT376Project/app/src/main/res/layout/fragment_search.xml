@@ -8,44 +8,30 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/text_search"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:gravity="center_horizontal" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="try searching for Forza, Ridge Racer or Zelda...."
-        android:layout_marginBottom="30dp"
-        android:padding="16dp"/>
+        android:layout_marginBottom="10dp"
+        android:padding="16dp"
+        android:text="Try searching for Forza, Ridge Racer or Zelda...." />
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <EditText
-            android:padding="16dp"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:hint="search games"
             android:id="@+id/searchFragmentEditText"
-            android:layout_gravity="left"
-        />
-        <Button
-            android:layout_width="wrap_content"
+            android:layout_width="319dp"
             android:layout_height="wrap_content"
-            android:text="Search"
+            android:layout_gravity="left"
+            android:hint="Search games"
+            android:padding="16dp" />
+
+        <Button
             android:id="@+id/searchFragmentButton"
-            android:layout_gravity="right"/>
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="right"
+            android:text="Search" />
     </LinearLayout>
      <LinearLayout
         android:layout_width="match_parent"
