@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -25,7 +27,19 @@ public class NewsFragment extends Fragment {
         // int the View
         View mLayoutView = inflater.inflate(R.layout.fragment_news, container, false);
 
+        // int view using View NB. you need permissions to access internet - go to manifest file
+        WebView webView = (WebView)mLayoutView.findViewById(R.id.webView1);
+        // do something
+        WebSettings webSettings = webView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+
+        WebViewClientImpl webViewClient = new WebViewClientImpl(getActivity());
+        webView.setWebViewClient(webViewClient);
+
+        webView.loadUrl("https://www.ign.com");
+
         return mLayoutView;
+
     }
 
 
