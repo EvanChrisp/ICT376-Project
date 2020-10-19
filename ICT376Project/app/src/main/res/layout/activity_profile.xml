@@ -20,9 +20,21 @@
             android:src="@drawable/addphoto"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="18dp"/>
+
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:id="@+id/profileTextViewUname"
+            android:layout_below="@+id/profileImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:hint="User name"
+            android:layout_centerHorizontal="true"
+            android:ems="10" />
         <EditText
             android:id="@+id/profileEditTextFname"
-            android:layout_below="@+id/profileImageView"
+            android:layout_below="@+id/profileTextViewUname"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="First name"
@@ -60,7 +72,15 @@
             android:hint="Email"
             android:layout_centerHorizontal="true"
             android:ems="10" />
-
+        <Button
+            android:layout_marginTop="20dp"
+            android:id="@+id/profileSaveButton"
+            android:layout_below="@id/profileEditTextEmail"
+            android:layout_centerHorizontal="true"
+            android:minWidth="160dp"
+            android:text="Save profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
     </RelativeLayout>
 
 </ScrollView>
