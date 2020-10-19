@@ -148,7 +148,7 @@ public class ProfileActivity extends AppCompatActivity {
         // get _id for User
         long userNum = mydb.returnUserId(storedUserName);
         // should show the user id
-        Toast.makeText(this, "Current user id is: " +userNum, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "Current user id is: " +userNum, Toast.LENGTH_SHORT).show();
 
        mydb.updateUserProfile(userFname, userLname, userPhone,userEmail, userAddress, userNum);
 

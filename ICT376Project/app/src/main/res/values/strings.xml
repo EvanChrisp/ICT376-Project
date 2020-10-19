@@ -25,7 +25,7 @@
     <string name="price_3">Price 3</string>
     <string name="price_4">Price 4</string>
     <string name="price_5">Price 5</string>
-    <string name="search_by_console">Search by Console</string>
+    <string name="search_by_console">Platform</string>
     <string name="latest_releases">Latest Releases</string>
     <string name="search_games">Search Games</string>
     <string name="search">Search</string>

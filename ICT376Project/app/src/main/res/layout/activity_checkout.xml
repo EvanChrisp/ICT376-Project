@@ -48,8 +48,23 @@
         <ListView
             android:id="@+id/checkoutListView"
             android:layout_width="match_parent"
-            android:layout_height="386dp"
+            android:layout_height="250dp"
             android:drawSelectorOnTop="false"
             />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/checkoutDisplayAmount"
+            android:text="Amount of cart comes to: $AUD "
+            android:layout_marginBottom="30dp"
+            android:layout_gravity="center"
+            android:padding="16dp"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/checkoutPayment"
+            android:text="Pay with credit card"
+            android:layout_gravity="center" />
 
 </LinearLayout>
