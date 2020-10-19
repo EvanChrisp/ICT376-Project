@@ -5,6 +5,7 @@ import au.edu.murdoch.ict376project.Database;
 import au.edu.murdoch.ict376project.R;
 
 import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -36,9 +37,21 @@ public class ProfileActivity extends AppCompatActivity {
         saveButton = (Button)findViewById(R.id.profileSaveButton);
         testButton = (Button)findViewById(R.id.profileTestButton);
 
+        Database mydb = new Database(this);
 
         SharedPreferences userDetails = getSharedPreferences("prefs", MODE_PRIVATE);
         storedUserName = userDetails.getString("username", "");
+
+        Long userId = mydb.returnUserId(storedUserName);
+
+
+        ArrayList<String> dbArrayList = mydb.returnAllUserDetails(userId);
+
+        String userFname = dbArrayList.get(0);
+        String userLname = dbArrayList.get(1);
+        String userAddress = dbArrayList.get(2);
+        String userPhone = dbArrayList.get(3);
+        String userEmail = dbArrayList.get(4);
 
         if(storedUserName.equals("")){
             username.setText("Please log in");
@@ -51,6 +64,11 @@ public class ProfileActivity extends AppCompatActivity {
             // set the editText fields to uneditable or hidden
         }else{
             username.setText("Username: " +storedUserName);
+            fname.setText(userFname);
+            lname.setText(userLname);
+            address.setText(userAddress);
+            phone.setText(userPhone);
+            email.setText(userEmail);
         }
 
         saveButton.setOnClickListener(new View.OnClickListener() {

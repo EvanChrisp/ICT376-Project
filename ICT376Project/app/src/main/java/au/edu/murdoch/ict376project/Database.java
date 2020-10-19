@@ -98,7 +98,7 @@ public class Database extends SQLiteOpenHelper
         onCreate(db);
     }
 
-    public void addAllUserDetails(int cId, String cFname, String cLname, String cPhone, String cEmail, String cUsername, String cPassword, String cAddress, int cLoggedin) {
+    /*public void addAllUserDetails(int cId, String cFname, String cLname, String cPhone, String cEmail, String cUsername, String cPassword, String cAddress, int cLoggedin) {
 
         SQLiteDatabase db = this.getWritableDatabase();
 
@@ -117,10 +117,10 @@ public class Database extends SQLiteOpenHelper
         //return true;
 
         db.close();
-    }
+    }*/
 
 
-    public Boolean updateLogStatus(int id, int status){
+    /*public Boolean updateLogStatus(int id, int status){
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -131,7 +131,7 @@ public class Database extends SQLiteOpenHelper
         db.close();
 
         return true;
-    }
+    }*/
 
     public Boolean insertUserPwd(String username, String password){
 
@@ -147,7 +147,6 @@ public class Database extends SQLiteOpenHelper
 
         db.insert(CUSTOMER_TABLE, null, contentValues);
 
-        db.close();
 
         return true;
     }
@@ -166,7 +165,6 @@ public class Database extends SQLiteOpenHelper
 
         db.update(CUSTOMER_TABLE, contentValues, "_id=" +id, null);
 
-        db.close();
 
 
     }
@@ -179,11 +177,9 @@ public class Database extends SQLiteOpenHelper
         Cursor cursor = db.rawQuery("select * from customers where username = ?", new String[]{username});
 
         if(cursor.getCount()>0){
-            db.close();
             return true;
         }
         else{
-            db.close();
             return false;
         }
 
@@ -199,11 +195,11 @@ public class Database extends SQLiteOpenHelper
         {
             /*ContentValues contentValues = new ContentValues();
             contentValues.put(CUSTOMER_IS_LOGGED_IN, 1);*/
-            db.close();
+
             return true;
         }
         else{
-            db.close();
+
             return false;
         }
     }
@@ -224,7 +220,7 @@ public class Database extends SQLiteOpenHelper
             /*ContentValues contentValues = new ContentValues();
             contentValues.put(CUSTOMER_IS_LOGGED_IN, 1);*/
             cursor.close();
-        db.close();
+
         return id;
 
     }
@@ -243,7 +239,7 @@ public class Database extends SQLiteOpenHelper
         String email = cursor.getString(cursor.getColumnIndexOrThrow(CUSTOMER_EMAIL));
 
         cursor.close();
-        db.close();
+
 
         return email;
 
@@ -274,13 +270,13 @@ public class Database extends SQLiteOpenHelper
         userDetails.add(email);
 
         cursor.close();
-        db.close();
+
 
         return userDetails;
 
     }
 
-    /*public int getUserById(String username)
+    public int getUserById(String username)
     {
         SQLiteDatabase db = this.getReadableDatabase();
         // id changed to _id in where clause -> causes errors with cursorAdapters
@@ -295,7 +291,7 @@ public class Database extends SQLiteOpenHelper
         res.close();
 
         return id;
-    }*/
+    }
 
     /*public Cursor getLoggedInUserById()
     {
@@ -341,7 +337,6 @@ public class Database extends SQLiteOpenHelper
         // adding means updating database table ->
         db.update(PRODUCT_TABLE, contentValues, "_id= ? ", new String[]{Integer.toString(id)});
         // after entry remember to close the database -> memory leaks
-        db.close();
         // if successful -> return is true
         return true;
     }
@@ -357,7 +352,6 @@ public class Database extends SQLiteOpenHelper
         // adding means updating database table ->
         db.update(PRODUCT_TABLE, contentValues, "_id= ? ", new String[]{Integer.toString(id)});
         // after entry remember to close the database -> memory leaks
-        db.close();
         // if successful -> return is true
         return true;
     }
@@ -496,7 +490,6 @@ public class Database extends SQLiteOpenHelper
             mCursor.moveToFirst();
         }
 
-        db.close();
 
         return mCursor;
     }
@@ -516,7 +509,6 @@ public class Database extends SQLiteOpenHelper
         }
         res.close();
 
-        db.close();
 
         return array_list;
     }
@@ -537,7 +529,6 @@ public class Database extends SQLiteOpenHelper
         }
         res.close();
 
-        db.close();
         return array_list;
     }
 
@@ -557,7 +548,6 @@ public class Database extends SQLiteOpenHelper
         }
         res.close();
 
-        db.close();
         return array_list;
     }
 
@@ -577,7 +567,6 @@ public class Database extends SQLiteOpenHelper
         }
         res.close();
 
-        db.close();
         return array_list;
     }
 
@@ -597,7 +586,6 @@ public class Database extends SQLiteOpenHelper
         }
         res.close();
 
-        db.close();
         return array_list;
     }
 
