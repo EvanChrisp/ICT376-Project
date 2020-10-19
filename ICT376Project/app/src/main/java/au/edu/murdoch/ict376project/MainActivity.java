@@ -84,6 +84,9 @@ public class MainActivity extends AppCompatActivity
             }else{
                 Toast.makeText(this,"Welcome back " +storedUserName+"!", Toast.LENGTH_LONG).show();
                 loginName.setText(storedUserName);
+                Long userId = mydb.returnUserId(storedUserName);
+                String userEmail = mydb.returnUserEmail(userId);
+                loginEmail.setText("Email: " +userEmail);
             }
         }
         mydb.close();
@@ -99,12 +102,10 @@ public class MainActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item){
         switch(item.getItemId()){
             case R.id.action_settings:
-                //Toast.makeText(getApplicationContext(),"You clicked settings", Toast.LENGTH_SHORT).show();
                 Intent profileIntent = new Intent(this, ProfileActivity.class);
                 startActivity(profileIntent);
                 return true;
             case R.id.action_cart:
-                //Toast.makeText(getApplicationContext(),"You clicked Go to cart", Toast.LENGTH_SHORT).show();
                 Intent cartIntent = new Intent(this, CheckoutActivity.class);
                 startActivity(cartIntent);
                 return true;
