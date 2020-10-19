@@ -241,7 +241,7 @@ public class LoginFragment extends Fragment {
                     }
                 }
 
-
+                mydb.close();
 
             }
         });
@@ -249,6 +249,7 @@ public class LoginFragment extends Fragment {
         logoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Database mydb;
                 // get instance of sharedpreferences (that has files stored in "prefs" file
                 SharedPreferences userDetails = getActivity().getSharedPreferences("prefs", MODE_PRIVATE);
                 // it already exists, so storedUserName string = the String value in the userDetails object
@@ -261,6 +262,9 @@ public class LoginFragment extends Fragment {
                 }else{
                     // to log out current user -> change the object values to "" with isLoggedIn now false rather than true
                     Toast.makeText(getActivity().getApplicationContext(), "Thanks for shopping with us " +storedUserName+ ", you have successfully logged out: ", Toast.LENGTH_LONG).show();
+                    mydb = new Database(getActivity());
+                    mydb.clearCart();
+                    mydb.close();
 
                     // get instance of shared preferences
                     SharedPreferences.Editor editor = getActivity().getSharedPreferences("prefs", MODE_PRIVATE).edit();

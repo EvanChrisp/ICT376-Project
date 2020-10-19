@@ -356,6 +356,20 @@ public class Database extends SQLiteOpenHelper
         return true;
     }
 
+    public boolean clearCart (){
+        // get database
+        SQLiteDatabase db = this.getWritableDatabase();
+        // create new contentValues object
+        ContentValues contentValues = new ContentValues();
+        // put status value into contentValues
+        contentValues.put(PRODUCT_STATUS, "0");
+        // adding means updating database table ->
+        db.update(PRODUCT_TABLE, contentValues, "status= " +"1", null);
+        // after entry remember to close the database -> memory leaks
+        // if successful -> return is true
+        return true;
+    }
+
     public void deleteAllItems() {
 
         SQLiteDatabase db = this.getWritableDatabase();

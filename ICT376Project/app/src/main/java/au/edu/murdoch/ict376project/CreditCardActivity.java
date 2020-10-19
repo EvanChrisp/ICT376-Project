@@ -71,6 +71,7 @@ public class CreditCardActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Toast.makeText(CreditCardActivity.this, "Thank you for ordering from ERE games, a confirmation email has been sent to: "+userEmail, Toast.LENGTH_LONG).show();
+                db.clearCart();
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
             }
