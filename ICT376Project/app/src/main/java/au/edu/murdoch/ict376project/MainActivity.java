@@ -16,11 +16,8 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import au.edu.murdoch.ict376project.ui.ProfileActivity;
 
 import com.google.android.material.navigation.NavigationView;
-
-import java.sql.SQLException;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -89,6 +86,7 @@ public class MainActivity extends AppCompatActivity
                 loginName.setText(storedUserName);
             }
         }
+        mydb.close();
 
     }
 

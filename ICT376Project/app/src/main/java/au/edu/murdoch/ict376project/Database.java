@@ -115,25 +115,10 @@ public class Database extends SQLiteOpenHelper
 
         db.insert(CUSTOMER_TABLE, null, contentValues);
         //return true;
+
+        db.close();
     }
 
-    /*public void addUserDetails(int pId, String pName, int pPrice, String pFile, String pDescription, String pRating, String pPlatform, String pStatus) {
-
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(PRODUCT_ID, pId);
-        contentValues.put(PRODUCT_NAME, pName);
-        contentValues.put(PRODUCT_PRICE, pPrice);
-        contentValues.put(PRODUCT_FILE, pFile);
-        contentValues.put(PRODUCT_DESCRIPTION, pDescription);
-        contentValues.put(PRODUCT_STATUS, pStatus);
-        contentValues.put(PRODUCT_RATING, pRating);
-        contentValues.put(PRODUCT_PLATFORM, pPlatform);
-
-        db.insert(PRODUCT_TABLE, null, contentValues);
-        //return true;
-    }*/
 
     public Boolean updateLogStatus(int id, int status){
 
@@ -142,6 +127,8 @@ public class Database extends SQLiteOpenHelper
         contentValues.put(CUSTOMER_IS_LOGGED_IN, status);
 
         db.update(CUSTOMER_TABLE, contentValues, "loggedin= ? ", new String[]{Integer.toString(id)});
+
+        db.close();
 
         return true;
     }
@@ -152,10 +139,36 @@ public class Database extends SQLiteOpenHelper
         ContentValues contentValues = new ContentValues();
         contentValues.put(CUSTOMER_USERNAME, username);
         contentValues.put(CUSTOMER_PASSWORD, password);
+        contentValues.put(CUSTOMER_FIRSTNAME, "firstName");
+        contentValues.put(CUSTOMER_LASTNAME, "lastname");
+        contentValues.put(CUSTOMER_ADDRESS, "my address");
+        contentValues.put(CUSTOMER_PHONE, "123456789");
+        contentValues.put(CUSTOMER_EMAIL, "myemail@email.com");
 
         db.insert(CUSTOMER_TABLE, null, contentValues);
 
+        db.close();
+
         return true;
+    }
+
+    public void updateUserProfile(String fname, String lname, String phone, String email, String address, Long id){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(CUSTOMER_FIRSTNAME, fname);
+        contentValues.put(CUSTOMER_LASTNAME, lname);
+        contentValues.put(CUSTOMER_PHONE, phone);
+        contentValues.put(CUSTOMER_EMAIL, email);
+        contentValues.put(CUSTOMER_ADDRESS, address);
+
+        db.update(CUSTOMER_TABLE, contentValues, "_id=" +id, null);
+
+        db.close();
+
+
     }
 
     // does username already exist?
@@ -166,11 +179,14 @@ public class Database extends SQLiteOpenHelper
         Cursor cursor = db.rawQuery("select * from customers where username = ?", new String[]{username});
 
         if(cursor.getCount()>0){
+            db.close();
             return true;
         }
         else{
+            db.close();
             return false;
         }
+
     }
 
     public Boolean checkPassword(String username, String password){
@@ -183,59 +199,88 @@ public class Database extends SQLiteOpenHelper
         {
             /*ContentValues contentValues = new ContentValues();
             contentValues.put(CUSTOMER_IS_LOGGED_IN, 1);*/
+            db.close();
             return true;
         }
         else{
+            db.close();
             return false;
         }
     }
 
-    /*// try this.....
-    public int logIn (String username, String password){
-        // get db
-        int userId;
-        SQLiteDatabase db = this.getWritableDatabase();
-        //get cursor for customer where username and password entered match the db
-        Cursor cursor = db.rawQuery("select * from customers where username = ? and password = ?", new String[]{username, password});
-        // if there is more than zero responses.
-        if(cursor.getCount()>0 && cursor != null){
+    public long returnUserId(String username){
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        long id = 0;
+
+        Cursor cursor = db.rawQuery("select * from customers where username = ?", new String[]{username});
+
+        if (cursor.getCount() > 0)
+        {
             cursor.moveToFirst();
-            // get int value of user id
-            userId = cursor.getInt(cursor.getColumnIndexOrThrow("_id"));
-            // create new content values
-            ContentValues contentValues = new ContentValues();
-            // put data (1) into column CUSTOMER_IS_LOGGED_IN
-            contentValues.put(CUSTOMER_IS_LOGGED_IN, 1);
-
-            // adding means updating database table ->
-            db.update(CUSTOMER_TABLE, contentValues, "_id= ? ", new String[]{Integer.toString(userId)});
-            // after entry remember to close the database -> memory leaks
-            db.close();
-        }
-        else{
-            return 0;
         }
 
-        return userId;
-    }*/
+        id = cursor.getLong(cursor.getColumnIndexOrThrow(CUSTOMER_ID));
+            /*ContentValues contentValues = new ContentValues();
+            contentValues.put(CUSTOMER_IS_LOGGED_IN, 1);*/
+            cursor.close();
+        db.close();
+        return id;
 
-    /*public Boolean logOut(Integer id){
+    }
 
-        SQLiteDatabase db = this.getWritableDatabase();
+    public String returnUserEmail(Long id){
 
-        ContentValues contentValues = new ContentValues();
-        contentValues.put(CUSTOMER_IS_LOGGED_IN, 0);
+        SQLiteDatabase db = this.getReadableDatabase();
 
-        // adding means updating database table ->
-        db.update(CUSTOMER_TABLE, contentValues, "_id= ? ", new String[]{Integer.toString(id)});
-        // after entry remember to close the database -> memory leaks
+        Cursor cursor = db.rawQuery("select * from customers where _id = " +id, null);
+
+        if (cursor.getCount() > 0)
+        {
+            cursor.moveToFirst();
+        }
+
+        String email = cursor.getString(cursor.getColumnIndexOrThrow(CUSTOMER_EMAIL));
+
+        cursor.close();
         db.close();
 
-        return true;
+        return email;
 
-    }*/
+    }
 
-    public int getUserById(String username)
+    public ArrayList<String> returnAllUserDetails(Long id){
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<String> userDetails = new ArrayList<String>();
+
+        Cursor cursor = db.rawQuery("select * from customers where _id = " +id, null);
+
+        if (cursor.getCount() > 0)
+        {
+            cursor.moveToFirst();
+        }
+
+        String fname = cursor.getString(cursor.getColumnIndexOrThrow(CUSTOMER_FIRSTNAME));
+        String lname = cursor.getString(cursor.getColumnIndexOrThrow(CUSTOMER_LASTNAME));
+        String address = cursor.getString(cursor.getColumnIndexOrThrow(CUSTOMER_ADDRESS));
+        String phone = cursor.getString(cursor.getColumnIndexOrThrow(CUSTOMER_PHONE));
+        String email = cursor.getString(cursor.getColumnIndexOrThrow(CUSTOMER_EMAIL));
+
+        userDetails.add(fname);
+        userDetails.add(lname);
+        userDetails.add(address);
+        userDetails.add(phone);
+        userDetails.add(email);
+
+        cursor.close();
+        db.close();
+
+        return userDetails;
+
+    }
+
+    /*public int getUserById(String username)
     {
         SQLiteDatabase db = this.getReadableDatabase();
         // id changed to _id in where clause -> causes errors with cursorAdapters
@@ -246,11 +291,11 @@ public class Database extends SQLiteOpenHelper
             res.moveToFirst();
         }
 
-        int id = res.getInt(res.getColumnIndexOrThrow("username"));
+        int id = res.getInt(res.getColumnIndexOrThrow("_id"));
         res.close();
 
         return id;
-    }
+    }*/
 
     /*public Cursor getLoggedInUserById()
     {
@@ -450,6 +495,9 @@ public class Database extends SQLiteOpenHelper
             // iterate through the cursor rows
             mCursor.moveToFirst();
         }
+
+        db.close();
+
         return mCursor;
     }
 
@@ -467,6 +515,9 @@ public class Database extends SQLiteOpenHelper
             }
         }
         res.close();
+
+        db.close();
+
         return array_list;
     }
 
@@ -485,6 +536,8 @@ public class Database extends SQLiteOpenHelper
             }
         }
         res.close();
+
+        db.close();
         return array_list;
     }
 
@@ -503,6 +556,8 @@ public class Database extends SQLiteOpenHelper
             }
         }
         res.close();
+
+        db.close();
         return array_list;
     }
 
@@ -521,6 +576,8 @@ public class Database extends SQLiteOpenHelper
             }
         }
         res.close();
+
+        db.close();
         return array_list;
     }
 
@@ -539,6 +596,8 @@ public class Database extends SQLiteOpenHelper
             }
         }
         res.close();
+
+        db.close();
         return array_list;
     }
 

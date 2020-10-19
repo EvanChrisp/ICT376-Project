@@ -91,6 +91,9 @@ public class CheckoutActivity extends AppCompatActivity {
             }
         });
 
+        db.close();
+        dbHelper.close();
+
     }
     @Override
     public boolean onSupportNavigateUp() {

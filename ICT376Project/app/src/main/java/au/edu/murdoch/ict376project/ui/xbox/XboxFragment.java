@@ -116,5 +116,7 @@ public class XboxFragment extends Fragment
                 startActivity(intent);
             }
         });
+
+        dbHelper.close();
     }
 }

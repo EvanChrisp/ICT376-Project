@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.ProfileActivity">
+    tools:context=".ProfileActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -79,6 +79,15 @@
             android:layout_centerHorizontal="true"
             android:minWidth="160dp"
             android:text="Save profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:layout_marginTop="20dp"
+            android:id="@+id/profileTestButton"
+            android:layout_below="@id/profileSaveButton"
+            android:layout_centerHorizontal="true"
+            android:minWidth="160dp"
+            android:text="Test profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </RelativeLayout>

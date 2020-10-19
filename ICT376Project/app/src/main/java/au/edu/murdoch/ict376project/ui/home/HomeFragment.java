@@ -210,6 +210,8 @@ public class HomeFragment extends Fragment
 
             i++;
         }
+
+        db.close();
     }
 
     private void loopLatest()
@@ -258,6 +260,8 @@ public class HomeFragment extends Fragment
             i++;
             j+=10;
         }
+
+        db.close();
     }
 
     private void searchItems() {

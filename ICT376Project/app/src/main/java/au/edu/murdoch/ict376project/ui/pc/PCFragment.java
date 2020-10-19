@@ -119,6 +119,8 @@ public class PCFragment extends Fragment
                 startActivity(intent);
             }
         });
+
+        dbHelper.close();
     }
 }
 

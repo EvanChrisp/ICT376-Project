@@ -118,5 +118,7 @@ public class NintendoFragment extends Fragment
                 startActivity(intent);
             }
         });
+
+        dbHelper.close();
     }
 }

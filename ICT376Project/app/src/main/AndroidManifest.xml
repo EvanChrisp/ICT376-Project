@@ -11,7 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ui.ProfileActivity"
+            android:name=".ProfileActivity"
             android:label="My profile"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity

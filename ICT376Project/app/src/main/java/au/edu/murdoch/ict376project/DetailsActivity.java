@@ -111,6 +111,8 @@ public class DetailsActivity extends AppCompatActivity {
 
         });
 
+        db.close();
+
 
     }
     @Override

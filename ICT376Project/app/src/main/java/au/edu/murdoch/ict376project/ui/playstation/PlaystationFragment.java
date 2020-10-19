@@ -115,5 +115,7 @@ public class PlaystationFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        dbHelper.close();
     }
 }
