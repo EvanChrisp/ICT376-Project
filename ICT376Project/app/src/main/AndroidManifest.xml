@@ -11,9 +11,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".CreditCardActivity"
+            android:label="Payment"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
             android:name=".ProfileActivity"
             android:label="My profile"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".PlatformActivity"
             android:label="Platform"

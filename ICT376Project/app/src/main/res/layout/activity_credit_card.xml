@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".CreditCardActivity">
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?android:attr/colorFocusedHighlight"
+            app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="30dp">
+
+        <TextView
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="This is the actual payment page"
+            android:id="@+id/creditCardToPay"
+            android:gravity="center_horizontal"
+            android:textAlignment="center"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <EditText
+            android:layout_below="@+id/creditCardToPay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/creditCardNumber"
+            android:hint="Credit/Debit Card"
+            android:ems="16"/>
+
+        <EditText
+            android:layout_below="@id/creditCardNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/expirationDate"
+            android:hint="Expiration MM/YY"/>
+
+        <EditText
+            android:layout_below="@+id/expirationDate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/ccvNumber"
+            android:hint="CVV" />
+
+        <EditText
+            android:layout_below="@+id/ccvNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/paymentFname"
+            android:hint="First Name" />
+
+        <EditText
+            android:layout_below="@+id/paymentFname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/paymentLname"
+            android:hint="Last Name" />
+
+        <EditText
+            android:layout_below="@id/paymentLname"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/paymentAddress"
+            android:hint="Billing Address" />
+    </RelativeLayout>
+
+
+
+
+
+
+</LinearLayout>

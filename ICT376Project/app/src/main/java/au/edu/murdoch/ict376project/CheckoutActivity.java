@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
@@ -18,6 +19,8 @@ public class CheckoutActivity extends AppCompatActivity {
     ListView listView;
     TextView checkoutDisplayAmount;
     Database db;
+    String totalAmount;
+    Button checkoutPayment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,8 +32,11 @@ public class CheckoutActivity extends AppCompatActivity {
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
+        checkoutPayment = (Button)findViewById(R.id.checkoutPayment);
 
         displayCart();
+
+
     }
 
     private void displayCart(){
@@ -95,12 +101,23 @@ public class CheckoutActivity extends AppCompatActivity {
         });
 
         db.close();
-        String totalAmount = dbHelper.totalCartValue();
+        totalAmount = dbHelper.totalCartValue();
         if(totalAmount.equals("")){
             checkoutDisplayAmount.setText("You have no items in your cart!");
         }else{
             checkoutDisplayAmount.setText("The total amount to pay: $" +totalAmount+ ".00 (AUD)");
         }
+
+        checkoutPayment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent();
+                intent.setClass(getApplicationContext(), CreditCardActivity.class);
+                // because totalToPay is a String use Integer.parseInt(s) to convert
+                intent.putExtra("totalToPay", Integer.parseInt(totalAmount));
+                startActivity(intent);
+            }
+        });
 
         dbHelper.close();
 
