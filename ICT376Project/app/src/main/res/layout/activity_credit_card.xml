@@ -24,7 +24,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="30dp">
+        android:padding="50dp">
 
         <TextView
             android:layout_marginTop="20dp"
@@ -46,21 +46,24 @@
             android:layout_height="wrap_content"
             android:id="@+id/creditCardNumber"
             android:hint="Credit/Debit Card"
-            android:ems="16"/>
+            android:ems="16"
+            android:maxLength="16" />
 
         <EditText
             android:layout_below="@id/creditCardNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/expirationDate"
-            android:hint="Expiration MM/YY"/>
+            android:hint="Expiration MM/YY"
+            android:maxLength="5"/>
 
         <EditText
             android:layout_below="@+id/expirationDate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/ccvNumber"
-            android:hint="CVV" />
+            android:hint="CVV"
+            android:maxLength="3"/>
 
         <EditText
             android:layout_below="@+id/ccvNumber"
@@ -82,6 +85,15 @@
             android:layout_height="wrap_content"
             android:id="@+id/paymentAddress"
             android:hint="Billing Address" />
+
+        <Button
+            android:layout_marginTop="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/payNow"
+            android:text="Pay Now"
+            android:layout_below="@+id/paymentAddress"/>
     </RelativeLayout>
 
 
