@@ -5,6 +5,8 @@ import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -23,6 +25,7 @@ public class MainActivity extends AppCompatActivity
 {
     Database mydb = null;
     private AppBarConfiguration mAppBarConfiguration;
+    TextView loginName, loginEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -48,9 +51,15 @@ public class MainActivity extends AppCompatActivity
             mydb.insertMyShopItems();
         }*/
 
-
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
+
+        // need to getHeaderView to modify textView element
+        View headerView = navigationView.getHeaderView(0);
+        // now init textView based on headerView view object
+        loginName = (TextView)headerView.findViewById(R.id.navHeaderName);
+        loginEmail = (TextView)headerView.findViewById(R.id.navHeaderEmail);
+
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_playstation, R.id.nav_xbox, R.id.nav_nintendo, R.id.nav_pc, R.id.nav_search, R.id.nav_contact, R.id.nav_news, R.id.nav_login)
                 .setDrawerLayout(drawer)
@@ -71,8 +80,12 @@ public class MainActivity extends AppCompatActivity
 
             if(storedUserName.equals("")){
                 Toast.makeText(this,"You are currently logged in anonymously", Toast.LENGTH_LONG).show();
+                loginName.setText("Anonymous");
+                loginEmail.setText("Email not set");
+
             }else{
                 Toast.makeText(this,"Welcome back " +storedUserName+"!", Toast.LENGTH_LONG).show();
+                loginName.setText(storedUserName);
             }
         }
 

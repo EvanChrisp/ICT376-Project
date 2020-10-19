@@ -54,4 +54,5 @@
     <string name="contactUsPhoneNumber">08 9544 1010</string>
     <string name="contactUsTitle">Contact Us</string>
     <string name="contactUsEmailHeader">Email</string>
+    <string name="game_box">Game box</string>
 </resources>

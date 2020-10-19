@@ -50,7 +50,7 @@ public class LoginFragment extends Fragment {
         // declare view -> inflate (this fragment, into this container, false);
         mLayoutView = inflater.inflate(R.layout.fragment_login, container, false);
 
-        // textView = resource
+        /*// textView = resource
         final TextView textView = mLayoutView.findViewById(R.id.text_login);
 
         // use the loginViewModel to set the text to String s
@@ -59,7 +59,7 @@ public class LoginFragment extends Fragment {
             public void onChanged(@Nullable String s) {
                 textView.setText(s);
             }
-        });
+        });*/
 
         loginStatus = mLayoutView.findViewById(R.id.loginStatus);
         loginButton = (Button)mLayoutView.findViewById(R.id.loginButton);
