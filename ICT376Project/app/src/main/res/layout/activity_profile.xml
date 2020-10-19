@@ -9,8 +9,20 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="10dp">
+        android:layout_height="match_parent">
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?android:attr/colorFocusedHighlight"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+        </com.google.android.material.appbar.AppBarLayout>
         <ImageView
             android:id="@+id/profileImageView"
             android:layout_alignParentTop="true"
@@ -19,7 +31,7 @@
             android:layout_height="160dp"
             android:src="@drawable/addphoto"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="18dp"/>
+            android:layout_marginTop="80dp"/>
 
         <TextView
             android:layout_marginTop="20dp"
@@ -83,8 +95,17 @@
             android:layout_height="wrap_content" />
         <Button
             android:layout_marginTop="20dp"
-            android:id="@+id/profileTestButton"
+            android:id="@+id/profileClearButton"
             android:layout_below="@id/profileSaveButton"
+            android:layout_centerHorizontal="true"
+            android:minWidth="160dp"
+            android:text="Clear profile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <Button
+            android:layout_marginTop="20dp"
+            android:id="@+id/profileTestButton"
+            android:layout_below="@id/profileClearButton"
             android:layout_centerHorizontal="true"
             android:minWidth="160dp"
             android:text="Test profile"

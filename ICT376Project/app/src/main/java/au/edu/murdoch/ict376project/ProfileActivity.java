@@ -1,9 +1,11 @@
 package au.edu.murdoch.ict376project;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import au.edu.murdoch.ict376project.Database;
 import au.edu.murdoch.ict376project.R;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -18,7 +20,7 @@ import java.util.ArrayList;
 public class ProfileActivity extends AppCompatActivity {
 
     TextView username;
-    Button saveButton, testButton;
+    Button saveButton, testButton, clearButton;
     EditText fname, lname, address, phone, email;
     Database mydb = null;
     String userFname, userLname, userAddress, userPhone, userEmail, storedUserName;
@@ -28,6 +30,13 @@ public class ProfileActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
 
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        assert getSupportActionBar() != null;
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         username = (TextView)findViewById(R.id.profileTextViewUname);
         fname = (EditText)findViewById(R.id.profileEditTextFname);
         lname = (EditText)findViewById(R.id.profileEditTextLname);
@@ -36,22 +45,14 @@ public class ProfileActivity extends AppCompatActivity {
         email = (EditText)findViewById(R.id.profileEditTextEmail);
         saveButton = (Button)findViewById(R.id.profileSaveButton);
         testButton = (Button)findViewById(R.id.profileTestButton);
+        clearButton = (Button)findViewById(R.id.profileClearButton);
 
         Database mydb = new Database(this);
 
         SharedPreferences userDetails = getSharedPreferences("prefs", MODE_PRIVATE);
         storedUserName = userDetails.getString("username", "");
 
-        Long userId = mydb.returnUserId(storedUserName);
 
-
-        ArrayList<String> dbArrayList = mydb.returnAllUserDetails(userId);
-
-        String userFname = dbArrayList.get(0);
-        String userLname = dbArrayList.get(1);
-        String userAddress = dbArrayList.get(2);
-        String userPhone = dbArrayList.get(3);
-        String userEmail = dbArrayList.get(4);
 
         if(storedUserName.equals("")){
             username.setText("Please log in");
@@ -61,8 +62,21 @@ public class ProfileActivity extends AppCompatActivity {
             phone.setVisibility(View.INVISIBLE);
             email.setVisibility(View.INVISIBLE);
             saveButton.setVisibility(View.INVISIBLE);
+            clearButton.setVisibility(View.INVISIBLE);
+            testButton.setVisibility(View.INVISIBLE);
             // set the editText fields to uneditable or hidden
         }else{
+
+            Long userId = mydb.returnUserId(storedUserName);
+
+            ArrayList<String> dbArrayList = mydb.returnAllUserDetails(userId);
+
+            String userFname = dbArrayList.get(0);
+            String userLname = dbArrayList.get(1);
+            String userAddress = dbArrayList.get(2);
+            String userPhone = dbArrayList.get(3);
+            String userEmail = dbArrayList.get(4);
+
             username.setText("Username: " +storedUserName);
             fname.setText(userFname);
             lname.setText(userLname);
@@ -74,7 +88,7 @@ public class ProfileActivity extends AppCompatActivity {
         saveButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                onSave();
+                onSaveProfile();
             }
         });
 
@@ -82,6 +96,13 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 onTest();
+            }
+        });
+
+        clearButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                clearProfile();
             }
         });
 
@@ -95,7 +116,7 @@ public class ProfileActivity extends AppCompatActivity {
         mydb = new Database(this);
         long userNum = mydb.returnUserId(storedUserName);
 
-        mydb = new Database(this);
+        //mydb = new Database(this);
 
         ArrayList<String> dbArrayList = mydb.returnAllUserDetails(userNum);
 
@@ -112,7 +133,7 @@ public class ProfileActivity extends AppCompatActivity {
         mydb.close();
     }
 
-    public void onSave(){
+    public void onSaveProfile(){
 
         SharedPreferences userDetails = getSharedPreferences("prefs", MODE_PRIVATE);
         storedUserName = userDetails.getString("username", "");
@@ -132,5 +153,32 @@ public class ProfileActivity extends AppCompatActivity {
        mydb.updateUserProfile(userFname, userLname, userPhone,userEmail, userAddress, userNum);
 
        mydb.close();
+
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+    private void clearProfile() {
+        SharedPreferences userDetails = getSharedPreferences("prefs", MODE_PRIVATE);
+        storedUserName = userDetails.getString("username", "");
+
+        mydb = new Database(this);
+        long userNum = mydb.returnUserId(storedUserName);
+
+        mydb.updateUserProfile("", "", "","", "", userNum);
+
+        mydb.close();
+
+        Intent intent = new Intent(this, ProfileActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        //onBackPressed();
+        // replaced onBackPressed with return to main activity instead
+        Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
+        startActivity(intent);
+        return true;
     }
 }

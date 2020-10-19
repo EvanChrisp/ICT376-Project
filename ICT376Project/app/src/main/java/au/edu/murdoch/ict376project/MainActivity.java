@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity
                 loginName.setText(storedUserName);
                 Long userId = mydb.returnUserId(storedUserName);
                 String userEmail = mydb.returnUserEmail(userId);
-                loginEmail.setText("Email: " +userEmail);
+                loginEmail.setText(userEmail);
             }
         }
         mydb.close();
