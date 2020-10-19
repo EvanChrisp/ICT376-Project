@@ -5,7 +5,7 @@
     <string name="nav_header_title">User name</string>
     <string name="nav_header_subtitle">email@email.com</string>
     <string name="nav_header_desc">Navigation header</string>
-    <string name="action_settings">Settings</string>
+    <string name="action_settings">My profile</string>
     <string name="action_cart">Go to cart</string>
     <string name="menu_home">Home</string>
     <string name="menu_search">Search</string>

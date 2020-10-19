@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.ProfileActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp">
+        <ImageView
+            android:id="@+id/profileImageView"
+            android:layout_alignParentTop="true"
+            android:background="@color/colorPrimaryDark"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:src="@drawable/addphoto"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="18dp"/>
+        <EditText
+            android:id="@+id/profileEditTextFname"
+            android:layout_below="@+id/profileImageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="First name"
+            android:layout_centerHorizontal="true"
+            android:ems="10" />
+        <EditText
+            android:id="@+id/profileEditTextLname"
+            android:layout_below="@+id/profileEditTextFname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Last name"
+            android:layout_centerHorizontal="true"
+            android:ems="10" />
+        <EditText
+            android:id="@+id/profileEditTextAddress"
+            android:layout_below="@+id/profileEditTextLname"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Address"
+            android:layout_centerHorizontal="true"
+            android:ems="10" />
+        <EditText
+            android:id="@+id/profileEditTextPhone"
+            android:layout_below="@+id/profileEditTextAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Phone"
+            android:layout_centerHorizontal="true"
+            android:ems="10" />
+        <EditText
+            android:id="@+id/profileEditTextEmail"
+            android:layout_below="@+id/profileEditTextPhone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:hint="Email"
+            android:layout_centerHorizontal="true"
+            android:ems="10" />
+
+    </RelativeLayout>
+
+</ScrollView>

@@ -16,6 +16,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+import au.edu.murdoch.ict376project.ui.ProfileActivity;
 
 import com.google.android.material.navigation.NavigationView;
 
@@ -100,13 +101,14 @@ public class MainActivity extends AppCompatActivity
     public boolean onOptionsItemSelected(MenuItem item){
         switch(item.getItemId()){
             case R.id.action_settings:
-                Toast.makeText(getApplicationContext(),"You clicked settings", Toast.LENGTH_SHORT).show();
-                // add a go to activity or go to fragment action
+                //Toast.makeText(getApplicationContext(),"You clicked settings", Toast.LENGTH_SHORT).show();
+                Intent profileIntent = new Intent(this, ProfileActivity.class);
+                startActivity(profileIntent);
                 return true;
             case R.id.action_cart:
                 //Toast.makeText(getApplicationContext(),"You clicked Go to cart", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(this, CheckoutActivity.class);
-                startActivity(intent);
+                Intent cartIntent = new Intent(this, CheckoutActivity.class);
+                startActivity(cartIntent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
