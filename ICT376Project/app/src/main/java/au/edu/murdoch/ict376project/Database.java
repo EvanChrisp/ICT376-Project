@@ -454,6 +454,42 @@ public class Database extends SQLiteOpenHelper
         return res;
     }
 
+    public String totalCartValue(){
+
+        String total = "";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        ArrayList<String> cartValue = new ArrayList<String>();
+
+        Cursor cursor = db.rawQuery("select * from products where status = " +"1", null);
+
+        if (cursor.getCount() > 0)
+        {
+            cursor.moveToFirst();
+            while(!cursor.isAfterLast()){
+                cartValue.add(cursor.getString(cursor.getColumnIndexOrThrow(PRODUCT_PRICE)));
+                cursor.moveToNext();
+            }
+
+            int i;
+            int totalGameValue =0;
+
+            for(i=0; i<cartValue.size(); i++){
+                int eachGameValue = Integer.parseInt(cartValue.get(i));
+                totalGameValue = totalGameValue + eachGameValue;
+            }
+
+            total = totalGameValue + "";
+
+        }
+
+        cursor.close();
+
+
+        return total;
+
+    }
+
     public Cursor getCursorProducts(String platform){
 
         SQLiteDatabase db = this.getWritableDatabase();

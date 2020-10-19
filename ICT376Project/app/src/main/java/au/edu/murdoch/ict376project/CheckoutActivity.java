@@ -11,10 +11,12 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
+import android.widget.TextView;
 
 public class CheckoutActivity extends AppCompatActivity {
     Database dbHelper;
     ListView listView;
+    TextView checkoutDisplayAmount;
     Database db;
 
     @Override
@@ -35,6 +37,7 @@ public class CheckoutActivity extends AppCompatActivity {
 
         // get database
         dbHelper = new Database(this);
+        checkoutDisplayAmount = (TextView)findViewById(R.id.checkoutDisplayAmount);
 
         // cursor = return from db function
         Cursor cursor = dbHelper.getShoppingCart("1");
@@ -92,6 +95,8 @@ public class CheckoutActivity extends AppCompatActivity {
         });
 
         db.close();
+        String totalAmount = dbHelper.totalCartValue();
+        checkoutDisplayAmount.setText("The total amount to pay: $" +totalAmount+ ".00 (AUD)");
         dbHelper.close();
 
     }
