@@ -96,7 +96,12 @@ public class CheckoutActivity extends AppCompatActivity {
 
         db.close();
         String totalAmount = dbHelper.totalCartValue();
-        checkoutDisplayAmount.setText("The total amount to pay: $" +totalAmount+ ".00 (AUD)");
+        if(totalAmount.equals("")){
+            checkoutDisplayAmount.setText("You have no items in your cart!");
+        }else{
+            checkoutDisplayAmount.setText("The total amount to pay: $" +totalAmount+ ".00 (AUD)");
+        }
+
         dbHelper.close();
 
     }
