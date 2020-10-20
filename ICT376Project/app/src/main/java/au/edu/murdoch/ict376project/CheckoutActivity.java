@@ -104,6 +104,7 @@ public class CheckoutActivity extends AppCompatActivity {
         totalAmount = dbHelper.totalCartValue();
         if(totalAmount.equals("")){
             checkoutDisplayAmount.setText("You have no items in your cart!");
+            checkoutPayment.setVisibility(View.INVISIBLE);
         }else{
             checkoutDisplayAmount.setText("The total amount to pay: $" +totalAmount+ ".00 (AUD)");
         }

@@ -18,8 +18,9 @@ public class CreditCardActivity extends AppCompatActivity {
 
     TextView amount;
     Database db;
-    EditText payFname, payLname, payAddress;
+    EditText payFname, payLname, payAddress, payEmail;
     Button payNow;
+    String userFname, userLname, userAddress, userEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +37,7 @@ public class CreditCardActivity extends AppCompatActivity {
         payFname = (EditText) findViewById(R.id.paymentFname);
         payLname = (EditText) findViewById(R.id.paymentLname);
         payAddress = (EditText) findViewById(R.id.paymentAddress);
-
+        payEmail = (EditText) findViewById(R.id.paymentEmail);
 
         Intent intent = getIntent();
 
@@ -53,27 +54,43 @@ public class CreditCardActivity extends AppCompatActivity {
         db = new Database(this);
         storedUserName = userDetails.getString("username", "");
 
-        Long userId = db.returnUserId(storedUserName);
+        if(storedUserName.equals("")){
+            Toast.makeText(this, "Please enter details in all fields", Toast.LENGTH_SHORT).show();
+        }else{
+            Long userId = db.returnUserId(storedUserName);
 
-        ArrayList<String> dbArrayList = db.returnAllUserDetails(userId);
+            ArrayList<String> dbArrayList = db.returnAllUserDetails(userId);
 
-        String userFname = dbArrayList.get(0);
-        String userLname = dbArrayList.get(1);
-        String userAddress = dbArrayList.get(2);
-        final String userEmail = dbArrayList.get(4);
+            userFname = dbArrayList.get(0);
+            userLname = dbArrayList.get(1);
+            userAddress = dbArrayList.get(2);
+            userEmail = dbArrayList.get(4);
+
+        }
 
         payFname.setText(userFname);
         payLname.setText(userLname);
         payAddress.setText(userAddress);
+        payEmail.setText(userEmail);
 
         payNow = (Button)findViewById(R.id.payNow);
         payNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(CreditCardActivity.this, "Thank you for ordering from ERE games, a confirmation email has been sent to: "+userEmail, Toast.LENGTH_LONG).show();
-                db.clearCart();
-                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                startActivity(intent);
+                if(userEmail == null){
+                    // for anonymous purchases
+                    userEmail = payEmail.getText().toString();
+                    Toast.makeText(CreditCardActivity.this, "Thank you for ordering from ERE games, a confirmation email has been sent to: "+userEmail, Toast.LENGTH_LONG).show();
+                    db.clearCart();
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
+                }else{
+                    Toast.makeText(CreditCardActivity.this, "Thank you for ordering from ERE games, a confirmation email has been sent to: "+userEmail, Toast.LENGTH_LONG).show();
+                    db.clearCart();
+                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                    startActivity(intent);
+                }
+
             }
         });
 

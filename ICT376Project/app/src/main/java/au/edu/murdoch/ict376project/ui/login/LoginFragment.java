@@ -225,6 +225,8 @@ public class LoginFragment extends Fragment
                         Toast.makeText(getActivity().getApplicationContext(), "Login authenticated!", Toast.LENGTH_SHORT).show();
                         loginMsg.setVisibility(View.VISIBLE);
                         loginMsg.setText("Login authenticated");
+                        // this will clear the cart if anonymous user added items to cart (they don't log out).
+                        mydb.clearCart();
                         Intent intent = new Intent(getActivity(), MainActivity.class);
                         startActivity(intent);
                     }else{
