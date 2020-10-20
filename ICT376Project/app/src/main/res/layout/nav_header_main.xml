@@ -15,7 +15,7 @@
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/navHeaderImageView"
         android:layout_width="80dp"
         android:layout_height="86dp"
         android:layout_marginStart="8dp"
@@ -35,14 +35,14 @@
         android:id="@+id/navHeaderName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
         android:layout_marginTop="48dp"
         android:paddingTop="@dimen/nav_header_vertical_spacing"
         android:text="@string/nav_header_title"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         app:layout_constraintBottom_toTopOf="@+id/navHeaderEmail"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toEndOf="@+id/navHeaderImageView"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_conversion_absoluteHeight="27dp"
         tools:layout_conversion_absoluteWidth="216dp" />
@@ -51,12 +51,12 @@
         android:id="@+id/navHeaderEmail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
         android:layout_marginBottom="32dp"
         android:text="@string/nav_header_subtitle"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
+        app:layout_constraintStart_toEndOf="@+id/navHeaderImageView"
         app:layout_constraintTop_toBottomOf="@+id/navHeaderName"
         tools:layout_conversion_absoluteHeight="19dp"
         tools:layout_conversion_absoluteWidth="182dp" />

@@ -2,10 +2,19 @@ package au.edu.murdoch.ict376project;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.PorterDuff;
+import android.graphics.PorterDuffXfermode;
+import android.graphics.Rect;
+import android.graphics.RectF;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +33,7 @@ public class MainActivity extends AppCompatActivity
     Database mydb = null;
     private AppBarConfiguration mAppBarConfiguration;
     TextView loginName, loginEmail;
+    ImageView userPhoto;
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -44,11 +54,6 @@ public class MainActivity extends AppCompatActivity
             mydb.insertMyShopItems();
         }
 
-        /*if (mydb == null){
-            mydb = new Database(this);
-            mydb.insertMyShopItems();
-        }*/
-
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         NavigationView navigationView = findViewById(R.id.nav_view);
 
@@ -57,6 +62,7 @@ public class MainActivity extends AppCompatActivity
         // now init textView based on headerView view object
         loginName = (TextView)headerView.findViewById(R.id.navHeaderName);
         loginEmail = (TextView)headerView.findViewById(R.id.navHeaderEmail);
+        userPhoto = (ImageView)headerView.findViewById(R.id.navHeaderImageView);
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_playstation, R.id.nav_xbox, R.id.nav_nintendo, R.id.nav_pc, R.id.nav_search, R.id.nav_contact, R.id.nav_news, R.id.nav_login)
@@ -87,10 +93,39 @@ public class MainActivity extends AppCompatActivity
                 Long userId = mydb.returnUserId(storedUserName);
                 String userEmail = mydb.returnUserEmail(userId);
                 loginEmail.setText(userEmail);
+                byte[] myPhotoByteArray = mydb.returnUserPhoto(userId);
+                Bitmap bitmap = BitmapFactory.decodeByteArray(myPhotoByteArray,0,myPhotoByteArray.length);
+                Bitmap roundedBitmap = getRoundedCroppedBitmap(bitmap);
+                userPhoto.setImageBitmap(roundedBitmap);
+                userPhoto.requestLayout();
+                userPhoto.getLayoutParams().height = 500;
             }
         }
         mydb.close();
 
+    }
+
+    // round bitmap image -> use bitmap returned from db in bitmapFactory call and put into this function to have rounded corners on bitmap
+    private Bitmap getRoundedCroppedBitmap(Bitmap bitmap) {
+        int widthLight = bitmap.getWidth();
+        int heightLight = bitmap.getHeight();
+
+        Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(),
+                Bitmap.Config.ARGB_8888);
+
+        Canvas canvas = new Canvas(output);
+        Paint paintColor = new Paint();
+        paintColor.setFlags(Paint.ANTI_ALIAS_FLAG);
+
+        RectF rectF = new RectF(new Rect(0, 0, widthLight, heightLight));
+
+        canvas.drawRoundRect(rectF, widthLight / 2, heightLight / 2, paintColor);
+
+        Paint paintImage = new Paint();
+        paintImage.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP));
+        canvas.drawBitmap(bitmap, 0, 0, paintImage);
+
+        return output;
     }
 
     @Override
