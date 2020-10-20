@@ -120,8 +120,11 @@ public class ProfileActivity extends AppCompatActivity {
             email.setText(userEmail);
 
             // convert the byte array back to bitmap
-            Bitmap bitmap = BitmapFactory.decodeByteArray(myPhotoByteArray,0,myPhotoByteArray.length);
-            profileImageView.setImageBitmap(bitmap);
+            if(mydb.returnUserPhoto(userId) != null){
+                Bitmap bitmap = BitmapFactory.decodeByteArray(myPhotoByteArray,0,myPhotoByteArray.length);
+                profileImageView.setImageBitmap(bitmap);
+            }
+
 
 
         }
@@ -146,6 +149,8 @@ public class ProfileActivity extends AppCompatActivity {
                 clearProfile();
             }
         });
+
+        mydb.close();
 
 
     }

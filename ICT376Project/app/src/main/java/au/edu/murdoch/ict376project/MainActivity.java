@@ -93,12 +93,15 @@ public class MainActivity extends AppCompatActivity
                 Long userId = mydb.returnUserId(storedUserName);
                 String userEmail = mydb.returnUserEmail(userId);
                 loginEmail.setText(userEmail);
-                byte[] myPhotoByteArray = mydb.returnUserPhoto(userId);
-                Bitmap bitmap = BitmapFactory.decodeByteArray(myPhotoByteArray,0,myPhotoByteArray.length);
-                Bitmap roundedBitmap = getRoundedCroppedBitmap(bitmap);
-                userPhoto.setImageBitmap(roundedBitmap);
-                userPhoto.requestLayout();
-                userPhoto.getLayoutParams().height = 500;
+                if(mydb.returnUserPhoto(userId) != null){
+                    byte[] myPhotoByteArray = mydb.returnUserPhoto(userId);
+                    Bitmap bitmap = BitmapFactory.decodeByteArray(myPhotoByteArray,0,myPhotoByteArray.length);
+                    Bitmap roundedBitmap = getRoundedCroppedBitmap(bitmap);
+                    userPhoto.setImageBitmap(roundedBitmap);
+                    userPhoto.requestLayout();
+                    userPhoto.getLayoutParams().height = 500;
+                }
+
             }
         }
         mydb.close();
