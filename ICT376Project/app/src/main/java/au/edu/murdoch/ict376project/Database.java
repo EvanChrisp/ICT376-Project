@@ -33,7 +33,8 @@ public class Database extends SQLiteOpenHelper
     public static final String CUSTOMER_ADDRESS = "address";
     public static final String CUSTOMER_USERNAME = "username";
     public static final String CUSTOMER_PASSWORD = "password";
-    public static final String CUSTOMER_IS_LOGGED_IN = "loggedin";
+    //public static final String CUSTOMER_IS_LOGGED_IN = "loggedin";
+    public static final String CUSTOMER_PHOTO = "photo";
 
     // product table
     public static final String PRODUCT_TABLE = "products";
@@ -72,7 +73,7 @@ public class Database extends SQLiteOpenHelper
                 CUSTOMER_USERNAME + " text," +
                 CUSTOMER_PASSWORD + " text," +
                 CUSTOMER_ADDRESS + " text," +
-                CUSTOMER_IS_LOGGED_IN + " integer)");
+                CUSTOMER_PHOTO + " blob)");
         // need to add in either
         // CUSTOMER_LOGGED_IN + " text, " +
         // OR
@@ -165,7 +166,17 @@ public class Database extends SQLiteOpenHelper
 
         db.update(CUSTOMER_TABLE, contentValues, "_id=" +id, null);
 
+    }
 
+    public void updateUserPhoto(Long id, byte[] image){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues contentValues = new ContentValues();
+
+        contentValues.put(CUSTOMER_PHOTO, image);
+
+        db.update(CUSTOMER_TABLE, contentValues, "_id=" +id, null);
 
     }
 
@@ -243,6 +254,23 @@ public class Database extends SQLiteOpenHelper
 
         return email;
 
+    }
+
+    public byte[] returnUserPhoto (Long id){
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("select * from customers where _id = " +id, null);
+
+        if (cursor.getCount() > 0)
+        {
+            cursor.moveToFirst();
+        }
+
+        byte[] image = cursor.getBlob(cursor.getColumnIndexOrThrow(CUSTOMER_PHOTO));
+        cursor.close();
+
+        return image;
     }
 
     public ArrayList<String> returnAllUserDetails(Long id){

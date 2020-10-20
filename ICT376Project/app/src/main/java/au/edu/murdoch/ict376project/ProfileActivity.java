@@ -13,6 +13,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -25,6 +28,7 @@ import android.widget.Toast;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 
 public class ProfileActivity extends AppCompatActivity {
@@ -95,8 +99,11 @@ public class ProfileActivity extends AppCompatActivity {
         }else{
 
             Long userId = mydb.returnUserId(storedUserName);
-
+            // return arrayList with all string user details
             ArrayList<String> dbArrayList = mydb.returnAllUserDetails(userId);
+
+            // return byte array used for user photo field in db
+            byte[] myPhotoByteArray = mydb.returnUserPhoto(userId);
 
             String userFname = dbArrayList.get(0);
             String userLname = dbArrayList.get(1);
@@ -110,6 +117,12 @@ public class ProfileActivity extends AppCompatActivity {
             address.setText(userAddress);
             phone.setText(userPhone);
             email.setText(userEmail);
+
+            // convert the byte array back to bitmap
+            Bitmap bitmap = BitmapFactory.decodeByteArray(myPhotoByteArray,0,myPhotoByteArray.length);
+            profileImageView.setImageBitmap(bitmap);
+
+
         }
 
         saveButton.setOnClickListener(new View.OnClickListener() {
@@ -140,9 +153,12 @@ public class ProfileActivity extends AppCompatActivity {
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         if(requestCode == REQUEST_CODE_GALLERY){
             if(grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // gallery intent
+
+                // this is the gallery intent
                 Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
+                // get only the type "image"
                 galleryIntent.setType("image/*");
+                // start activity for result
                 startActivityForResult(galleryIntent, REQUEST_CODE_GALLERY);
             } else {
                 Toast.makeText(this, "Don't have permission to access file location", Toast.LENGTH_SHORT).show();
@@ -155,6 +171,7 @@ public class ProfileActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
+        // if result is OK - use the cropimage library on imageUri
         if(requestCode == REQUEST_CODE_GALLERY && resultCode == RESULT_OK) {
             Uri imageUri = data.getData();
             CropImage.activity(imageUri)
@@ -162,15 +179,16 @@ public class ProfileActivity extends AppCompatActivity {
                     .setAspectRatio(1, 1) // image will be square
                     .start(this);
         }
+        // returning the image chosen (from gallery) to fill the imageView
         if(requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE){
             CropImage.ActivityResult result =CropImage.getActivityResult(data);
             if(resultCode == RESULT_OK) {
                 Uri resultUri = result.getUri();
                 // set image chosen from gallery to image view
                 profileImageView.setImageURI(resultUri);
-            }
+            } // else error....
             else if(resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE){
-                Exception error = result.getError();
+                Exception e = result.getError();
             }
         }
         super.onActivityResult(requestCode, resultCode, data);
@@ -210,6 +228,7 @@ public class ProfileActivity extends AppCompatActivity {
         userAddress = address.getText().toString();
         userPhone = phone.getText().toString();
         userEmail = email.getText().toString();
+        byte[] userPhoto = imageViewToByte(profileImageView);
 
         mydb = new Database(this);
         // get _id for User
@@ -218,12 +237,23 @@ public class ProfileActivity extends AppCompatActivity {
         //Toast.makeText(this, "Current user id is: " +userNum, Toast.LENGTH_SHORT).show();
 
        mydb.updateUserProfile(userFname, userLname, userPhone,userEmail, userAddress, userNum);
+       mydb.updateUserPhoto(userNum, userPhoto);
 
        mydb.close();
 
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
+
+    private byte[] imageViewToByte(ImageView image){
+        Bitmap bitmap = ( (BitmapDrawable) image.getDrawable() ).getBitmap();
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
+        return byteArray;
+    }
+
+
 
     private void clearProfile() {
         SharedPreferences userDetails = getSharedPreferences("prefs", MODE_PRIVATE);
