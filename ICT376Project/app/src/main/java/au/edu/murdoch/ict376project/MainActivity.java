@@ -106,6 +106,7 @@ public class MainActivity extends AppCompatActivity
                 startActivity(profileIntent);
                 return true;
             case R.id.action_cart:
+                Toast.makeText(this, "Please review your selection", Toast.LENGTH_SHORT).show();
                 Intent cartIntent = new Intent(this, CheckoutActivity.class);
                 startActivity(cartIntent);
                 return true;

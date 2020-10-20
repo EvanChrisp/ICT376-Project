@@ -6,7 +6,8 @@
     android:layout_height="match_parent"
     android:layout_marginEnd="5dp"
     tools:context=".ui.home.HomeFragment"
-    android:layout_marginRight="5dp">
+    android:layout_marginRight="5dp"
+    android:padding="10dp">
 
     <FrameLayout
         android:id="@+id/contentFragment"
@@ -27,7 +28,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_marginLeft="10dp">
 
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/linearLayout2"
@@ -70,10 +72,11 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_marginLeft="5dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="10dp"
                 android:text="@string/deals_of_the_week"
                 android:textColor="#000000"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:paddingLeft="10dp"/>
 
             <HorizontalScrollView
                 android:layout_width="match_parent"
@@ -348,9 +351,11 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="20dp"
+                    android:layout_marginBottom="10dp"
                     android:text="@string/search_by_console"
                     android:textColor="#000000"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:paddingLeft="10dp"/>
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -405,9 +410,11 @@
                     android:layout_marginStart="10dp"
                     android:layout_marginLeft="10dp"
                     android:layout_marginTop="20dp"
+                    android:layout_marginBottom="10dp"
                     android:text="@string/latest_releases"
                     android:textColor="#000000"
-                    android:textSize="16sp" />
+                    android:textSize="16sp"
+                    android:paddingLeft="10dp"/>
 
             </LinearLayout>
 

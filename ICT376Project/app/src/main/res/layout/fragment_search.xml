@@ -10,10 +10,13 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
-        android:padding="16dp"
-        android:text="Try searching for Forza, Ridge Racer or Zelda...." />
+        android:layout_marginLeft="10dp"
+        android:padding="5dp"
+        android:text="Try searching for Forza, Ridge Racer or Mario...." />
     <LinearLayout
+        android:layout_marginLeft="10dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -24,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="left"
             android:hint="Search games"
-            android:padding="16dp" />
+            android:padding="10dp" />
 
         <Button
             android:id="@+id/searchFragmentButton"
@@ -36,7 +39,9 @@
      <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+         android:layout_marginLeft="10dp"
+         android:layout_marginTop="5dp">
 
         <CheckBox
             android:id="@+id/PSCheckBox"
@@ -54,6 +59,7 @@
     </LinearLayout>
 
     <LinearLayout
+        android:layout_marginLeft="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -73,6 +79,7 @@
             android:text="PC" />
     </LinearLayout>
     <ListView
+        android:layout_marginTop="20dp"
         android:id="@+id/searchProductListView"
         android:layout_width="match_parent"
         android:layout_height="386dp"

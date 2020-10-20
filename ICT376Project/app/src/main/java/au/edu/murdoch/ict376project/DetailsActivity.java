@@ -106,7 +106,7 @@ public class DetailsActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(DetailsActivity.this, CheckoutActivity.class);
                 startActivity(intent);
-                Toast.makeText(DetailsActivity.this, "Please enter your payment details", Toast.LENGTH_SHORT).show();
+                Toast.makeText(DetailsActivity.this, "Please review your selection", Toast.LENGTH_SHORT).show();
             }
 
         });
