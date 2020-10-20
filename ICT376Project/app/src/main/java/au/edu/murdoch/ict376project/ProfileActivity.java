@@ -1,19 +1,29 @@
 package au.edu.murdoch.ict376project;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 import au.edu.murdoch.ict376project.Database;
 import au.edu.murdoch.ict376project.R;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.theartofdev.edmodo.cropper.CropImage;
+import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.util.ArrayList;
 
@@ -24,6 +34,9 @@ public class ProfileActivity extends AppCompatActivity {
     EditText fname, lname, address, phone, email;
     Database mydb = null;
     String userFname, userLname, userAddress, userPhone, userEmail, storedUserName;
+    ImageView profileImageView;
+
+    final int REQUEST_CODE_GALLERY = 999;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +59,20 @@ public class ProfileActivity extends AppCompatActivity {
         saveButton = (Button)findViewById(R.id.profileSaveButton);
         testButton = (Button)findViewById(R.id.profileTestButton);
         clearButton = (Button)findViewById(R.id.profileClearButton);
+        profileImageView = (ImageView)findViewById(R.id.profileImageView);
+
+        profileImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // read external storage permission to select image from gallery, runtime permission for devices android 6.0 and above
+                // ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE_GALLERY);
+                ActivityCompat.requestPermissions(
+                        ProfileActivity.this,
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                        REQUEST_CODE_GALLERY
+                );
+            }
+        });
 
         Database mydb = new Database(this);
 
@@ -107,6 +134,46 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if(requestCode == REQUEST_CODE_GALLERY){
+            if(grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // gallery intent
+                Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
+                galleryIntent.setType("image/*");
+                startActivityForResult(galleryIntent, REQUEST_CODE_GALLERY);
+            } else {
+                Toast.makeText(this, "Don't have permission to access file location", Toast.LENGTH_SHORT).show();
+            }
+            return;
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+
+        if(requestCode == REQUEST_CODE_GALLERY && resultCode == RESULT_OK) {
+            Uri imageUri = data.getData();
+            CropImage.activity(imageUri)
+                    .setGuidelines(CropImageView.Guidelines.ON) // enable image guidelines
+                    .setAspectRatio(1, 1) // image will be square
+                    .start(this);
+        }
+        if(requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE){
+            CropImage.ActivityResult result =CropImage.getActivityResult(data);
+            if(resultCode == RESULT_OK) {
+                Uri resultUri = result.getUri();
+                // set image chosen from gallery to image view
+                profileImageView.setImageURI(resultUri);
+            }
+            else if(resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE){
+                Exception error = result.getError();
+            }
+        }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
     private void onTest() {
