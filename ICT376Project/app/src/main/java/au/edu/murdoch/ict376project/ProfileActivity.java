@@ -95,6 +95,7 @@ public class ProfileActivity extends AppCompatActivity {
             saveButton.setVisibility(View.INVISIBLE);
             clearButton.setVisibility(View.INVISIBLE);
             testButton.setVisibility(View.INVISIBLE);
+            profileImageView.setVisibility(View.INVISIBLE);
             // set the editText fields to uneditable or hidden
         }else{
 
