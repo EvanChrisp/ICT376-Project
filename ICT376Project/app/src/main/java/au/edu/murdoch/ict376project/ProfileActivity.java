@@ -44,6 +44,7 @@ public class ProfileActivity extends AppCompatActivity {
     Database mydb = null;
     String userFname, userLname, userAddress, userPhone, userEmail, storedUserName;
     ImageView profileImageView;
+    byte[] userPhoto;
 
     final int REQUEST_CODE_GALLERY = 999;
     final int CAMERA_REQUEST_CODE = 100;
@@ -314,8 +315,8 @@ public class ProfileActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
         // if result is OK - use the cropimage library on imageUri
-        if(requestCode == IMAGE_PICK_CAMERA_CODE){
-            //imageUri = data.getData(); not used for camera
+        if(requestCode == IMAGE_PICK_CAMERA_CODE && resultCode == RESULT_OK){
+            //imageUri = data.getData();
             CropImage.activity(imageUri)
                     .setGuidelines(CropImageView.Guidelines.ON) // enable image guidelines
                     .setAspectRatio(1, 1) // image will be square
@@ -351,8 +352,6 @@ public class ProfileActivity extends AppCompatActivity {
         mydb = new Database(this);
         long userNum = mydb.returnUserId(storedUserName);
 
-        //mydb = new Database(this);
-
         ArrayList<String> dbArrayList = mydb.returnAllUserDetails(userNum);
 
 
@@ -378,7 +377,7 @@ public class ProfileActivity extends AppCompatActivity {
         userAddress = address.getText().toString();
         userPhone = phone.getText().toString();
         userEmail = email.getText().toString();
-        byte[] userPhoto = imageViewToByte(profileImageView);
+        userPhoto = imageViewToByte(profileImageView);
 
         mydb = new Database(this);
         // get _id for User
