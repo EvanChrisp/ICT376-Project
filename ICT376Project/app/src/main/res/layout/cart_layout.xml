@@ -14,7 +14,10 @@
         android:id="@+id/cImageHolder"
         android:scaleType="fitXY"
         android:paddingRight="10dp"
-        android:contentDescription="@string/game_box" />
+        android:paddingLeft="0dp"
+        android:paddingStart="0dp"
+        android:contentDescription="@string/game_box"
+        android:paddingEnd="10dp" />
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="wrap_content"

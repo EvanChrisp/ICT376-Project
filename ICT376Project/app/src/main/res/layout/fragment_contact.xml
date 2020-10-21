@@ -94,26 +94,31 @@
                 android:id="@+id/businessHours"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Opening Hours"
+                android:text="@string/contact_opening_hours"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
             <TextView
                 android:paddingTop="10dp"
                 android:paddingLeft="10dp"
+                android:paddingRight="10dp"
                 android:id="@+id/monFri"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Mon-Fri 8am - 5pm"
-                android:textSize="16sp" />
+                android:text="@string/contact_open_time"
+                android:textSize="16sp"
+                android:paddingStart="10dp" />
 
             <TextView
                 android:id="@+id/weekend"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Sat-Sun 12pm - 4pm"
+                android:text="@string/contact_open_time2"
                 android:textSize="16sp"
-                android:paddingLeft="10dp"/>
+                android:paddingLeft="10dp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:paddingRight="10dp" />
         </LinearLayout>
 
         <LinearLayout
@@ -128,7 +133,7 @@
                 android:id="@+id/AddressTitle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Address"
+                android:text="@string/contact_address"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -138,18 +143,22 @@
                 android:id="@+id/address1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="300 Wellington Street,"
-                android:textSize="16sp" />
+                android:text="@string/contact_address2"
+                android:textSize="16sp"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:paddingRight="10dp"
+                tools:ignore="RtlSymmetry" />
             <TextView
                 android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingEnd="10dp"
+                android:paddingStart="10dp"
                 android:id="@+id/address2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Perth, WA 6000 Australia"
+                android:text="@string/contact_address3"
                 android:textSize="16sp" />
         </LinearLayout>
-
-
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

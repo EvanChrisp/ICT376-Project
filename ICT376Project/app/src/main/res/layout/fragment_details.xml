@@ -21,18 +21,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:gravity="center_horizontal" />
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Scroll the listView"
+        android:text="@string/product_scroll"
         android:layout_marginBottom="30dp"
         android:padding="16dp"/>
-
     <ListView
         android:id="@+id/detailsProductListView"
         android:layout_width="match_parent"
         android:layout_height="386dp"
-        android:drawSelectorOnTop="false"
-        />
+        android:drawSelectorOnTop="false" />
 </LinearLayout>

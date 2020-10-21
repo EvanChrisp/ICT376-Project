@@ -5,8 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    tools:context=".DetailsActivity"
-    >
+    tools:context=".DetailsActivity" >
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,16 +17,8 @@
             android:layout_height="?attr/actionBarSize"
             android:background="?android:attr/colorFocusedHighlight"
             app:popupTheme="@style/AppTheme.PopupOverlay" />
-
     </com.google.android.material.appbar.AppBarLayout>
-    <!--<TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="This is the Details Activity"
-        android:id="@+id/detailsHeader"
-        android:textSize="20dp"
-        android:layout_marginBottom="10dp"
-        />-->
+
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -42,100 +33,80 @@
             android:layout_height="280dp"
             android:id="@+id/detailsImageView"
             android:src="@drawable/ic_launcher_background"
-            />
-
+            android:contentDescription="@string/product_image" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/detailsId"
-            android:text="Product ID"
+            android:text="@string/product_id"
             android:layout_below="@+id/detailsImageView"
-            android:layout_marginBottom="10dp"
-            />
-
+            android:layout_marginBottom="10dp" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/detailsName"
-            android:text="Product Name"
+            android:text="@string/product_name"
             android:layout_below="@+id/detailsId"
             android:layout_marginBottom="10dp"
-            android:textStyle="bold"
-            />
-
+            android:textStyle="bold" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/detailsPlatform"
-            android:text="Product Platform"
+            android:text="@string/product_platform"
             android:layout_below="@+id/detailsName"
-            android:layout_marginBottom="10dp"
-            />
-
+            android:layout_marginBottom="10dp" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/detailsDescription"
-            android:text="Product Description"
+            android:text="@string/product_description"
             android:layout_below="@+id/detailsPlatform"
-            android:layout_marginBottom="10dp"
-            />
-
+            android:layout_marginBottom="10dp" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/detailsRating"
-            android:text="Product Rating"
+            android:text="@string/product_rating"
             android:layout_below="@+id/detailsDescription"
-            android:layout_marginBottom="10dp"
-            />
-
+            android:layout_marginBottom="10dp" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/detailsStatus"
-            android:text="Product Status"
+            android:text="@string/product_status"
             android:layout_below="@+id/detailsRating"
-            android:layout_marginBottom="10dp"
-            />
-
+            android:layout_marginBottom="10dp" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/detailsFile"
-            android:text="Product File"
+            android:text="@string/product_file"
             android:layout_below="@+id/detailsStatus"
-            android:visibility="invisible"
-            />
-
+            android:visibility="invisible" />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/detailsPrice"
-            android:text="Product Price"
+            android:text="@string/product_price"
             android:layout_below="@+id/detailsFile"
-            android:layout_marginBottom="20dp"
-            />
-
+            android:layout_marginBottom="20dp" />
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Add to cart"
+            android:text="@string/add_to_cart"
             android:id="@+id/detailsCartButton"
             android:layout_below="@+id/detailsPrice"
             android:layout_alignParentStart="true"
             android:layout_alignParentLeft="true" />
-
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Go to cart"
+            android:text="@string/go_to_cart"
             android:id="@+id/detailsCheckoutButton"
             android:layout_below="@+id/detailsPrice"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            />
+            android:layout_alignParentRight="true" />
         </RelativeLayout>
     </ScrollView>
-
 </RelativeLayout>

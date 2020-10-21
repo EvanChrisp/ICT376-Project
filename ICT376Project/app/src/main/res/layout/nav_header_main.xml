@@ -30,7 +30,6 @@
         app:srcCompat="@mipmap/logo"
         tools:layout_conversion_absoluteHeight="80dp"
         tools:layout_conversion_absoluteWidth="83dp" />
-
     <TextView
         android:id="@+id/navHeaderName"
         android:layout_width="wrap_content"
@@ -46,7 +45,6 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_conversion_absoluteHeight="27dp"
         tools:layout_conversion_absoluteWidth="216dp" />
-
     <TextView
         android:id="@+id/navHeaderEmail"
         android:layout_width="wrap_content"

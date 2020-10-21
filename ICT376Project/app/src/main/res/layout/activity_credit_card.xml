@@ -31,7 +31,7 @@
             android:layout_marginBottom="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="This is the actual payment page"
+            android:text="@string/payment_page"
             android:id="@+id/creditCardToPay"
             android:gravity="center_horizontal"
             android:textAlignment="center"
@@ -45,18 +45,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/creditCardNumber"
-            android:hint="Credit/Debit Card"
+            android:hint="@string/payment_card_number"
             android:singleLine="true"
             android:ems="16"
-            android:maxLength="16" />
+            android:inputType="number"
+            android:maxLength="16"
+            android:importantForAutofill="no" />
 
         <EditText
             android:layout_below="@id/creditCardNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/expirationDate"
-            android:hint="Expiration MM/YY"
+            android:hint="@string/payment_card_expiration"
             android:singleLine="true"
+            android:inputType="date"
+            android:importantForAutofill="no"
             android:maxLength="5"/>
 
         <EditText
@@ -64,8 +68,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/ccvNumber"
-            android:hint="CVV"
+            android:hint="@string/payment_card_cvv"
             android:singleLine="true"
+            android:inputType="number"
+            android:importantForAutofill="no"
             android:maxLength="3"/>
 
         <EditText
@@ -74,7 +80,9 @@
             android:layout_height="wrap_content"
             android:id="@+id/paymentFname"
             android:singleLine="true"
-            android:hint="First Name" />
+            android:inputType="text"
+            android:importantForAutofill="no"
+            android:hint="@string/payment_card_firstname" />
 
         <EditText
             android:layout_below="@+id/paymentFname"
@@ -82,7 +90,9 @@
             android:layout_height="wrap_content"
             android:id="@+id/paymentLname"
             android:singleLine="true"
-            android:hint="Last Name" />
+            android:inputType="text"
+            android:importantForAutofill="no"
+            android:hint="@string/payment_card_lastname" />
 
         <EditText
             android:layout_below="@id/paymentLname"
@@ -90,7 +100,9 @@
             android:layout_height="wrap_content"
             android:id="@+id/paymentAddress"
             android:singleLine="true"
-            android:hint="Billing Address" />
+            android:inputType="text"
+            android:importantForAutofill="no"
+            android:hint="@string/payment_address" />
 
         <EditText
             android:layout_below="@id/paymentAddress"
@@ -98,7 +110,9 @@
             android:layout_height="wrap_content"
             android:id="@+id/paymentEmail"
             android:singleLine="true"
-            android:hint="Email Address" />
+            android:inputType="textEmailAddress"
+            android:importantForAutofill="no"
+            android:hint="@string/payment_email" />
 
         <Button
             android:layout_marginTop="50dp"
@@ -106,13 +120,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/payNow"
-            android:text="Pay Now"
+            android:text="@string/payment_pay"
             android:layout_below="@+id/paymentEmail"/>
     </RelativeLayout>
-
-
-
-
-
-
 </LinearLayout>

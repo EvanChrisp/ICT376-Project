@@ -1,150 +1,112 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.login.LoginFragment"
     android:orientation="vertical">
 
-    <!--<TextView
-        android:id="@+id/text_login"
-        android:layout_width="match_parent"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginRight="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginBottom="30dp"
-        android:textAlignment="center"
-        android:layout_gravity="center_horizontal"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />-->
+        android:id="@+id/loginTv"
+        android:text="@string/enterCredentials"
+        android:layout_gravity="center"
+        android:padding="20dp"
+        android:importantForAutofill="no"/>
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/usernameEt"
+        android:hint="@string/enterUserName"
+        android:layout_gravity="center"
+        android:padding="20dp"
+        android:singleLine="true"
+        android:inputType="text"
+        android:importantForAutofill="no"/>
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/passwordEt"
+        android:hint="@string/enterPassword"
+        android:inputType="textPassword"
+        android:layout_gravity="center"
+        android:singleLine="true"
+        android:padding="20dp"
+        android:importantForAutofill="no" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/rePasswordEt"
+        android:hint="@string/retypePassword"
+        android:inputType="textPassword"
+        android:layout_gravity="center"
+        android:padding="20dp"
+        android:visibility="invisible"
+        android:layout_marginBottom="20dp"
+        android:singleLine="true"
+        android:importantForAutofill="no" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/loginMsg"
+        android:text=""
+        android:layout_gravity="center"
+        android:padding="40dp"/>
+
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/loginTv"
-            android:text="@string/enterCredentials"
-            android:layout_gravity="center"
-            android:padding="20dp"/>
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/usernameEt"
-            android:hint="@string/enterUserName"
-            android:layout_gravity="center"
-            android:padding="20dp"
-            android:singleLine="true"
-            android:inputType="text" />
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/passwordEt"
-            android:hint="@string/enterPassword"
-            android:inputType="textPassword"
-            android:layout_gravity="center"
-            android:singleLine="true"
-            android:padding="20dp"
-            />
-
-        <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/rePasswordEt"
-            android:hint="@string/retypePassword"
-            android:inputType="textPassword"
-            android:layout_gravity="center"
-            android:padding="20dp"
-            android:visibility="invisible"
-            android:layout_marginBottom="20dp"
-            android:singleLine="true"
-            />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/loginMsg"
-            android:text=""
-            android:layout_gravity="center"
-            android:padding="40dp"/>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center">
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/loginButton"
-                android:text="@string/login"
-                android:layout_weight="1"
-                />
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1">
-                <Button
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/clickToRegisterUserPwdButton"
-                    android:text="@string/clickToRegister"
-                    />
-                <Button
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/clickToReturnToLogin"
-                    android:text="@string/returnToLoginMode"
-                    android:visibility="invisible"
-                    />
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/clickToReturnToRegister"
-                    android:text="@string/returnToRegisterMode"
-                    android:visibility="invisible"
-                    />
-            </RelativeLayout>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/registerUserPwdButton"
-                android:text="@string/register"
-                android:visibility="invisible"
-                android:layout_weight="1"
-                />
-
-
-        </LinearLayout>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/logoutButton"
-            android:text="@string/logout"
-            android:layout_marginTop="20dp"
-            android:layout_gravity="center"
-            />
-
-        <TextView
-            android:paddingTop="20dp"
+            android:id="@+id/loginButton"
+            android:text="@string/login"
+            android:layout_weight="1" />
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:id="@+id/loginStatus"
-            android:text="@string/anonymousLogin"
-            />
-
+            android:layout_weight="1">
+            <Button
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/clickToRegisterUserPwdButton"
+                android:text="@string/clickToRegister" />
+            <Button
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/clickToReturnToLogin"
+                android:text="@string/returnToLoginMode"
+                android:visibility="invisible" />
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/clickToReturnToRegister"
+                android:text="@string/returnToRegisterMode"
+                android:visibility="invisible" />
+        </RelativeLayout>
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/registerUserPwdButton"
+            android:text="@string/register"
+            android:visibility="invisible"
+            android:layout_weight="1" />
     </LinearLayout>
-
-
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/logoutButton"
+        android:text="@string/logout"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center" />
+    <TextView
+        android:paddingTop="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:id="@+id/loginStatus"
+        android:text="@string/anonymousLogin" />
 </LinearLayout>
