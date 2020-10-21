@@ -211,6 +211,7 @@ public class ProfileActivity extends AppCompatActivity {
         galleryIntent.setType("image/*");
         // start activity for result -> returns
         startActivityForResult(galleryIntent, REQUEST_CODE_GALLERY);
+        return;
     }
 
     private void pickFromCamera() {
@@ -224,6 +225,7 @@ public class ProfileActivity extends AppCompatActivity {
         Intent cameraIntent = new Intent (MediaStore.ACTION_IMAGE_CAPTURE);
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
         startActivityForResult(cameraIntent, IMAGE_PICK_CAMERA_CODE);
+        return;
     }
 
     private boolean checkStoragePermissions(){
