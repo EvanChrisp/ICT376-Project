@@ -20,6 +20,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -54,6 +55,8 @@ public class ProfileActivity extends AppCompatActivity {
     String[] cameraPermissions;
     String[] storagePermissions;
     Uri imageUri;
+    Drawable myPhotoIcon;
+    Long userId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +82,7 @@ public class ProfileActivity extends AppCompatActivity {
         profileImageView = (ImageView)findViewById(R.id.profileImageView);
         cameraPermissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
         storagePermissions = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        myPhotoIcon = getResources().getDrawable(R.mipmap.logo);
 
 
         profileImageView.setOnClickListener(new View.OnClickListener() {
@@ -117,30 +121,37 @@ public class ProfileActivity extends AppCompatActivity {
             profileImageView.setVisibility(View.INVISIBLE);
             // set the editText fields to uneditable or hidden
         }else{
+            // get _id
+            userId = mydb.returnUserId(storedUserName);
 
-            Long userId = mydb.returnUserId(storedUserName);
-            // return arrayList with all string user details
+            // return arrayList from db with all string user _id details
             ArrayList<String> dbArrayList = mydb.returnAllUserDetails(userId);
 
-            // return byte array used for user photo field in db
-            byte[] myPhotoByteArray = mydb.returnUserPhoto(userId);
-
+            // save into variables
             String userFname = dbArrayList.get(0);
             String userLname = dbArrayList.get(1);
             String userAddress = dbArrayList.get(2);
             String userPhone = dbArrayList.get(3);
             String userEmail = dbArrayList.get(4);
 
+            // set the editText views
             username.setText("Username: " +storedUserName);
             fname.setText(userFname);
             lname.setText(userLname);
             address.setText(userAddress);
             phone.setText(userPhone);
             email.setText(userEmail);
+            // set the imageview to a default icon
+            profileImageView.setImageDrawable(myPhotoIcon);
 
+            // check if user has saved profile photo - if blob return is NOT null - convert blob back to bitmap
             // convert the byte array back to bitmap
             if(mydb.returnUserPhoto(userId) != null){
+                // return byte array used for user photo field in db
+                byte[] myPhotoByteArray = mydb.returnUserPhoto(userId);
+                // use bitmap factory to decode
                 Bitmap bitmap = BitmapFactory.decodeByteArray(myPhotoByteArray,0,myPhotoByteArray.length);
+                // now set the imageView to the bitmap returned from db
                 profileImageView.setImageBitmap(bitmap);
             }
 
@@ -207,12 +218,12 @@ public class ProfileActivity extends AppCompatActivity {
 
     private void pickFromGallery() {
         // this is the gallery intent
-        Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
+        Intent galleryIntent = new Intent(Intent.ACTION_PICK);
         // get only the type "image"
         galleryIntent.setType("image/*");
         // start activity for result -> returns
         startActivityForResult(galleryIntent, REQUEST_CODE_GALLERY);
-        return;
+        //return;
     }
 
     private void pickFromCamera() {
@@ -316,15 +327,14 @@ public class ProfileActivity extends AppCompatActivity {
 
         // if result is OK - use the cropimage library on imageUri
         if(requestCode == IMAGE_PICK_CAMERA_CODE && resultCode == RESULT_OK){
-            //imageUri = data.getData();
-            CropImage.activity(imageUri)
-                    .setGuidelines(CropImageView.Guidelines.ON) // enable image guidelines
-                    .setAspectRatio(1, 1) // image will be square
-                    .start(this);
+            /*Bundle extras = data.getExtras();
+            Bitmap photo = (Bitmap) extras.get("data");
+            profileImageView.setImageBitmap(photo);*/
+            CropImage.activity(imageUri).setGuidelines(CropImageView.Guidelines.ON).setAspectRatio(1, 1).start(this);
         }
         // if result is OK - use the cropimage library on imageUri
         if(requestCode == REQUEST_CODE_GALLERY && resultCode == RESULT_OK) {
-            imageUri = data.getData();
+            Uri imageUri = data.getData();
             CropImage.activity(imageUri)
                     .setGuidelines(CropImageView.Guidelines.ON) // enable image guidelines
                     .setAspectRatio(1, 1) // image will be square
@@ -332,11 +342,12 @@ public class ProfileActivity extends AppCompatActivity {
         }
         // returning the image chosen (from gallery) to fill the imageView
         if(requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE){
-            CropImage.ActivityResult result =CropImage.getActivityResult(data);
+            CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if(resultCode == RESULT_OK) {
                 Uri resultUri = result.getUri();
                 // set image chosen from gallery to image view
                 profileImageView.setImageURI(resultUri);
+                //userPhoto = imageViewToByte(profileImageView);
             } // else error....
             else if(resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE){
                 Exception e = result.getError();
@@ -350,9 +361,9 @@ public class ProfileActivity extends AppCompatActivity {
         storedUserName = userDetails.getString("username", "");
 
         mydb = new Database(this);
-        long userNum = mydb.returnUserId(storedUserName);
+        //long userNum = mydb.returnUserId(storedUserName);
 
-        ArrayList<String> dbArrayList = mydb.returnAllUserDetails(userNum);
+        ArrayList<String> dbArrayList = mydb.returnAllUserDetails(userId);
 
 
         //String myemail = mydb.returnUserEmail(userNum);
@@ -369,9 +380,11 @@ public class ProfileActivity extends AppCompatActivity {
 
     public void onSaveProfile(){
 
-        SharedPreferences userDetails = getSharedPreferences("prefs", MODE_PRIVATE);
-        storedUserName = userDetails.getString("username", "");
+        // get username
+        //SharedPreferences userDetails = getSharedPreferences("prefs", MODE_PRIVATE);
+        //storedUserName = userDetails.getString("username", "");
 
+        // save first name, last name, address, phone and email as in the editText field
         userFname = fname.getText().toString();
         userLname = lname.getText().toString();
         userAddress = address.getText().toString();
@@ -381,23 +394,29 @@ public class ProfileActivity extends AppCompatActivity {
 
         mydb = new Database(this);
         // get _id for User
-        long userNum = mydb.returnUserId(storedUserName);
+        //long userNum = mydb.returnUserId(storedUserName);
         // should show the user id
         //Toast.makeText(this, "Current user id is: " +userNum, Toast.LENGTH_SHORT).show();
 
-       mydb.updateUserProfile(userFname, userLname, userPhone,userEmail, userAddress, userNum);
-       mydb.updateUserPhoto(userNum, userPhoto);
+        // update the db with new blob info
+        mydb.updateUserPhoto(userId, userPhoto);
 
-       mydb.close();
+        // update the db with the new information
+        mydb.updateUserProfile(userFname, userLname, userPhone,userEmail, userAddress, userId);
+
+
+       //mydb.close();
 
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
+
+        mydb.close();
     }
 
     private byte[] imageViewToByte(ImageView image){
         Bitmap bitmap = ( (BitmapDrawable) image.getDrawable() ).getBitmap();
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 50, stream);
         byte[] byteArray = stream.toByteArray();
         return byteArray;
     }
