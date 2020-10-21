@@ -11,13 +11,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
+
 import au.edu.murdoch.ict376project.Database;
 import au.edu.murdoch.ict376project.MainActivity;
 import au.edu.murdoch.ict376project.R;
@@ -33,10 +29,8 @@ public class LoginFragment extends Fragment
     TextView loginMsg, loginStatus;
     String storedUserName;
 
-
     // Database
     Database mydb = null;
-    ArrayList mArrayList;  // the list of all products
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
@@ -55,9 +49,10 @@ public class LoginFragment extends Fragment
         });*/
 
         loginStatus = mLayoutView.findViewById(R.id.loginStatus);
-        loginButton = (Button)mLayoutView.findViewById(R.id.loginButton);
+        loginButton = mLayoutView.findViewById(R.id.loginButton);
 
         // 1. get instance of shared preferences (prefs is the private pref file that stores the values put into in (below....)
+        assert getActivity() != null;
         SharedPreferences userDetails = getActivity().getSharedPreferences("prefs", MODE_PRIVATE);
 
         // 2. String name
@@ -66,10 +61,11 @@ public class LoginFragment extends Fragment
         if(userDetails.getString("username","")!= null){
             storedUserName = userDetails.getString("username", "");
 
+            assert storedUserName != null;
             if(storedUserName.equals("")){
-                loginStatus.setText("You are logged in anonymously");
+                loginStatus.setText(R.string.login_anonymous);
             }else{
-                loginStatus.setText("You are currently logged in as " +storedUserName);
+                loginStatus.setText(getString(R.string.login_as, storedUserName));
                 loginButton.setVisibility(View.INVISIBLE);
             }
         }
@@ -85,15 +81,15 @@ public class LoginFragment extends Fragment
 
         //int userId;
 
-        usernameEt = (EditText)mLayoutView.findViewById(R.id.usernameEt);
-        passwordEt = (EditText)mLayoutView.findViewById(R.id.passwordEt);
-        rePasswordEt = (EditText)mLayoutView.findViewById(R.id.rePasswordEt);
-        clickToRegisterButton = (Button)mLayoutView.findViewById(R.id.clickToRegisterUserPwdButton);
-        loginButton = (Button)mLayoutView.findViewById(R.id.loginButton);
-        loginMsg = (TextView)mLayoutView.findViewById(R.id.loginMsg);
-        logoutButton = (Button)mLayoutView.findViewById(R.id.logoutButton);
-        clickToReturnToLogin = (Button)mLayoutView.findViewById(R.id.clickToReturnToLogin);
-        clickToReturnToRegister = (Button)mLayoutView.findViewById(R.id.clickToReturnToRegister);
+        usernameEt = mLayoutView.findViewById(R.id.usernameEt);
+        passwordEt = mLayoutView.findViewById(R.id.passwordEt);
+        rePasswordEt = mLayoutView.findViewById(R.id.rePasswordEt);
+        clickToRegisterButton = mLayoutView.findViewById(R.id.clickToRegisterUserPwdButton);
+        loginButton = mLayoutView.findViewById(R.id.loginButton);
+        loginMsg = mLayoutView.findViewById(R.id.loginMsg);
+        logoutButton = mLayoutView.findViewById(R.id.logoutButton);
+        clickToReturnToLogin = mLayoutView.findViewById(R.id.clickToReturnToLogin);
+        clickToReturnToRegister = mLayoutView.findViewById(R.id.clickToReturnToRegister);
 
 
         registerButton = (Button)mLayoutView.findViewById(R.id.registerUserPwdButton);
@@ -147,7 +143,7 @@ public class LoginFragment extends Fragment
                 mydb = new Database(getActivity());
 
                 // check if name is taken
-                Boolean isTaken = mydb.checkName(myUsername,myPwd);
+                Boolean isTaken = mydb.checkName(myUsername);
 
                 // check for empty fields
                 if((myUsername.equals(""))|| (myPwd.equals(""))){

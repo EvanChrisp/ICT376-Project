@@ -1,8 +1,5 @@
 package au.edu.murdoch.ict376project;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,8 +8,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.math.BigDecimal;
-import java.sql.SQLException;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 public class DetailsActivity extends AppCompatActivity {
 
@@ -25,6 +22,7 @@ public class DetailsActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        assert getSupportActionBar() != null;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
@@ -40,15 +38,15 @@ public class DetailsActivity extends AppCompatActivity {
         TextView platform = findViewById(R.id.detailsPlatform);
         ImageView image = findViewById(R.id.detailsImageView);
 
+        assert bundle != null;
         assert name != null;
-        name.setText("Item Name: " + bundle.getString("name"));
+        name.setText(getString(R.string.item_name, bundle.getString("name")));
         assert price != null;
-        price.setText("Price: " + "$ " + bundle.getString("price") + ".00");
+        price.setText(getString(R.string.item_price, bundle.getString("price")));
 
         // passed from fragment as int -> must convert to use setText on TextView below
         String convertId = Integer.toString(bundle.getInt("_id"));
-        assert convertId != null;
-        itemId.setText("SKU No: " + convertId);
+        itemId.setText(getString(R.string.item_sku, convertId));
 
         assert file != null;
         file.setText(bundle.getString("file"));
@@ -61,26 +59,26 @@ public class DetailsActivity extends AppCompatActivity {
         image.setImageResource(resId);
 
         assert description != null;
-        description.setText("Game Description: " + bundle.getString("description"));
+        description.setText(getString(R.string.item_description, bundle.getString("description")));
 
         // if(String called "status" from bundle is equal to "0" -> that means it has not been added to cart
         if (bundle.getString("status").equals("0")) {
-            status.setText("Please order below");
+            status.setText(R.string.item_order);
         } else {
-            status.setText("Already in cart");
+            status.setText(R.string.item_in_cart);
         }
 
         assert rating != null;
-        rating.setText("ESRB Rating: " + bundle.getString("rating"));
+        rating.setText(getString(R.string.item_esrb, bundle.getString("rating")));
         assert platform != null;
-        platform.setText("Platform: " + bundle.getString("platform"));
+        platform.setText(getString(R.string.item_platform, bundle.getString("platform")));
         /*BigDecimal priceVal = BigDecimal.valueOf(bundle.getInt("price"),2); // we had stored price as a whole integer to include cents e.g 1.00 was stored as 100
         assert price != null;
         price.setText("Price: $"+priceVal);*/
 
         db = new Database(this);
 
-        Button cartButton = (Button) findViewById(R.id.detailsCartButton);
+        Button cartButton = findViewById(R.id.detailsCartButton);
         assert cartButton != null;
         cartButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -99,7 +97,7 @@ public class DetailsActivity extends AppCompatActivity {
             }
         });
 
-        Button checkoutButton = (Button) findViewById(R.id.detailsCheckoutButton);
+        Button checkoutButton = findViewById(R.id.detailsCheckoutButton);
         assert checkoutButton != null;
         checkoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -112,13 +110,11 @@ public class DetailsActivity extends AppCompatActivity {
         });
 
         db.close();
-
-
     }
+
     @Override
     public boolean onSupportNavigateUp() {
         onBackPressed();
         return true;
     }
-
 }

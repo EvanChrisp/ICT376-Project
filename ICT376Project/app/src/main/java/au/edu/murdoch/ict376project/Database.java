@@ -3,13 +3,9 @@ package au.edu.murdoch.ict376project;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.database.DatabaseUtils;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
-import 	android.util.Pair;
 
-import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Database extends SQLiteOpenHelper
@@ -19,9 +15,6 @@ public class Database extends SQLiteOpenHelper
     // helper
     //private Database mDbHelper;
     //private SQLiteDatabase mDb;
-
-    // tag for debugging ShopDbAdapter
-    private static final String TAG = "ShopDbAdapter";
 
     // customer table
     public static final String CUSTOMER_TABLE = "customers";
@@ -134,7 +127,7 @@ public class Database extends SQLiteOpenHelper
         return true;
     }*/
 
-    public Boolean insertUserPwd(String username, String password){
+    public void insertUserPwd(String username, String password){
 
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues contentValues = new ContentValues();
@@ -147,9 +140,6 @@ public class Database extends SQLiteOpenHelper
         contentValues.put(CUSTOMER_EMAIL, "myemail@email.com");
 
         db.insert(CUSTOMER_TABLE, null, contentValues);
-
-
-        return true;
     }
 
     public void updateUserProfile(String fname, String lname, String phone, String email, String address, Long id){
@@ -181,19 +171,21 @@ public class Database extends SQLiteOpenHelper
     }
 
     // does username already exist?
-    public Boolean checkName(String username, String password){
+    public Boolean checkName(String username){
 
         SQLiteDatabase db = this.getWritableDatabase();
 
         Cursor cursor = db.rawQuery("select * from customers where username = ?", new String[]{username});
 
-        if(cursor.getCount()>0){
+        if(cursor.getCount()>0)
+        {
+            cursor.close();
             return true;
         }
-        else{
+        else {
+            cursor.close();
             return false;
         }
-
     }
 
     public Boolean checkPassword(String username, String password){
@@ -206,11 +198,11 @@ public class Database extends SQLiteOpenHelper
         {
             /*ContentValues contentValues = new ContentValues();
             contentValues.put(CUSTOMER_IS_LOGGED_IN, 1);*/
-
+            cursor.close();
             return true;
         }
         else{
-
+            cursor.close();
             return false;
         }
     }
@@ -218,7 +210,7 @@ public class Database extends SQLiteOpenHelper
     public long returnUserId(String username){
 
         SQLiteDatabase db = this.getReadableDatabase();
-        long id = 0;
+        long id;
 
         Cursor cursor = db.rawQuery("select * from customers where username = ?", new String[]{username});
 
@@ -251,9 +243,7 @@ public class Database extends SQLiteOpenHelper
 
         cursor.close();
 
-
         return email;
-
     }
 
     public byte[] returnUserPhoto (Long id){
@@ -276,7 +266,7 @@ public class Database extends SQLiteOpenHelper
     public ArrayList<String> returnAllUserDetails(Long id){
 
         SQLiteDatabase db = this.getReadableDatabase();
-        ArrayList<String> userDetails = new ArrayList<String>();
+        ArrayList<String> userDetails = new ArrayList<>();
 
         Cursor cursor = db.rawQuery("select * from customers where _id = " +id, null);
 
@@ -301,24 +291,6 @@ public class Database extends SQLiteOpenHelper
 
 
         return userDetails;
-
-    }
-
-    public int getUserById(String username)
-    {
-        SQLiteDatabase db = this.getReadableDatabase();
-        // id changed to _id in where clause -> causes errors with cursorAdapters
-        Cursor res = db.rawQuery("select * from customers where username = " + username, null);
-
-        if (res.getCount() > 0)
-        {
-            res.moveToFirst();
-        }
-
-        int id = res.getInt(res.getColumnIndexOrThrow("_id"));
-        res.close();
-
-        return id;
     }
 
     /*public Cursor getLoggedInUserById()
@@ -370,7 +342,7 @@ public class Database extends SQLiteOpenHelper
     }
 
     // change the value of status to "0" or "1" - Zero is not added to cart, One is added to cart
-    public boolean removeFromCart (Integer id, String val){
+    public void removeFromCart (Integer id, String val){
         // get database
         SQLiteDatabase db = this.getWritableDatabase();
         // create new contentValues object
@@ -381,10 +353,9 @@ public class Database extends SQLiteOpenHelper
         db.update(PRODUCT_TABLE, contentValues, "_id= ? ", new String[]{Integer.toString(id)});
         // after entry remember to close the database -> memory leaks
         // if successful -> return is true
-        return true;
     }
 
-    public boolean clearCart (){
+    public void clearCart (){
         // get database
         SQLiteDatabase db = this.getWritableDatabase();
         // create new contentValues object
@@ -395,16 +366,6 @@ public class Database extends SQLiteOpenHelper
         db.update(PRODUCT_TABLE, contentValues, "status= " +"1", null);
         // after entry remember to close the database -> memory leaks
         // if successful -> return is true
-        return true;
-    }
-
-    public void deleteAllItems() {
-
-        SQLiteDatabase db = this.getWritableDatabase();
-
-        db.delete(PRODUCT_TABLE, null , null);
-        //Log.w(TAG, Integer.toString(doneDelete));
-
     }
 
     public void insertMyShopItems() {
@@ -475,13 +436,12 @@ public class Database extends SQLiteOpenHelper
         // id changed to _id in where clause -> causes errors with cursorAdapters
         Cursor res = db.rawQuery("select * from products where _id = " + id, null);
 
-        if (res.getCount() > 0 && res != null)
+        if (res.getCount() > 0)
         {
             res.moveToFirst();
         }
         return res;
     }
-
 
     public Cursor getShoppingCart(String cartStatus)
     {
@@ -489,7 +449,7 @@ public class Database extends SQLiteOpenHelper
         // id changed to _id in where clause -> causes errors with cursorAdapters
         Cursor res = db.rawQuery("select * from products where status = " + cartStatus, null);
 
-        if (res.getCount() > 0 && res != null)
+        if (res.getCount() > 0)
         {
             res.moveToFirst();
         }
@@ -501,7 +461,7 @@ public class Database extends SQLiteOpenHelper
         String total = "";
 
         SQLiteDatabase db = this.getReadableDatabase();
-        ArrayList<String> cartValue = new ArrayList<String>();
+        ArrayList<String> cartValue = new ArrayList<>();
 
         Cursor cursor = db.rawQuery("select * from products where status = " +"1", null);
 
@@ -571,100 +531,4 @@ public class Database extends SQLiteOpenHelper
 
         return mCursor;
     }
-
-    public ArrayList <Pair<Integer, String>> getProductList(){
-        ArrayList<Pair<Integer, String>> array_list = new ArrayList<Pair<Integer, String>>();
-
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select * from products", null);
-        if (res.getCount() >0){
-            res.moveToFirst();
-
-            while(!res.isAfterLast()){
-                array_list.add(new Pair (res.getInt(res.getColumnIndex(PRODUCT_ID)),res.getString(res.getColumnIndex(PRODUCT_NAME))));
-                res.moveToNext();
-            }
-        }
-        res.close();
-
-
-        return array_list;
-    }
-
-    public ArrayList <Pair<Integer, String>> getNintendoProductList(){
-        ArrayList<Pair<Integer, String>> array_list = new ArrayList<Pair<Integer, String>>();
-
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select * from products where platform =?",new String[]{"Nintendo"});
-        //Cursor res = db.rawQuery("select * from products where column = ?",new String[]{"data"});
-        if (res.getCount() >0){
-            res.moveToFirst();
-
-            while(!res.isAfterLast()){
-                array_list.add(new Pair (res.getInt(res.getColumnIndex(PRODUCT_ID)),res.getString(res.getColumnIndex(PRODUCT_NAME))));
-                res.moveToNext();
-            }
-        }
-        res.close();
-
-        return array_list;
-    }
-
-    public ArrayList <Pair<Integer, String>> getPlaystationProductList(){
-        ArrayList<Pair<Integer, String>> array_list = new ArrayList<Pair<Integer, String>>();
-
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select * from products where platform =?",new String[]{"Playstation"});
-        //Cursor res = db.rawQuery("select * from products where column = ?",new String[]{"data"});
-        if (res.getCount() >0){
-            res.moveToFirst();
-
-            while(!res.isAfterLast()){
-                array_list.add(new Pair (res.getInt(res.getColumnIndex(PRODUCT_ID)),res.getString(res.getColumnIndex(PRODUCT_NAME))));
-                res.moveToNext();
-            }
-        }
-        res.close();
-
-        return array_list;
-    }
-
-    public ArrayList <Pair<Integer, String>> getXboxProductList(){
-        ArrayList<Pair<Integer, String>> array_list = new ArrayList<Pair<Integer, String>>();
-
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select * from products where platform =?",new String[]{"Xbox"});
-        //Cursor res = db.rawQuery("select * from products where column = ?",new String[]{"data"});
-        if (res.getCount() >0){
-            res.moveToFirst();
-
-            while(!res.isAfterLast()){
-                array_list.add(new Pair (res.getInt(res.getColumnIndex(PRODUCT_ID)),res.getString(res.getColumnIndex(PRODUCT_NAME))));
-                res.moveToNext();
-            }
-        }
-        res.close();
-
-        return array_list;
-    }
-
-    public ArrayList <Pair<Integer, String>> getPCProductList(){
-        ArrayList<Pair<Integer, String>> array_list = new ArrayList<Pair<Integer, String>>();
-
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor res = db.rawQuery("select * from products where platform =?",new String[]{"PC"});
-        //Cursor res = db.rawQuery("select * from products where column = ?",new String[]{"data"});
-        if (res.getCount() >0){
-            res.moveToFirst();
-
-            while(!res.isAfterLast()){
-                array_list.add(new Pair (res.getInt(res.getColumnIndex(PRODUCT_ID)),res.getString(res.getColumnIndex(PRODUCT_NAME))));
-                res.moveToNext();
-            }
-        }
-        res.close();
-
-        return array_list;
-    }
-
 }

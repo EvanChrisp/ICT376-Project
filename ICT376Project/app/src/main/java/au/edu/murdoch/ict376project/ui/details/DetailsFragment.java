@@ -14,16 +14,12 @@ public class DetailsFragment extends Fragment
 {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
-        View root = inflater.inflate(R.layout.fragment_details, container, false);
-
-        return root;
+        return inflater.inflate(R.layout.fragment_details, container, false);
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-
+    public void onActivityCreated(Bundle savedInstanceState)
+    {
         super.onActivityCreated(savedInstanceState);
-
-
     }
 }

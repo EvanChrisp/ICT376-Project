@@ -15,7 +15,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
-import android.widget.Toolbar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
@@ -71,6 +70,7 @@ public class SearchFragment extends Fragment
             public boolean setViewValue(View view, Cursor cursor, int i) {
                 if (view.getId() == R.id.pImageHolder) {
                     ImageView simpleImageView = (ImageView) view;
+                    assert getActivity() != null;
                     int resId = getResources().getIdentifier(
                             cursor.getString(cursor.getColumnIndex("file")),
                             "drawable",
@@ -84,7 +84,7 @@ public class SearchFragment extends Fragment
         });
 
         // listview - uses the mLayoutView as it is a fragment and not an activity -> listview is displayed in nintendoProductListview container
-        ListView listView = (ListView) mLayoutView.findViewById(R.id.searchProductListView);
+        ListView listView = mLayoutView.findViewById(R.id.searchProductListView);
 
         // listview cannot be null as the db is pre-filled
         assert listView != null;
@@ -120,7 +120,7 @@ public class SearchFragment extends Fragment
         });
 
         // set the listener for the searchBox
-        searchBox = (EditText)mLayoutView.findViewById(R.id.searchFragmentEditText);
+        searchBox = mLayoutView.findViewById(R.id.searchFragmentEditText);
         searchBox.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -138,7 +138,7 @@ public class SearchFragment extends Fragment
             }
         });
 
-        searchButton = (Button)mLayoutView.findViewById(R.id.searchFragmentButton);
+        searchButton = mLayoutView.findViewById(R.id.searchFragmentButton);
 
         // use str from afterTextChanged()
         str = searchBox.getText().toString();

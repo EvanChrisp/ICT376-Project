@@ -1,22 +1,11 @@
 package au.edu.murdoch.ict376project;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import au.edu.murdoch.ict376project.Database;
-import au.edu.murdoch.ict376project.R;
-
 import android.Manifest;
 import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -30,6 +19,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
@@ -70,16 +67,16 @@ public class ProfileActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        username = (TextView)findViewById(R.id.profileTextViewUname);
-        fname = (EditText)findViewById(R.id.profileEditTextFname);
-        lname = (EditText)findViewById(R.id.profileEditTextLname);
-        address = (EditText)findViewById(R.id.profileEditTextAddress);
-        phone = (EditText)findViewById(R.id.profileEditTextPhone);
-        email = (EditText)findViewById(R.id.profileEditTextEmail);
-        saveButton = (Button)findViewById(R.id.profileSaveButton);
-        testButton = (Button)findViewById(R.id.profileTestButton);
-        clearButton = (Button)findViewById(R.id.profileClearButton);
-        profileImageView = (ImageView)findViewById(R.id.profileImageView);
+        username = findViewById(R.id.profileTextViewUname);
+        fname = findViewById(R.id.profileEditTextFname);
+        lname = findViewById(R.id.profileEditTextLname);
+        address = findViewById(R.id.profileEditTextAddress);
+        phone = findViewById(R.id.profileEditTextPhone);
+        email = findViewById(R.id.profileEditTextEmail);
+        saveButton = findViewById(R.id.profileSaveButton);
+        testButton = findViewById(R.id.profileTestButton);
+        clearButton = findViewById(R.id.profileClearButton);
+        profileImageView = findViewById(R.id.profileImageView);
         cameraPermissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
         storagePermissions = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
         myPhotoIcon = getResources().getDrawable(R.mipmap.logo);
@@ -107,9 +104,9 @@ public class ProfileActivity extends AppCompatActivity {
         storedUserName = userDetails.getString("username", "");
 
 
-
+        assert storedUserName != null;
         if(storedUserName.equals("")){
-            username.setText("This feature is only available for registered users - Please log in");
+            username.setText(R.string.please_login);
             fname.setVisibility(View.INVISIBLE);
             lname.setVisibility(View.INVISIBLE);
             address.setVisibility(View.INVISIBLE);
@@ -135,7 +132,7 @@ public class ProfileActivity extends AppCompatActivity {
             String userEmail = dbArrayList.get(4);
 
             // set the editText views
-            username.setText("Username: " +storedUserName);
+            username.setText(getString(R.string.profile_username, storedUserName));
             fname.setText(userFname);
             lname.setText(userLname);
             address.setText(userAddress);
@@ -237,14 +234,11 @@ public class ProfileActivity extends AppCompatActivity {
         Intent cameraIntent = new Intent (MediaStore.ACTION_IMAGE_CAPTURE);
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
         startActivityForResult(cameraIntent, IMAGE_PICK_CAMERA_CODE);
-        return;
     }
 
     private boolean checkStoragePermissions(){
 
-        boolean result = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == (PackageManager.PERMISSION_GRANTED);
-
-        return result;
+        return ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == (PackageManager.PERMISSION_GRANTED);
     }
 
     private void requestStoragePermissions(){
@@ -334,6 +328,7 @@ public class ProfileActivity extends AppCompatActivity {
         }
         // if result is OK - use the cropimage library on imageUri
         if(requestCode == REQUEST_CODE_GALLERY && resultCode == RESULT_OK) {
+            assert data != null;
             Uri imageUri = data.getData();
             CropImage.activity(imageUri)
                     .setGuidelines(CropImageView.Guidelines.ON) // enable image guidelines
@@ -344,14 +339,12 @@ public class ProfileActivity extends AppCompatActivity {
         if(requestCode == CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE){
             CropImage.ActivityResult result = CropImage.getActivityResult(data);
             if(resultCode == RESULT_OK) {
+                assert result != null;
                 Uri resultUri = result.getUri();
                 // set image chosen from gallery to image view
                 profileImageView.setImageURI(resultUri);
                 //userPhoto = imageViewToByte(profileImageView);
             } // else error....
-            else if(resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE){
-                Exception e = result.getError();
-            }
         }
         super.onActivityResult(requestCode, resultCode, data);
     }
@@ -417,11 +410,8 @@ public class ProfileActivity extends AppCompatActivity {
         Bitmap bitmap = ( (BitmapDrawable) image.getDrawable() ).getBitmap();
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.JPEG, 50, stream);
-        byte[] byteArray = stream.toByteArray();
-        return byteArray;
+        return stream.toByteArray();
     }
-
-
 
     private void clearProfile() {
         SharedPreferences userDetails = getSharedPreferences("prefs", MODE_PRIVATE);

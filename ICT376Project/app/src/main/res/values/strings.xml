@@ -106,4 +106,21 @@
     <string name="nintendo_switch">Nintendo Switch</string>
     <string name="pc">PC</string>
     <string name="game_image">Game image</string>
+    <string name="login_anonymous">You are logged in anonymously</string>
+    <string name="login_as">"You are currently logged in as %1$s"</string>
+    <string name="cart_empty">You have no items in your cart!</string>
+    <string name="cart_amount">The total amount to pay: $%1$s.00 (AUD)</string>
+    <string name="please_pay">Please pay $%1$d.00 (AUD)</string>
+    <string name="item_name">"Name: %1$s"</string>
+    <string name="item_price">"Price: $%1$s.00 (AUD)"</string>
+    <string name="item_sku">"SKU No: %1$s"</string>
+    <string name="item_description">"Game Description: %1$s"</string>
+    <string name="item_order">Please order below</string>
+    <string name="item_in_cart">Already in cart</string>
+    <string name="item_esrb">"ESRB Rating: %1$s"</string>
+    <string name="item_platform">"Platform: %1$s"</string>
+    <string name="anonymous">Anonymous</string>
+    <string name="email_not_sent">Email not set</string>
+    <string name="please_login">This feature is only available for registered users - Please log in</string>
+    <string name="profile_username">"Username: %1$s"</string>
 </resources>

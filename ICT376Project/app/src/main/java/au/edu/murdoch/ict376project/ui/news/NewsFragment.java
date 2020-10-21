@@ -1,5 +1,6 @@
 package au.edu.murdoch.ict376project.ui.news;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import au.edu.murdoch.ict376project.R;
 
 public class NewsFragment extends Fragment
 {
+    @SuppressLint("SetJavaScriptEnabled")
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         // int the View

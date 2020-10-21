@@ -14,7 +14,8 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
-public class CheckoutActivity extends AppCompatActivity {
+public class CheckoutActivity extends AppCompatActivity
+{
     Database dbHelper;
     ListView listView;
     TextView checkoutDisplayAmount;
@@ -30,20 +31,19 @@ public class CheckoutActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        assert getSupportActionBar() != null;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
-        checkoutPayment = (Button)findViewById(R.id.checkoutPayment);
+        checkoutPayment = findViewById(R.id.checkoutPayment);
 
         displayCart();
-
-
     }
 
     private void displayCart(){
 
         // get database
         dbHelper = new Database(this);
-        checkoutDisplayAmount = (TextView)findViewById(R.id.checkoutDisplayAmount);
+        checkoutDisplayAmount = findViewById(R.id.checkoutDisplayAmount);
 
         // cursor = return from db function
         Cursor cursor = dbHelper.getShoppingCart("1");
@@ -77,7 +77,7 @@ public class CheckoutActivity extends AppCompatActivity {
         });
 
         // listview - uses the mLayoutView as it is a fragment and not an activity -> listview is displayed in nintendoProductListview container
-        listView = (ListView)findViewById(R.id.checkoutListView);
+        listView = findViewById(R.id.checkoutListView);
 
         // listview cannot be null as the db is pre-filled
         assert listView != null;
@@ -103,10 +103,10 @@ public class CheckoutActivity extends AppCompatActivity {
         db.close();
         totalAmount = dbHelper.totalCartValue();
         if(totalAmount.equals("")){
-            checkoutDisplayAmount.setText("You have no items in your cart!");
+            checkoutDisplayAmount.setText(R.string.cart_empty);
             checkoutPayment.setVisibility(View.INVISIBLE);
         }else{
-            checkoutDisplayAmount.setText("The total amount to pay: $" +totalAmount+ ".00 (AUD)");
+            checkoutDisplayAmount.setText(getString(R.string.cart_amount, totalAmount));
         }
 
         checkoutPayment.setOnClickListener(new View.OnClickListener() {

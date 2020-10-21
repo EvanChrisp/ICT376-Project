@@ -30,20 +30,20 @@ public class CreditCardActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        assert getSupportActionBar() != null;
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
 
-        amount = (TextView)findViewById(R.id.creditCardToPay);
-        payFname = (EditText) findViewById(R.id.paymentFname);
-        payLname = (EditText) findViewById(R.id.paymentLname);
-        payAddress = (EditText) findViewById(R.id.paymentAddress);
-        payEmail = (EditText) findViewById(R.id.paymentEmail);
+        amount = findViewById(R.id.creditCardToPay);
+        payFname = findViewById(R.id.paymentFname);
+        payLname = findViewById(R.id.paymentLname);
+        payAddress = findViewById(R.id.paymentAddress);
+        payEmail = findViewById(R.id.paymentEmail);
 
         Intent intent = getIntent();
 
         int totalToPay = intent.getIntExtra("totalToPay", 0);
-        amount.setText("Please pay $" +totalToPay+".00 (AUD)");
-
+        amount.setText(getString(R.string.please_pay, totalToPay));
 
         // 1. get instance of shared preferences (prefs is the private pref file that stores the values put into in (below....)
         SharedPreferences userDetails = getSharedPreferences("prefs", MODE_PRIVATE);
@@ -54,6 +54,7 @@ public class CreditCardActivity extends AppCompatActivity {
         db = new Database(this);
         storedUserName = userDetails.getString("username", "");
 
+        assert storedUserName != null;
         if(storedUserName.equals("")){
             Toast.makeText(this, "Please enter details in all fields", Toast.LENGTH_SHORT).show();
         }else{
@@ -73,7 +74,7 @@ public class CreditCardActivity extends AppCompatActivity {
         payAddress.setText(userAddress);
         payEmail.setText(userEmail);
 
-        payNow = (Button)findViewById(R.id.payNow);
+        payNow = findViewById(R.id.payNow);
         payNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

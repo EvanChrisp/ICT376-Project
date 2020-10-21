@@ -13,7 +13,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Button;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -122,6 +121,7 @@ public class HomeFragment extends Fragment
         // name of the entry in column no. (the one called "file") - as a String
         String mFile = res.getString(res.getColumnIndexOrThrow("file"));
         String mDefType = "drawable";
+        assert getActivity() != null;
         String mDefPackage = getActivity().getPackageName();
 
         // resource id = getResources().getIdentifier(String name, String defType, String defPackage);
@@ -169,6 +169,7 @@ public class HomeFragment extends Fragment
             final Cursor res = db.getProductById(id);
 
             // String name is the id in the XML - type is "id" for i.d. , package = getActivity().getPackageName()
+            assert getActivity() != null;
             image = root.findViewById(getResources().getIdentifier("deal" + i, "id", getActivity().getPackageName()));
             setDealImage(image, res);
 
@@ -212,7 +213,6 @@ public class HomeFragment extends Fragment
 
             i++;
         }
-
         db.close();
     }
 
@@ -228,6 +228,7 @@ public class HomeFragment extends Fragment
             final Cursor res = db.getProductById(j);
 
             // String name is the id in the XML - type is "id" for i.d. , package = getActivity().getPackageName()
+            assert getActivity() != null;
             ImageView image2 = root.findViewById(getResources().getIdentifier("latest" + i, "id", getActivity().getPackageName()));
             setDealImage(image2, res);
 
@@ -262,7 +263,6 @@ public class HomeFragment extends Fragment
             i++;
             j+=10;
         }
-
         db.close();
     }
 

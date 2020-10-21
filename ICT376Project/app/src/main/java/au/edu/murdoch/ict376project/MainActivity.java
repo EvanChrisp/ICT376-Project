@@ -60,13 +60,13 @@ public class MainActivity extends AppCompatActivity
         // need to getHeaderView to modify textView element
         View headerView = navigationView.getHeaderView(0);
         // now init textView based on headerView view object
-        loginName = (TextView)headerView.findViewById(R.id.navHeaderName);
-        loginEmail = (TextView)headerView.findViewById(R.id.navHeaderEmail);
-        userPhoto = (ImageView)headerView.findViewById(R.id.navHeaderImageView);
+        loginName = headerView.findViewById(R.id.navHeaderName);
+        loginEmail = headerView.findViewById(R.id.navHeaderEmail);
+        userPhoto = headerView.findViewById(R.id.navHeaderImageView);
 
         mAppBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.nav_home, R.id.nav_playstation, R.id.nav_xbox, R.id.nav_nintendo, R.id.nav_pc, R.id.nav_search, R.id.nav_contact, R.id.nav_news, R.id.nav_login)
-                .setDrawerLayout(drawer)
+                .setOpenableLayout(drawer)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
@@ -82,10 +82,11 @@ public class MainActivity extends AppCompatActivity
         if(userDetails.getString("username","")!= null){
             storedUserName = userDetails.getString("username", "");
 
+            assert storedUserName != null;
             if(storedUserName.equals("")){
                 Toast.makeText(this,"You are currently logged in anonymously", Toast.LENGTH_LONG).show();
-                loginName.setText("Anonymous");
-                loginEmail.setText("Email not set");
+                loginName.setText(R.string.anonymous);
+                loginEmail.setText(R.string.email_not_sent);
 
             }else{
                 Toast.makeText(this,"Welcome back " +storedUserName+"!", Toast.LENGTH_LONG).show();
@@ -110,8 +111,8 @@ public class MainActivity extends AppCompatActivity
 
     // round bitmap image -> use bitmap returned from db in bitmapFactory call and put into this function to have rounded corners on bitmap
     private Bitmap getRoundedCroppedBitmap(Bitmap bitmap) {
-        int widthLight = bitmap.getWidth();
-        int heightLight = bitmap.getHeight();
+        float widthLight = bitmap.getWidth();
+        float heightLight = bitmap.getHeight();
 
         Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap.getHeight(),
                 Bitmap.Config.ARGB_8888);
@@ -120,7 +121,7 @@ public class MainActivity extends AppCompatActivity
         Paint paintColor = new Paint();
         paintColor.setFlags(Paint.ANTI_ALIAS_FLAG);
 
-        RectF rectF = new RectF(new Rect(0, 0, widthLight, heightLight));
+        RectF rectF = new RectF(new Rect(0, 0, (int)widthLight, (int)heightLight));
 
         canvas.drawRoundRect(rectF, widthLight / 2, heightLight / 2, paintColor);
 
