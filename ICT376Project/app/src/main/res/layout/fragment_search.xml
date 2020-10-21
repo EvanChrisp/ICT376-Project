@@ -27,6 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="left"
             android:hint="Search games"
+            android:singleLine="true"
             android:padding="10dp" />
 
         <Button

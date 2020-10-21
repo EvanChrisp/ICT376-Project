@@ -51,6 +51,7 @@
             android:layout_height="wrap_content"
             android:hint="First name"
             android:layout_centerHorizontal="true"
+            android:singleLine="true"
             android:ems="10" />
         <EditText
             android:id="@+id/profileEditTextLname"
@@ -59,6 +60,7 @@
             android:layout_height="wrap_content"
             android:hint="Last name"
             android:layout_centerHorizontal="true"
+            android:singleLine="true"
             android:ems="10" />
         <EditText
             android:id="@+id/profileEditTextAddress"
@@ -67,6 +69,7 @@
             android:layout_height="wrap_content"
             android:hint="Address"
             android:layout_centerHorizontal="true"
+            android:singleLine="true"
             android:ems="10" />
         <EditText
             android:id="@+id/profileEditTextPhone"
@@ -75,6 +78,7 @@
             android:layout_height="wrap_content"
             android:hint="Phone"
             android:layout_centerHorizontal="true"
+            android:singleLine="true"
             android:ems="10" />
         <EditText
             android:id="@+id/profileEditTextEmail"
@@ -83,6 +87,7 @@
             android:layout_height="wrap_content"
             android:hint="Email"
             android:layout_centerHorizontal="true"
+            android:singleLine="true"
             android:ems="10" />
         <Button
             android:layout_marginTop="20dp"
@@ -112,5 +117,4 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </RelativeLayout>
-
 </ScrollView>

@@ -12,23 +12,15 @@ import androidx.fragment.app.Fragment;
 
 import au.edu.murdoch.ict376project.R;
 
-public class NewsFragment extends Fragment {
-
-    public static NewsFragment newInstance(){
-
-        NewsFragment newsf = new NewsFragment();
-
-        return newsf;
-    }
-
-
+public class NewsFragment extends Fragment
+{
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         // int the View
         View mLayoutView = inflater.inflate(R.layout.fragment_news, container, false);
 
         // int view using View NB. you need permissions to access internet - go to manifest file
-        WebView webView = (WebView)mLayoutView.findViewById(R.id.webView1);
+        WebView webView = mLayoutView.findViewById(R.id.webView1);
         // do something
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);

@@ -46,6 +46,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/creditCardNumber"
             android:hint="Credit/Debit Card"
+            android:singleLine="true"
             android:ems="16"
             android:maxLength="16" />
 
@@ -55,6 +56,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/expirationDate"
             android:hint="Expiration MM/YY"
+            android:singleLine="true"
             android:maxLength="5"/>
 
         <EditText
@@ -63,6 +65,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/ccvNumber"
             android:hint="CVV"
+            android:singleLine="true"
             android:maxLength="3"/>
 
         <EditText
@@ -70,6 +73,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/paymentFname"
+            android:singleLine="true"
             android:hint="First Name" />
 
         <EditText
@@ -77,6 +81,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/paymentLname"
+            android:singleLine="true"
             android:hint="Last Name" />
 
         <EditText
@@ -84,6 +89,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/paymentAddress"
+            android:singleLine="true"
             android:hint="Billing Address" />
 
         <EditText
@@ -91,6 +97,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/paymentEmail"
+            android:singleLine="true"
             android:hint="Email Address" />
 
         <Button
