@@ -16,6 +16,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class DirectionsActivity extends FragmentActivity implements OnMapReadyCallback {
 
     GoogleMap map;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +30,9 @@ public class DirectionsActivity extends FragmentActivity implements OnMapReadyCa
     @Override
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
+
+        map.setMinZoomPreference(14.0f);
+        map.setMaxZoomPreference(22.0f);
 
         LatLng Murdoch = new LatLng(-32.068456, 115.834925);
         map.addMarker(new MarkerOptions().position(Murdoch).title("ERE Games"));
