@@ -156,6 +156,14 @@
                 android:paddingRight="10dp"
                 android:text="@string/contact_address3"
                 android:textSize="16sp" />
+
+            <Button
+                android:layout_marginTop="20dp"
+                android:layout_gravity="left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/gMaps"
+                android:text="Directions" />
         </LinearLayout>
 
     </LinearLayout>
