@@ -415,6 +415,7 @@ public class Database extends SQLiteOpenHelper
         addProduct(40, "Half-Life 3", 149, "half_life", "Third episode of Half Life", "15 years+", "PC", "0");
 
     }
+
     public int getTotalItemsCount() {
         // get the database
         SQLiteDatabase db = this.getWritableDatabase();
@@ -447,7 +448,7 @@ public class Database extends SQLiteOpenHelper
     {
         SQLiteDatabase db = this.getReadableDatabase();
         // id changed to _id in where clause -> causes errors with cursorAdapters
-        Cursor res = db.rawQuery("select * from products where status = " + cartStatus, null);
+        Cursor res = db.rawQuery("select * from products where status = 1 OR status = 3", null);
 
         if (res.getCount() > 0)
         {
@@ -456,40 +457,51 @@ public class Database extends SQLiteOpenHelper
         return res;
     }
 
-    public String totalCartValue(){
-
+    public String totalCartValue()
+    {
         String total = "";
 
         SQLiteDatabase db = this.getReadableDatabase();
         ArrayList<String> cartValue = new ArrayList<>();
+        ArrayList<String> cartStatus = new ArrayList<>();
 
-        Cursor cursor = db.rawQuery("select * from products where status = " +"1", null);
+        Cursor cursor = db.rawQuery("select status, price from products where status = 1 or status = 3", null);
 
         if (cursor.getCount() > 0)
         {
             cursor.moveToFirst();
-            while(!cursor.isAfterLast()){
+            while(!cursor.isAfterLast())
+            {
                 cartValue.add(cursor.getString(cursor.getColumnIndexOrThrow(PRODUCT_PRICE)));
+                cartStatus.add(cursor.getString(cursor.getColumnIndexOrThrow(PRODUCT_STATUS)));
                 cursor.moveToNext();
             }
 
             int i;
-            int totalGameValue =0;
+            int totalGameValue = 0;
 
-            for(i=0; i<cartValue.size(); i++){
-                int eachGameValue = Integer.parseInt(cartValue.get(i));
+            for(i=0; i < cartValue.size(); i++)
+            {
+                int eachGameValue;
+                if(cartStatus.get(i).equals("3"))
+                {
+                    double dealPrice;
+                    dealPrice = Integer.parseInt(cartValue.get(i)) * 0.8;
+                    eachGameValue = (int)dealPrice;
+                }
+                else {
+                    eachGameValue = Integer.parseInt(cartValue.get(i));
+                }
+
                 totalGameValue = totalGameValue + eachGameValue;
             }
 
             total = totalGameValue + "";
-
         }
 
         cursor.close();
 
-
         return total;
-
     }
 
     public Cursor getCursorProducts(String platform){

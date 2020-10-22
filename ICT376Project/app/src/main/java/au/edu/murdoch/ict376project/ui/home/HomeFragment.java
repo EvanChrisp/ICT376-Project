@@ -4,15 +4,13 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Paint;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Button;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -190,14 +188,14 @@ public class HomeFragment extends Fragment
                     double mPriceDouble = Integer.parseInt(mPrice) * 0.8;
                     int mPriceInt = (int)mPriceDouble;
 
-                    String name =  res.getString(res.getColumnIndexOrThrow("name"));
-                    String description =  res.getString(res.getColumnIndexOrThrow("description"));
-                    String file =  res.getString(res.getColumnIndexOrThrow("file"));
-                    String status =  res.getString(res.getColumnIndexOrThrow("status"));
-                    String rating =  res.getString(res.getColumnIndexOrThrow("rating"));
-                    String platform =  res.getString(res.getColumnIndexOrThrow("platform"));
-                    String price =  Integer.toString(mPriceInt);
-                    int itemId =  res.getInt(res.getColumnIndexOrThrow("_id"));
+                    String name = res.getString(res.getColumnIndexOrThrow("name"));
+                    String description = res.getString(res.getColumnIndexOrThrow("description"));
+                    String file = res.getString(res.getColumnIndexOrThrow("file"));
+                    String status = Integer.toString(2);
+                    String rating = res.getString(res.getColumnIndexOrThrow("rating"));
+                    String platform = res.getString(res.getColumnIndexOrThrow("platform"));
+                    String price = Integer.toString(mPriceInt);
+                    int itemId = res.getInt(res.getColumnIndexOrThrow("_id"));
                     Intent intent = new Intent(getActivity(), DetailsActivity.class);
                     intent.putExtra("name", name);
                     intent.putExtra("description", description);
@@ -213,6 +211,7 @@ public class HomeFragment extends Fragment
 
             i++;
         }
+
         db.close();
     }
 
@@ -269,24 +268,6 @@ public class HomeFragment extends Fragment
     private void searchItems() {
         // int view
         searchBox = root.findViewById(R.id.search);
-        // set the listener for the searchBox
-        searchBox.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                //
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                //
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-                str = editable.toString();
-            }
-        });
-
         searchButton = root.findViewById(R.id.button11);
 
         // use str from afterTextChanged()

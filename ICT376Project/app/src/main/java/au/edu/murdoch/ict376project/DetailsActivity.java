@@ -78,22 +78,32 @@ public class DetailsActivity extends AppCompatActivity {
 
         db = new Database(this);
 
+        //status 0 - Item not in cart
+        //status 1 - Item in cart
+        //status 2 - Deal not in cart
+        //status 3 - Deal in cart
         Button cartButton = findViewById(R.id.detailsCartButton);
         assert cartButton != null;
         cartButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // if successfully adding 1 to status on the item ->    //
-                if (db.addToCart(bundle.getInt("_id"), "1")) {
-                    //Intent intent = new Intent(DetailsActivity.this, MainActivity.class);
-                    //intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                    //startActivity(intent);
-                    //finish();
-                    Toast.makeText(DetailsActivity.this, "Successfully added to shopping cart", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(DetailsActivity.this, "Oops! Something went wrong. Please try again.", Toast.LENGTH_SHORT).show();
+                if(bundle.getString("status").equals("0"))
+                {
+                    if (db.addToCart(bundle.getInt("_id"), "1")) {
+                        Toast.makeText(DetailsActivity.this, "Successfully added to shopping cart", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(DetailsActivity.this, "Oops! Something went wrong. Please try again.", Toast.LENGTH_SHORT).show();
+                    }
                 }
-
+                else if(bundle.getString("status").equals("2"))
+                {
+                    if (db.addToCart(bundle.getInt("_id"), "3")) {
+                        Toast.makeText(DetailsActivity.this, "Successfully added to shopping cart", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(DetailsActivity.this, "Oops! Something went wrong. Please try again.", Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
         });
 

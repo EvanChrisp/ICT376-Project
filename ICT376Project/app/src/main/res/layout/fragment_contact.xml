@@ -11,11 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="30dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:padding="30dp">
 
         <LinearLayout
             android:id="@+id/TitleLayout"
@@ -51,10 +47,10 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:padding="10dp"
                 android:id="@+id/Email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="10dp"
                 android:text="@string/contactUsEmail"
                 android:textSize="16sp" />
         </LinearLayout>
@@ -75,10 +71,10 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:padding="10dp"
                 android:id="@+id/Number"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:padding="10dp"
                 android:text="@string/contactUsPhoneNumber"
                 android:textSize="16sp" />
         </LinearLayout>
@@ -99,26 +95,26 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:paddingTop="10dp"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
                 android:id="@+id/monFri"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingStart="10dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingRight="10dp"
                 android:text="@string/contact_open_time"
-                android:textSize="16sp"
-                android:paddingStart="10dp" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/weekend"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/contact_open_time2"
-                android:textSize="16sp"
-                android:paddingLeft="10dp"
                 android:paddingStart="10dp"
+                android:paddingLeft="10dp"
                 android:paddingEnd="10dp"
-                android:paddingRight="10dp" />
+                android:paddingRight="10dp"
+                android:text="@string/contact_open_time2"
+                android:textSize="16sp" />
         </LinearLayout>
 
         <LinearLayout
@@ -138,27 +134,30 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:paddingTop="10dp"
-                android:paddingLeft="10dp"
                 android:id="@+id/address1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingStart="10dp"
+                android:paddingLeft="10dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="10dp"
+                android:paddingRight="10dp"
                 android:text="@string/contact_address2"
                 android:textSize="16sp"
-                android:paddingStart="10dp"
-                android:paddingEnd="10dp"
-                android:paddingRight="10dp"
                 tools:ignore="RtlSymmetry" />
+
             <TextView
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:paddingEnd="10dp"
-                android:paddingStart="10dp"
                 android:id="@+id/address2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:paddingStart="10dp"
+                android:paddingLeft="10dp"
+                android:paddingEnd="10dp"
+                android:paddingRight="10dp"
                 android:text="@string/contact_address3"
                 android:textSize="16sp" />
         </LinearLayout>
+
     </LinearLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
