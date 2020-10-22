@@ -378,6 +378,7 @@ public class Database extends SQLiteOpenHelper
         contentValues.put(PRODUCT_STATUS, "0");
         // adding means updating database table ->
         db.update(PRODUCT_TABLE, contentValues, "status= " +"1", null);
+        db.update(PRODUCT_TABLE, contentValues, "status= " +"3", null);
         // after entry remember to close the database -> memory leaks
         // if successful -> return is true
     }
