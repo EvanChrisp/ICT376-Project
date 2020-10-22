@@ -156,7 +156,7 @@ public class HomeFragment extends Fragment
         // loop through 5 deals
         while(i <= 5)
         {
-            int id = rand.nextInt(20 - 1 + 1) + 1;
+            int id = rand.nextInt(40 - 1 + 1) + 1;
             if(duplicateDeal(id, ids))
             {
                 continue;
