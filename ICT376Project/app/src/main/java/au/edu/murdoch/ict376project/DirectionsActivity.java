@@ -41,7 +41,6 @@ public class DirectionsActivity extends FragmentActivity implements OnMapReadyCa
     Marker mCurrLocationMarker;
     GoogleApiClient mGoogleApiClient;
     LocationRequest mLocationRequest;
-    String[] locationPermissions;
     Button requestLocation;
     final int LOCATION_REQUEST_CODE = 777;
 
@@ -70,10 +69,6 @@ public class DirectionsActivity extends FragmentActivity implements OnMapReadyCa
         return ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == (PackageManager.PERMISSION_GRANTED);
     }
 
-    private void requestLocationPermissions(){
-        ActivityCompat.requestPermissions(this, locationPermissions, LOCATION_REQUEST_CODE);
-    }
-
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
@@ -98,7 +93,7 @@ public class DirectionsActivity extends FragmentActivity implements OnMapReadyCa
         mMap.addMarker(new MarkerOptions().position(Perth).title("ERE Games Midland"));
         //mMap.moveCamera(CameraUpdateFactory.newLatLng(Perth));
 
-
+        // permissions check for Android M and above
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                 buildGoogleApiClient();
@@ -179,7 +174,6 @@ public class DirectionsActivity extends FragmentActivity implements OnMapReadyCa
                 // If request is cancelled, the result arrays are empty.
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                    // permission was granted, yay! Do the location-related task you need to do.
 
                     if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
 
