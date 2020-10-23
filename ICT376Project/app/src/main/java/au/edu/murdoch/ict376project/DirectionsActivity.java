@@ -49,10 +49,12 @@ public class DirectionsActivity extends FragmentActivity implements OnMapReadyCa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_directions);
         requestLocation = findViewById(R.id.mapButton);
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
+        // set button to be able to check for permissions
         requestLocation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -64,14 +66,17 @@ public class DirectionsActivity extends FragmentActivity implements OnMapReadyCa
 
     }
 
+    // check for location permissions
     private boolean checkLocationPermissions(){
-
         return ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == (PackageManager.PERMISSION_GRANTED);
     }
 
     @Override
     public void onMapReady(GoogleMap googleMap) {
+        // could use googleMap -> I use the global to make it easier to pass around -> mMap = googleMap;
         mMap = googleMap;
+
+        // setting the latitude and longitude of each ERE games outlet
 
         LatLng Murdoch = new LatLng(-32.068456, 115.834925);
         mMap.addMarker(new MarkerOptions().position(Murdoch).title("ERE Games Murdoch"));
@@ -93,7 +98,7 @@ public class DirectionsActivity extends FragmentActivity implements OnMapReadyCa
         mMap.addMarker(new MarkerOptions().position(Perth).title("ERE Games Midland"));
         //mMap.moveCamera(CameraUpdateFactory.newLatLng(Perth));
 
-        // permissions check for Android M and above
+        // permissions check for Android M and above (does not need to be declared at runtime under Android M)
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                 buildGoogleApiClient();
@@ -104,26 +109,28 @@ public class DirectionsActivity extends FragmentActivity implements OnMapReadyCa
             }
         }
         else {
+            // permissions check not needed for below Android M
             buildGoogleApiClient();
             mMap.setMyLocationEnabled(true);
         }
 
     }
     protected synchronized void buildGoogleApiClient() {
-        mGoogleApiClient = new GoogleApiClient.Builder(this)
-                .addConnectionCallbacks(this)
-                .addOnConnectionFailedListener(this)
-                .addApi(LocationServices.API).build();
+        // boilerplate for google maps api
+        mGoogleApiClient = new GoogleApiClient.Builder(this).addConnectionCallbacks(this).addOnConnectionFailedListener(this).addApi(LocationServices.API).build();
         mGoogleApiClient.connect();
     }
 
     @Override
     public void onConnected(Bundle bundle) {
 
+        // make new location request
         mLocationRequest = new LocationRequest();
         mLocationRequest.setInterval(1000);
         mLocationRequest.setFastestInterval(1000);
+        // using balanced power setting for location accuracy
         mLocationRequest.setPriority(LocationRequest.PRIORITY_BALANCED_POWER_ACCURACY);
+        // another permissions check
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
             LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
         }
@@ -132,17 +139,19 @@ public class DirectionsActivity extends FragmentActivity implements OnMapReadyCa
 
     @Override
     public void onConnectionSuspended(int i) {
-
+            // not yet implemented
     }
 
     @Override
     public void onLocationChanged(Location location) {
 
+        // updates to location
         mLastLocation = location;
         if (mCurrLocationMarker != null) {
             mCurrLocationMarker.remove();
         }
-        //Place current location marker
+
+        //Place the current location marker
         LatLng latLng = new LatLng(location.getLatitude(), location.getLongitude());
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(latLng);
@@ -150,11 +159,11 @@ public class DirectionsActivity extends FragmentActivity implements OnMapReadyCa
         markerOptions.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_GREEN));
         mCurrLocationMarker = mMap.addMarker(markerOptions);
 
-        //move map camera
+        //move the map camera
         mMap.moveCamera(CameraUpdateFactory.newLatLng(latLng));
         mMap.animateCamera(CameraUpdateFactory.zoomTo(11));
 
-        //stop location updates
+        //stop the location updates
         if (mGoogleApiClient != null) {
             LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this);
         }
@@ -163,26 +172,28 @@ public class DirectionsActivity extends FragmentActivity implements OnMapReadyCa
 
     @Override
     public void onConnectionFailed(ConnectionResult connectionResult) {
-
+        // to do
     }
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
 
+        // switch case on requestCode coming through
         switch (requestCode) {
+            // first case LOCATION_REQUEST_CODE int value is 777 as in global member variable at the top
             case LOCATION_REQUEST_CODE: {
                 // If request is cancelled, the result arrays are empty.
+                // check grantResults
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-
+                    // check the String permissions[]
                     if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-
+                        // restart activity if permission granted
                         Intent intent = new Intent(this, DirectionsActivity.class);
                         startActivity(intent);
                     }
 
                 } else {
-
+                    // in every other case - permissions are not set correctly and you need a message to the user why the page does not display anything
                     Toast.makeText(this, "Maps needs your location permission", Toast.LENGTH_SHORT).show();
 
                 }
