@@ -125,6 +125,7 @@
             android:minWidth="160dp"
             android:text="@string/profile_test_profile"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:visibility="invisible"/>
     </RelativeLayout>
 </ScrollView>

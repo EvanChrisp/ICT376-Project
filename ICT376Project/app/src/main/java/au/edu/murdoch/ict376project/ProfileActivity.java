@@ -13,6 +13,7 @@ import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -48,7 +49,6 @@ public class ProfileActivity extends AppCompatActivity {
     final int CAMERA_REQUEST_CODE = 100;
     final int STORAGE_REQUEST_CODE = 101;
     final int IMAGE_PICK_CAMERA_CODE = 102;
-    //final int IMAGE_PICK_GALLERY_CODE = 103;
     String[] cameraPermissions;
     String[] storagePermissions;
     Uri imageUri;
@@ -85,16 +85,12 @@ public class ProfileActivity extends AppCompatActivity {
         profileImageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // show image pikc dialogue
+                // show dialog to select image from gallery or camera
                 imagePickDialogue();
 
                 // read external storage permission to select image from gallery, runtime permission for devices android 6.0 and above
                 // ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE_GALLERY);
-                /*ActivityCompat.requestPermissions(
-                        ProfileActivity.this,
-                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
-                        REQUEST_CODE_GALLERY
-                );*/
+                /*ActivityCompat.requestPermissions(ProfileActivity.this, new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, REQUEST_CODE_GALLERY);*/
             }
         });
 
@@ -249,7 +245,6 @@ public class ProfileActivity extends AppCompatActivity {
 
         boolean result = ContextCompat.checkSelfPermission(this, Manifest.permission.CAMERA) == (PackageManager.PERMISSION_GRANTED);
         boolean result1 = ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == (PackageManager.PERMISSION_GRANTED);
-
         return result && result1;
     }
 
@@ -276,8 +271,6 @@ public class ProfileActivity extends AppCompatActivity {
                         Toast.makeText(this, "Camera AND Storage permissions are required!", Toast.LENGTH_SHORT).show();
                     }
                 }
-
-
             }
             break;
             case STORAGE_REQUEST_CODE: {
@@ -290,40 +283,16 @@ public class ProfileActivity extends AppCompatActivity {
                         Toast.makeText(this, "Storage permissions are required!", Toast.LENGTH_SHORT).show();
                     }
                 }
-
-
             }
             break;
         }
     }
-
-    /*@Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        if(requestCode == REQUEST_CODE_GALLERY){
-            if(grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                // this is the gallery intent
-                Intent galleryIntent = new Intent(Intent.ACTION_GET_CONTENT);
-                // get only the type "image"
-                galleryIntent.setType("image/*");
-                // start activity for result -> returns
-                startActivityForResult(galleryIntent, REQUEST_CODE_GALLERY);
-            } else {
-                Toast.makeText(this, "Don't have permission to access file location", Toast.LENGTH_SHORT).show();
-            }
-            return;
-        }
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }*/
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
 
         // if result is OK - use the cropimage library on imageUri
         if(requestCode == IMAGE_PICK_CAMERA_CODE && resultCode == RESULT_OK){
-            /*Bundle extras = data.getExtras();
-            Bitmap photo = (Bitmap) extras.get("data");
-            profileImageView.setImageBitmap(photo);*/
             CropImage.activity(imageUri).setGuidelines(CropImageView.Guidelines.ON).setAspectRatio(1, 1).start(this);
         }
         // if result is OK - use the cropimage library on imageUri
@@ -358,8 +327,6 @@ public class ProfileActivity extends AppCompatActivity {
 
         ArrayList<String> dbArrayList = mydb.returnAllUserDetails(userId);
 
-
-        //String myemail = mydb.returnUserEmail(userNum);
         String myFname = dbArrayList.get(0);
         String myLname = dbArrayList.get(1);
         String myAddress = dbArrayList.get(2);
@@ -373,10 +340,6 @@ public class ProfileActivity extends AppCompatActivity {
 
     public void onSaveProfile(){
 
-        // get username
-        //SharedPreferences userDetails = getSharedPreferences("prefs", MODE_PRIVATE);
-        //storedUserName = userDetails.getString("username", "");
-
         // save first name, last name, address, phone and email as in the editText field
         userFname = fname.getText().toString();
         userLname = lname.getText().toString();
@@ -385,26 +348,90 @@ public class ProfileActivity extends AppCompatActivity {
         userEmail = email.getText().toString();
         userPhoto = imageViewToByte(profileImageView);
 
-        mydb = new Database(this);
-        // get _id for User
-        //long userNum = mydb.returnUserId(storedUserName);
-        // should show the user id
-        //Toast.makeText(this, "Current user id is: " +userNum, Toast.LENGTH_SHORT).show();
+        if(validateFirstName() && validateLastName() && validateAddress() && validatePhoneNumber() && validateEmail() ){
+            mydb = new Database(this);
+            mydb.updateUserPhoto(userId, userPhoto);
+            mydb.updateUserProfile(userFname, userLname, userPhone,userEmail, userAddress, userId);
 
-        // update the db with new blob info
-        mydb.updateUserPhoto(userId, userPhoto);
-
-        // update the db with the new information
-        mydb.updateUserProfile(userFname, userLname, userPhone,userEmail, userAddress, userId);
-
-
-       //mydb.close();
-
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        } else{
+            return;
+        }
 
         mydb.close();
     }
+
+    private boolean validateEmail() {
+        email = (EditText)findViewById(R.id.profileEditTextEmail);
+        String emailInput = email.getText().toString().trim();
+        if (emailInput.isEmpty()) {
+            email.setError("Field can't be empty");
+            return false;
+        } else if (!Patterns.EMAIL_ADDRESS.matcher(emailInput).matches()) {
+            email.setError("Please enter a valid email address");
+            return false;
+        } else {
+            email.setError(null);
+            return true;
+        }
+    }
+
+    public boolean validatePhoneNumber()
+    {
+        phone = (EditText)findViewById(R.id.profileEditTextPhone);
+        String phoneInput = phone.getText().toString().trim();
+        if(phoneInput.isEmpty()){
+            phone.setError("Field cannot be empty");
+            return false;
+        } else if (!Patterns.PHONE.matcher(phoneInput).matches() ){
+            phone.setError("Please enter a valid phone number");
+            return false;
+        } else {
+            phone.setError(null);
+        }
+        return true;
+    }
+
+    public boolean validateFirstName()
+    {
+        fname = (EditText)findViewById(R.id.profileEditTextFname);
+        String fnameInput = fname.getText().toString().trim();
+        if(fnameInput.isEmpty()){
+            fname.setError("Field cannot be empty");
+            return false;
+        } else {
+            fname.setError(null);
+        }
+        return true;
+    }
+
+    public boolean validateLastName()
+    {
+        lname = (EditText)findViewById(R.id.profileEditTextLname);
+        String lnameInput = lname.getText().toString().trim();
+        if(lnameInput.isEmpty()){
+            lname.setError("Field cannot be empty");
+            return false;
+        } else {
+            lname.setError(null);
+        }
+        return true;
+    }
+
+    public boolean validateAddress()
+    {
+        address = (EditText)findViewById(R.id.profileEditTextAddress);
+        String lnameInput = address.getText().toString().trim();
+        if(lnameInput.isEmpty()){
+            address.setError("Field cannot be empty");
+            return false;
+        } else {
+            address.setError(null);
+        }
+        return true;
+    }
+
 
     private byte[] imageViewToByte(ImageView image){
         Bitmap bitmap = ( (BitmapDrawable) image.getDrawable() ).getBitmap();
@@ -414,6 +441,8 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void clearProfile() {
+        profileImageView.setImageDrawable(myPhotoIcon);
+        userPhoto = imageViewToByte(profileImageView);
         SharedPreferences userDetails = getSharedPreferences("prefs", MODE_PRIVATE);
         storedUserName = userDetails.getString("username", "");
 
@@ -421,6 +450,7 @@ public class ProfileActivity extends AppCompatActivity {
         long userNum = mydb.returnUserId(storedUserName);
 
         mydb.updateUserProfile("", "", "","", "", userNum);
+        mydb.updateUserPhoto(userNum, userPhoto);
 
         mydb.close();
 
@@ -430,8 +460,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
-        //onBackPressed();
-        // replaced onBackPressed with return to main activity instead
+        //onBackPressed(); replaced onBackPressed with return to main activity instead
         Intent intent = new Intent(ProfileActivity.this, MainActivity.class);
         startActivity(intent);
         return true;
