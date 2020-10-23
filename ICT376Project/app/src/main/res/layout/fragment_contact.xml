@@ -163,7 +163,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/gMaps"
-                android:text="Directions" />
+                android:text="Our Locations" />
+
+            <TextView
+                android:id="@+id/mapButtonDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingStart="10dp"
+                android:paddingLeft="10dp"
+                android:paddingEnd="10dp"
+                android:paddingRight="10dp"
+                android:text="Find the closest outlet to you!"
+                android:textSize="16sp" />
         </LinearLayout>
 
     </LinearLayout>

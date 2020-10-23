@@ -77,26 +77,31 @@ public class DirectionsActivity extends FragmentActivity implements OnMapReadyCa
         mMap = googleMap;
 
         // setting the latitude and longitude of each ERE games outlet
-
         LatLng Murdoch = new LatLng(-32.068456, 115.834925);
         mMap.addMarker(new MarkerOptions().position(Murdoch).title("ERE Games Murdoch"));
         //mMap.moveCamera(CameraUpdateFactory.newLatLng(Murdoch));
 
         LatLng Cannington = new LatLng(-32.019438, 115.936375);
         mMap.addMarker(new MarkerOptions().position(Cannington).title("ERE Games Cannington"));
-        //mMap.moveCamera(CameraUpdateFactory.newLatLng(Cannington));
 
         LatLng Midland = new LatLng(-31.890344, 116.010405);
         mMap.addMarker(new MarkerOptions().position(Midland).title("ERE Games Midland"));
-        //mMap.moveCamera(CameraUpdateFactory.newLatLng(Midland));
 
         LatLng Joondalup = new LatLng(-31.745981, 115.769449);
-        mMap.addMarker(new MarkerOptions().position(Joondalup).title("ERE Games Midland"));
-        //mMap.moveCamera(CameraUpdateFactory.newLatLng(Joondalup));
+        mMap.addMarker(new MarkerOptions().position(Joondalup).title("ERE Games Joondalup"));
 
         LatLng Perth = new LatLng(-31.953096, 115.860720);
-        mMap.addMarker(new MarkerOptions().position(Perth).title("ERE Games Midland"));
-        //mMap.moveCamera(CameraUpdateFactory.newLatLng(Perth));
+        mMap.addMarker(new MarkerOptions().position(Perth).title("ERE Games Perth"));
+
+        LatLng Fremantle = new LatLng(-32.056610, 115.749419);
+        mMap.addMarker(new MarkerOptions().position(Fremantle).title("ERE Games Fremantle"));
+
+        LatLng Mirrabooka = new LatLng(-31.871827, 115.859329);
+        mMap.addMarker(new MarkerOptions().position(Mirrabooka).title("ERE Games Mirrabooka"));
+
+        LatLng SouthernRiver = new LatLng(-32.106617, 115.938073);
+        mMap.addMarker(new MarkerOptions().position(SouthernRiver).title("ERE Games Southern River"));
+
 
         // permissions check for Android M and above (does not need to be declared at runtime under Android M)
         if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {

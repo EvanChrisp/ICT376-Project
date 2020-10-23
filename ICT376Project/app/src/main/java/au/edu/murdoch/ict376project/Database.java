@@ -133,11 +133,11 @@ public class Database extends SQLiteOpenHelper
         ContentValues contentValues = new ContentValues();
         contentValues.put(CUSTOMER_USERNAME, username);
         contentValues.put(CUSTOMER_PASSWORD, password);
-        contentValues.put(CUSTOMER_FIRSTNAME, "firstName");
-        contentValues.put(CUSTOMER_LASTNAME, "lastname");
-        contentValues.put(CUSTOMER_ADDRESS, "my address");
-        contentValues.put(CUSTOMER_PHONE, "123456789");
-        contentValues.put(CUSTOMER_EMAIL, "myemail@email.com");
+        contentValues.put(CUSTOMER_FIRSTNAME, "");
+        contentValues.put(CUSTOMER_LASTNAME, "");
+        contentValues.put(CUSTOMER_ADDRESS, "");
+        contentValues.put(CUSTOMER_PHONE, "");
+        contentValues.put(CUSTOMER_EMAIL, "");
 
         db.insert(CUSTOMER_TABLE, null, contentValues);
     }
