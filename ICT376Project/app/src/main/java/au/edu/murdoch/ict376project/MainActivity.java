@@ -90,10 +90,10 @@ public class MainActivity extends AppCompatActivity
 
             }else{
                 Toast.makeText(this,"Welcome back " +storedUserName+"!", Toast.LENGTH_LONG).show();
-                loginName.setText(storedUserName);
+                loginName.setText("Username: " +storedUserName);
                 Long userId = mydb.returnUserId(storedUserName);
                 String userEmail = mydb.returnUserEmail(userId);
-                loginEmail.setText(userEmail);
+                loginEmail.setText("Email: " +userEmail);
                 if(mydb.returnUserPhoto(userId) != null){
                     byte[] myPhotoByteArray = mydb.returnUserPhoto(userId);
                     Bitmap bitmap = BitmapFactory.decodeByteArray(myPhotoByteArray,0,myPhotoByteArray.length);
