@@ -11,6 +11,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.regex.Pattern;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
@@ -31,6 +33,17 @@ public class LoginFragment extends Fragment
 
     // Database
     Database mydb = null;
+
+    // static
+    private static final Pattern PASSWORD_PATTERN = Pattern.compile("^" +
+        "(?=.*[0-9])" +         //at least 1 digit
+        "(?=.*[a-z])" +         //at least 1 lower case letter
+        "(?=.*[A-Z])" +         //at least 1 upper case letter
+        //"(?=.*[a-zA-Z])" +    //any letter
+        "(?=.*[@#$%^&!+=])" +    //at least 1 special character
+        "(?=\\S+$)" +           //no white spaces
+        ".{6,20}" +             //at least 6 characters but no more than 20
+        "$");
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
@@ -136,8 +149,6 @@ public class LoginFragment extends Fragment
             @Override
             public void onClick(View view) {
                 String myUsername = usernameEt.getText().toString();
-                String myPwd = passwordEt.getText().toString();
-                String myPwd2 = rePasswordEt.getText().toString();
 
                 // get db
                 mydb = new Database(getActivity());
@@ -145,36 +156,20 @@ public class LoginFragment extends Fragment
                 // check if name is taken
                 Boolean isTaken = mydb.checkName(myUsername);
 
-                // check for empty fields
-                if((myUsername.equals(""))|| (myPwd.equals(""))){
-                    Toast.makeText(getActivity().getApplicationContext(), "Please enter all details", Toast.LENGTH_SHORT).show();
-                    loginMsg.setVisibility(View.VISIBLE);
-                    loginMsg.setText("Please enter all details !");
-                }else{
-                    // check if username is already taken
+                // validation version 2 - check for empty name
+                if(validateUsername()){
                     if(isTaken){
-                        Toast.makeText(getActivity().getApplicationContext(), "That username is taken", Toast.LENGTH_SHORT).show();
-                        loginMsg.setVisibility(View.VISIBLE);
-                        loginMsg.setText("That username is already taken!");
-                    }else if(!myPwd.equals(myPwd2)){
-                        // check if passwords match
-                        Toast.makeText(getActivity().getApplicationContext(), "Passwords do not match - try again", Toast.LENGTH_SHORT).show();
-                        loginMsg.setVisibility(View.VISIBLE);
-                        loginMsg.setText("Passwords do not match - try again!");
-                        }else{
-                            // now that user is not null, not already taken and passwords match - enter into db
-                            mydb.insertUserPwd(myUsername, myPwd);
+                        usernameEt.setError("That username is taken");
+                    } else {
+                        loginMsg.setText("");
+                        if(validatePassword()){
+                            if(validateMatch()){
+                                registerUser();
 
-                            Toast.makeText(getActivity().getApplicationContext(), "Thank you for registering", Toast.LENGTH_SHORT).show();
-                            loginMsg.setVisibility(View.VISIBLE);
-                            loginMsg.setText("You have been registered - click LOGIN");
-                            clickToReturnToLogin.setVisibility(View.INVISIBLE);
-                            loginButton.setVisibility(View.VISIBLE);
-                            clickToRegisterButton.setVisibility(View.VISIBLE);
-                            rePasswordEt.setVisibility(View.INVISIBLE);
-                            registerButton.setVisibility(View.INVISIBLE);
+                            }
                         }
                     }
+                }
 
                 mydb.close();
             }
@@ -192,14 +187,13 @@ public class LoginFragment extends Fragment
                 // get db
                 mydb = new Database(getActivity());
 
-                if((myUsername.equals(""))|| (myPwd.equals(""))){
-                    Toast.makeText(getActivity().getApplicationContext(), "Fields are blank " +myUsername, Toast.LENGTH_SHORT).show();
-                }else{
+                if( myUsername.isEmpty() || myPwd.isEmpty() ){
+                        loginMsg.setText("Please enter both Username and Password");
+                } else{
 
-                    // loginTrue is true if passwordcheck passes
+                    // now check user+password against db entry
+
                     boolean loginTrue = mydb.checkPassword(myUsername, myPwd);
-
-                    // todo - add in logic to find userid and set the logged in status in db
 
                     if(loginTrue){
                         // using SharedPreferences.Editor called editor to do the work
@@ -282,6 +276,64 @@ public class LoginFragment extends Fragment
         //Toast.makeText(getActivity(), "This is the login fragment", Toast.LENGTH_SHORT).show();
     }
 
+    private boolean validateUsername() {
+        String username = usernameEt.getText().toString().trim();
 
+        if (username.isEmpty()) {
+            usernameEt.setError("Field can't be empty");
+            return false;
+        } else if (username.length() > 15) {
+            usernameEt.setError("Your username is too long");
+            return false;
+        } else {
+            usernameEt.setError(null);
+            return true;
+        }
+    }
 
-}
+    private boolean validatePassword() {
+        String password = passwordEt.getText().toString().trim();
+        if (password.isEmpty()) {
+            passwordEt.setError("Field can't be empty");
+            return false;
+        }
+        if (password.isEmpty()) {
+            rePasswordEt.setError("Field can't be empty");
+            return false;
+        }else if (!PASSWORD_PATTERN.matcher(password).matches()) {
+            passwordEt.setError("Your password is not strong enough");
+            Toast.makeText(getActivity().getApplicationContext(), "Please enter 1 upper, 1 lower, 1 special and minimum 6 characters (with max of 20)", Toast.LENGTH_LONG).show();
+            return false;
+        } else {
+            passwordEt.setError(null);
+            return true;
+        }
+    }
+
+    private boolean validateMatch() {
+        String password = passwordEt.getText().toString().trim();
+        String rePassword = rePasswordEt.getText().toString().trim();
+
+        if (!password.equals(rePassword)) {
+            rePasswordEt.setError("Passwords do not match");
+            return false;
+        } else  {
+            return true;
+        }
+    }
+
+    private void registerUser(){
+        String myUsername = usernameEt.getText().toString();
+        String myPwd = passwordEt.getText().toString();
+        mydb.insertUserPwd(myUsername, myPwd);
+        Toast.makeText(getActivity().getApplicationContext(), "Thank you for registering", Toast.LENGTH_LONG).show();
+        loginMsg.setVisibility(View.VISIBLE);
+        loginMsg.setText("You have been registered - click LOGIN");
+        clickToReturnToLogin.setVisibility(View.INVISIBLE);
+        loginButton.setVisibility(View.VISIBLE);
+        clickToRegisterButton.setVisibility(View.VISIBLE);
+        rePasswordEt.setVisibility(View.INVISIBLE);
+        registerButton.setVisibility(View.INVISIBLE);
+    }
+
+}//EditText usernameEt, passwordEt, rePasswordEt;
