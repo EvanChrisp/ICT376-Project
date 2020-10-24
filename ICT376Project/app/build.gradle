@@ -37,6 +37,7 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     api 'com.theartofdev.edmodo:android-image-cropper:2.8.+'
+    implementation 'com.craftman.cardform:cardform:0.0.2'
 
 
 }

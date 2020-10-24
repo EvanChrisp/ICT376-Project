@@ -12,8 +12,68 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.craftman.cardform.Card;
+import com.craftman.cardform.CardForm;
+import com.craftman.cardform.OnPayBtnClickListner;
+
 import java.util.ArrayList;
 
+public class CreditCardActivity extends AppCompatActivity {
+
+    TextView payAmount;
+    Button payButton;
+    EditText cardNumber;
+    Database db;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_credit_card);
+
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+
+        assert getSupportActionBar() != null;
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        Intent intent = getIntent();
+        int totalToPay = intent.getIntExtra("totalToPay", 0);
+
+        payButton = (Button)findViewById(R.id.btn_pay);
+        payAmount = (TextView)findViewById(R.id.payment_amount);
+        cardNumber = (EditText) findViewById(R.id.card_number);
+        payAmount.setText("$" +Integer.toString(totalToPay)+".00 (AUD)");
+        payButton.setText("Pay Now");
+
+        CardForm cardForm = (CardForm) findViewById(R.id.cardform);
+        cardForm.setPayBtnClickListner(new OnPayBtnClickListner() {
+            @Override
+            public void onClick(Card card) {
+                placeOrder();
+            }
+        });
+
+
+    }
+
+    public void placeOrder(){
+        db = new Database(this);
+        Toast.makeText(CreditCardActivity.this, "Thank you for ordering from ERE games", Toast.LENGTH_LONG).show();
+        db.clearCart();
+        db.close();
+        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        startActivity(intent);
+
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+}
+/*
 public class CreditCardActivity extends AppCompatActivity {
 
     TextView amount;
@@ -102,8 +162,10 @@ public class CreditCardActivity extends AppCompatActivity {
     public boolean onSupportNavigateUp() {
         onBackPressed();
         // replaced onBackPressed with return to main activity instead
-        /*Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);*/
+        */
+/*Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);*//*
+
         return true;
     }
-}
+}*/
