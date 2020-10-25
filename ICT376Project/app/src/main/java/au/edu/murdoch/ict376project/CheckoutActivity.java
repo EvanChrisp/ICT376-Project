@@ -46,7 +46,7 @@ public class CheckoutActivity extends AppCompatActivity
         checkoutDisplayAmount = findViewById(R.id.checkoutDisplayAmount);
 
         // cursor = return from db function
-        Cursor cursor = dbHelper.getShoppingCart("1");
+        Cursor cursor = dbHelper.getShoppingCart();
 
         // columns to return
         final String[] columns = new String[]{Database.PRODUCT_ID, Database.PRODUCT_NAME, Database.PRODUCT_PLATFORM, Database.PRODUCT_FILE};

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -76,7 +75,6 @@
                 android:layout_height="wrap_content"
                 android:padding="10dp"
                 android:text="@string/contactUsPhoneNumber"
-                android:inputType="phone"
                 android:textSize="16sp" />
         </LinearLayout>
 
@@ -160,11 +158,11 @@
 
             <Button
                 android:layout_marginTop="20dp"
-                android:layout_gravity="left"
+                android:layout_gravity="start"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/gMaps"
-                android:text="Our Locations" />
+                android:text="@string/our_locations" />
 
             <TextView
                 android:id="@+id/mapButtonDescription"
@@ -174,10 +172,8 @@
                 android:paddingLeft="10dp"
                 android:paddingEnd="10dp"
                 android:paddingRight="10dp"
-                android:text="Find the closest outlet to you!"
+                android:text="@string/find_the_closest_outlet_to_you"
                 android:textSize="16sp" />
         </LinearLayout>
-
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
