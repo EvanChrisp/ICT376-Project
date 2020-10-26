@@ -538,7 +538,31 @@ public class Database extends SQLiteOpenHelper
         return mCursor;
     }
 
-    public Cursor getCursorSearchProducts(String searchTerms){
+    public Cursor getCursorSearchProducts(String searchTerms, String format){
+
+        SQLiteDatabase db = this.getWritableDatabase();
+        // getting Cursor for all items -> access via the Cursor object -> query
+        /*Cursor mCursor = db.query(PRODUCT_TABLE,
+                new String[] {PRODUCT_ID, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_DESCRIPTION, PRODUCT_STATUS, PRODUCT_FILE, PRODUCT_RATING, PRODUCT_PLATFORM},
+                PRODUCT_NAME + " like '%" + searchTerms + "%'",
+                null,
+                null,
+                null,
+                null,
+                null);*/
+
+        Cursor mCursor = db.rawQuery("select * from products where name like ? and platform = ?", new String[]{"%"+searchTerms+"%", format});
+
+        if (mCursor != null) {
+            // iterate through the cursor rows
+            mCursor.moveToFirst();
+        }
+
+
+        return mCursor;
+    }
+
+    public Cursor getCursorSearchProductsHome(String searchTerms){
 
         SQLiteDatabase db = this.getWritableDatabase();
         // getting Cursor for all items -> access via the Cursor object -> query

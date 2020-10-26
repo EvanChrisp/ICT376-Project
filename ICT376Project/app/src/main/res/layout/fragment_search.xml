@@ -39,7 +39,32 @@
             android:layout_gravity="end"
             android:text="@string/search_button" />
     </LinearLayout>
-    <LinearLayout
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/radioGroup">
+            <RadioButton
+                android:text="Nintendo"
+                android:id="@+id/nintendoRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <RadioButton
+                android:text="Playstation"
+                android:id="@+id/playstationRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <RadioButton
+                android:text="Xbox"
+                android:id="@+id/xboxRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+            <RadioButton
+                android:text="PC"
+                android:id="@+id/pcRadioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+    </RadioGroup>
+    <!--<LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
@@ -80,7 +105,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/pc" />
-    </LinearLayout>
+    </LinearLayout>-->
     <ListView
         android:layout_marginTop="20dp"
         android:id="@+id/searchProductListView"
