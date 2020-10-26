@@ -19,7 +19,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/mapsHeader"
-        android:text="Directions to ERE Games"
+        android:text="@string/directions_to_ere_games"
         android:layout_alignParentTop="true"
         android:textStyle="bold"
         android:textSize="30sp" />
@@ -29,7 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/mapButton"
-        android:text="Get Location"
+        android:text="@string/get_location"
         android:layout_alignParentBottom="true"
         android:layout_alignEnd="@id/map"
         android:layout_alignRight="@id/map" />

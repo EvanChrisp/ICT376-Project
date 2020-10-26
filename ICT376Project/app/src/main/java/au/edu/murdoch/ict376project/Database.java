@@ -341,20 +341,6 @@ public class Database extends SQLiteOpenHelper
         return true;
     }
 
-    // update price of product - based on promo price
-    public void updatePrice (Integer id, String price){
-        // get database
-        SQLiteDatabase db = this.getWritableDatabase();
-        // create new contentValues object
-        ContentValues contentValues = new ContentValues();
-        // put status value into contentValues
-        contentValues.put(PRODUCT_PRICE, price);
-        // adding means updating database table ->
-        db.update(PRODUCT_TABLE, contentValues, "_id= ? ", new String[]{Integer.toString(id)});
-        // after entry remember to close the database -> memory leaks
-        // if successful -> return is true
-    }
-
     // change the value of status to "0" or "1" - Zero is not added to cart, One is added to cart
     public void removeFromCart (Integer id, String val){
         // get database
@@ -459,7 +445,7 @@ public class Database extends SQLiteOpenHelper
         return res;
     }
 
-    public Cursor getShoppingCart(String cartStatus)
+    public Cursor getShoppingCart()
     {
         SQLiteDatabase db = this.getReadableDatabase();
         // id changed to _id in where clause -> causes errors with cursorAdapters

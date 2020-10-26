@@ -26,7 +26,7 @@ import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 
-import androidx.annotation.Nullable;
+import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
@@ -52,6 +52,7 @@ public class DirectionsActivity extends FragmentActivity implements OnMapReadyCa
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        assert mapFragment != null;
         mapFragment.getMapAsync(this);
 
         // set button to be able to check for permissions
@@ -176,35 +177,30 @@ public class DirectionsActivity extends FragmentActivity implements OnMapReadyCa
     }
 
     @Override
-    public void onConnectionFailed(ConnectionResult connectionResult) {
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
         // to do
     }
 
     @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults) {
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
 
         // switch case on requestCode coming through
-        switch (requestCode) {
-            // first case LOCATION_REQUEST_CODE int value is 777 as in global member variable at the top
-            case LOCATION_REQUEST_CODE: {
-                // If request is cancelled, the result arrays are empty.
-                // check grantResults
-                if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    // check the String permissions[]
-                    if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                        // restart activity if permission granted
-                        Intent intent = new Intent(this, DirectionsActivity.class);
-                        startActivity(intent);
-                    }
-
-                } else {
-                    // in every other case - permissions are not set correctly and you need a message to the user why the page does not display anything
-                    Toast.makeText(this, "Maps needs your location permission", Toast.LENGTH_SHORT).show();
-
+        // first case LOCATION_REQUEST_CODE int value is 777 as in global member variable at the top
+        if (requestCode == LOCATION_REQUEST_CODE) {// If request is cancelled, the result arrays are empty.
+            // check grantResults
+            if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                // check the String permissions[]
+                if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+                    // restart activity if permission granted
+                    Intent intent = new Intent(this, DirectionsActivity.class);
+                    startActivity(intent);
                 }
-                return;
-            }
 
+            } else {
+                // in every other case - permissions are not set correctly and you need a message to the user why the page does not display anything
+                Toast.makeText(this, "Maps needs your location permission", Toast.LENGTH_SHORT).show();
+
+            }
         }
     }
 

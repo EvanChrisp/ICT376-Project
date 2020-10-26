@@ -113,6 +113,7 @@
     <string name="please_pay">Please pay $%1$d.00 (AUD)</string>
     <string name="item_name">"Name: %1$s"</string>
     <string name="item_price">"Price: $%1$s.00 (AUD)"</string>
+    <string name="amount">"$%1$d.00 (AUD)"</string>
     <string name="item_sku">"SKU No: %1$s"</string>
     <string name="item_description">"Game Description: %1$s"</string>
     <string name="item_order">Please order below</string>
@@ -123,4 +124,11 @@
     <string name="email_not_sent">Email not set</string>
     <string name="please_login">This feature is only available for registered users - Please log in</string>
     <string name="profile_username">"Username: %1$s"</string>
+    <string name="profile_email2">"Email: %1$s"</string>
+    <string name="pay_now">Pay Now</string>
+    <string name="directions_to_ere_games">Directions to ERE Games</string>
+    <string name="get_location">Get Location</string>
+    <string name="our_locations">Our Locations</string>
+    <string name="find_the_closest_outlet_to_you">Find the closest outlet to you!</string>
+    <string name="click_on_game_to_view_details">Click on game to view details</string>
 </resources>
