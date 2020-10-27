@@ -2,10 +2,7 @@ package au.edu.murdoch.ict376project.ui.search;
 
 import android.content.Intent;
 import android.database.Cursor;
-import android.os.Build;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,13 +11,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.SimpleCursorAdapter;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 
 import au.edu.murdoch.ict376project.Database;
@@ -34,7 +29,6 @@ public class SearchFragment extends Fragment
     Button searchButton;
     public static String str = "Fifa";
     RadioGroup radioGroup;
-    RadioButton radioPlatformButton;
     int selectedId;
     String platform = "";
 
@@ -42,8 +36,8 @@ public class SearchFragment extends Fragment
     {
         mLayoutView = inflater.inflate(R.layout.fragment_search, container, false);
         searchBox = mLayoutView.findViewById(R.id.searchFragmentEditText);
-        radioGroup = (RadioGroup)mLayoutView.findViewById(R.id.radioGroup);
-        searchButton = (Button)mLayoutView.findViewById(R.id.searchFragmentButton);
+        radioGroup = mLayoutView.findViewById(R.id.radioGroup);
+        searchButton = mLayoutView.findViewById(R.id.searchFragmentButton);
         defaultListView();
 
 
@@ -91,6 +85,7 @@ public class SearchFragment extends Fragment
                     str = searchBox.getText().toString();
                     displayListView(str, platform);
                 } else {
+                    assert getActivity() != null;
                     Toast.makeText(getActivity().getApplicationContext(), "Please select a platform to search", Toast.LENGTH_SHORT).show();
                 }
 

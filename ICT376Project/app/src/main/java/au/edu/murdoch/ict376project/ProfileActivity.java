@@ -363,7 +363,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private boolean validateEmail() {
-        email = (EditText)findViewById(R.id.profileEditTextEmail);
+        email = findViewById(R.id.profileEditTextEmail);
         String emailInput = email.getText().toString().trim();
         if (emailInput.isEmpty()) {
             email.setError("Field can't be empty");
@@ -379,7 +379,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     public boolean validatePhoneNumber()
     {
-        phone = (EditText)findViewById(R.id.profileEditTextPhone);
+        phone = findViewById(R.id.profileEditTextPhone);
         String phoneInput = phone.getText().toString().trim();
         if(phoneInput.isEmpty()){
             phone.setError("Field cannot be empty");
@@ -395,7 +395,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     public boolean validateFirstName()
     {
-        fname = (EditText)findViewById(R.id.profileEditTextFname);
+        fname = findViewById(R.id.profileEditTextFname);
         String fnameInput = fname.getText().toString().trim();
         if(fnameInput.isEmpty()){
             fname.setError("Field cannot be empty");
@@ -408,7 +408,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     public boolean validateLastName()
     {
-        lname = (EditText)findViewById(R.id.profileEditTextLname);
+        lname = findViewById(R.id.profileEditTextLname);
         String lnameInput = lname.getText().toString().trim();
         if(lnameInput.isEmpty()){
             lname.setError("Field cannot be empty");
@@ -421,7 +421,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     public boolean validateAddress()
     {
-        address = (EditText)findViewById(R.id.profileEditTextAddress);
+        address = findViewById(R.id.profileEditTextAddress);
         String lnameInput = address.getText().toString().trim();
         if(lnameInput.isEmpty()){
             address.setError("Field cannot be empty");

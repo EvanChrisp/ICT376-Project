@@ -36,20 +36,20 @@ public class CreditCardActivity extends AppCompatActivity {
         Intent intent = getIntent();
         int totalToPay = intent.getIntExtra("totalToPay", 0);
 
-        payButton = (Button)findViewById(R.id.btn_pay);
-        payAmount = (TextView)findViewById(R.id.payment_amount);
-        cardNumber = (EditText) findViewById(R.id.card_number);
-        cardName = (EditText) findViewById(R.id.card_name);
-        cvc = (EditText) findViewById(R.id.cvc);
-        expiryDate = (EditText) findViewById(R.id.expiry_date);
+        payButton = findViewById(R.id.btn_pay);
+        payAmount = findViewById(R.id.payment_amount);
+        cardNumber = findViewById(R.id.card_number);
+        cardName = findViewById(R.id.card_name);
+        cvc = findViewById(R.id.cvc);
+        expiryDate = findViewById(R.id.expiry_date);
         payAmount.setText(getString(R.string.amount, totalToPay));
         payButton.setText(R.string.pay_now);
-        previewCardName = (TextView) findViewById(R.id.card_preview_name);
-        previewCardNumber = (TextView) findViewById(R.id.card_preview_number);
-        previewCvc = (TextView) findViewById(R.id.card_preview_cvc);
-        previewExpiry = (TextView) findViewById(R.id.card_preview_expiry);
+        previewCardName = findViewById(R.id.card_preview_name);
+        previewCardNumber = findViewById(R.id.card_preview_number);
+        previewCvc = findViewById(R.id.card_preview_cvc);
+        previewExpiry = findViewById(R.id.card_preview_expiry);
 
-        CardForm cardForm = (CardForm) findViewById(R.id.cardform);
+        CardForm cardForm = findViewById(R.id.cardform);
         cardForm.setCardNameError("Name is a required field");
         cardForm.setCardNumberError("Please enter 16 digit credit card number");
         cardForm.setExpiryDateError("Please enter the expiration date MM/YY ");
@@ -58,9 +58,9 @@ public class CreditCardActivity extends AppCompatActivity {
         cardNumber.setHint("Card number");
         expiryDate.setHint("MM/YY");
         cvc.setHint("CVV/CVC");
-        previewCardName.setText("Name on card");
-        previewExpiry.setText("MM/YY");
-        previewCvc.setText("CVV/CVC");
+        previewCardName.setText(R.string.name_on_card);
+        previewExpiry.setText(R.string.mm_yy);
+        previewCvc.setText(R.string.cvv);
 
         cardForm.setPayBtnClickListner(new OnPayBtnClickListner() {
             @Override

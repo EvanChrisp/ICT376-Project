@@ -27,11 +27,11 @@ public class ContactFragment extends Fragment
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
     {
         mLayoutView = inflater.inflate(R.layout.fragment_contact, container, false);
-        gMaps = (Button)mLayoutView.findViewById(R.id.gMaps);
-        emailUs = (TextView)mLayoutView.findViewById(R.id.Email);
-        number = (TextView)mLayoutView.findViewById(R.id.Number);
-        address1 = (TextView)mLayoutView.findViewById(R.id.address1);
-        address2 = (TextView)mLayoutView.findViewById(R.id.address2);
+        gMaps = mLayoutView.findViewById(R.id.gMaps);
+        emailUs = mLayoutView.findViewById(R.id.Email);
+        number = mLayoutView.findViewById(R.id.Number);
+        address1 = mLayoutView.findViewById(R.id.address1);
+        address2 = mLayoutView.findViewById(R.id.address2);
 
         return mLayoutView;
     }

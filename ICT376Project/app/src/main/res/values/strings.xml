@@ -135,4 +135,11 @@
     <string name="playstationSearch">Playstation</string>
     <string name="xboxSearch">Xbox</string>
     <string name="pcSearch">PC</string>
+    <string name="enter_both">Please enter both Username and Password</string>
+    <string name="authenticated">Login authenticated</string>
+    <string name="not_authenticated">Login NOT authenticated - are you registered?</string>
+    <string name="been_registered">You have been registered - click LOGIN</string>
+    <string name="name_on_card">Name on card</string>
+    <string name="mm_yy">MM/YY</string>
+    <string name="cvv">CVV/CVC</string>
 </resources>

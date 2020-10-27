@@ -105,12 +105,13 @@ public class LoginFragment extends Fragment
         clickToReturnToRegister = mLayoutView.findViewById(R.id.clickToReturnToRegister);
 
 
-        registerButton = (Button)mLayoutView.findViewById(R.id.registerUserPwdButton);
+        registerButton = mLayoutView.findViewById(R.id.registerUserPwdButton);
 
         clickToReturnToLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if(!storedUserName.equals("")){
+                    assert getActivity() != null;
                     Toast.makeText(getActivity().getApplicationContext(),"Please log out first", Toast.LENGTH_LONG).show();
                 }else{
                     clickToReturnToLogin.setVisibility(View.INVISIBLE);
@@ -188,13 +189,14 @@ public class LoginFragment extends Fragment
                 mydb = new Database(getActivity());
 
                 if( myUsername.isEmpty() || myPwd.isEmpty() ){
-                        loginMsg.setText("Please enter both Username and Password");
+                        loginMsg.setText(R.string.enter_both);
                 } else{
 
                     // now check user+password against db entry
 
                     boolean loginTrue = mydb.checkPassword(myUsername, myPwd);
 
+                    assert getActivity() != null;
                     if(loginTrue){
                         // using SharedPreferences.Editor called editor to do the work
 
@@ -214,7 +216,7 @@ public class LoginFragment extends Fragment
 
                         Toast.makeText(getActivity().getApplicationContext(), "Login authenticated!", Toast.LENGTH_SHORT).show();
                         loginMsg.setVisibility(View.VISIBLE);
-                        loginMsg.setText("Login authenticated");
+                        loginMsg.setText(R.string.authenticated);
                         // this will clear the cart if anonymous user added items to cart (they don't log out).
                         mydb.clearCart();
                         Intent intent = new Intent(getActivity(), MainActivity.class);
@@ -222,7 +224,7 @@ public class LoginFragment extends Fragment
                     }else{
                         Toast.makeText(getActivity().getApplicationContext(), "Login NOT authenticated - are you registered?", Toast.LENGTH_SHORT).show();
                         loginMsg.setVisibility(View.VISIBLE);
-                        loginMsg.setText("Login NOT authenticated - are you registered?");
+                        loginMsg.setText(R.string.not_authenticated);
                     }
                 }
 
@@ -236,12 +238,13 @@ public class LoginFragment extends Fragment
             public void onClick(View view) {
                 Database mydb;
                 // get instance of sharedpreferences (that has files stored in "prefs" file
+                assert getActivity() != null;
                 SharedPreferences userDetails = getActivity().getSharedPreferences("prefs", MODE_PRIVATE);
                 // it already exists, so storedUserName string = the String value in the userDetails object
                 storedUserName = userDetails.getString("username", "");
-                // TODO add some logout functionality for logged out status (you need to call db and find the logged in flag)
 
                 // check if already logged out - ie, storedUserName will already be ""
+                assert storedUserName != null;
                 if(storedUserName.equals("")){
                     Toast.makeText(getActivity().getApplicationContext(), "There is no user currently logged in!", Toast.LENGTH_LONG).show();
                 }else{
@@ -297,11 +300,13 @@ public class LoginFragment extends Fragment
             passwordEt.setError("Field can't be empty");
             return false;
         }
-        if (password.isEmpty()) {
+        String password2 = rePasswordEt.getText().toString().trim();
+        if (password2.isEmpty()) {
             rePasswordEt.setError("Field can't be empty");
             return false;
         }else if (!PASSWORD_PATTERN.matcher(password).matches()) {
             passwordEt.setError("Your password is not strong enough");
+            assert getActivity() != null;
             Toast.makeText(getActivity().getApplicationContext(), "Please enter 1 upper, 1 lower, 1 special and minimum 6 characters (with max of 20)", Toast.LENGTH_LONG).show();
             return false;
         } else {
@@ -326,9 +331,10 @@ public class LoginFragment extends Fragment
         String myUsername = usernameEt.getText().toString();
         String myPwd = passwordEt.getText().toString();
         mydb.insertUserPwd(myUsername, myPwd);
+        assert getActivity() != null;
         Toast.makeText(getActivity().getApplicationContext(), "Thank you for registering", Toast.LENGTH_LONG).show();
         loginMsg.setVisibility(View.VISIBLE);
-        loginMsg.setText("You have been registered - click LOGIN");
+        loginMsg.setText(R.string.been_registered);
         clickToReturnToLogin.setVisibility(View.INVISIBLE);
         loginButton.setVisibility(View.VISIBLE);
         clickToRegisterButton.setVisibility(View.VISIBLE);
