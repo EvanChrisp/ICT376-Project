@@ -47,24 +47,24 @@
         android:id="@+id/radioGroup">
             <RadioButton
                 android:layout_weight="1"
-                android:text="Nintendo"
+                android:text="@string/nintendoSearch"
                 android:id="@+id/nintendoRadioButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <RadioButton
-                android:text="Playstation"
+                android:text="@string/playstationSearch"
                 android:layout_weight="1"
                 android:id="@+id/playstationRadioButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <RadioButton
-                android:text="Xbox"
+                android:text="@string/xboxSearch"
                 android:layout_weight="1"
                 android:id="@+id/xboxRadioButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
             <RadioButton
-                android:text="PC"
+                android:text="@string/pcSearch"
                 android:layout_weight="1"
                 android:id="@+id/pcRadioButton"
                 android:layout_width="wrap_content"
