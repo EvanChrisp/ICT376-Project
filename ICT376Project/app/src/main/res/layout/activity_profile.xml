@@ -26,7 +26,6 @@
         <ImageView
             android:id="@+id/profileImageView"
             android:layout_alignParentTop="true"
-            android:background="@color/colorPrimaryDark"
             android:layout_width="160dp"
             android:layout_height="160dp"
             android:src="@drawable/addphoto"

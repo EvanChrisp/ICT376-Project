@@ -37,7 +37,7 @@ import java.util.ArrayList;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    TextView username;
+    TextView username, changePhoto;
     Button saveButton, testButton, clearButton;
     EditText fname, lname, address, phone, email;
     Database mydb = null;
@@ -80,6 +80,7 @@ public class ProfileActivity extends AppCompatActivity {
         cameraPermissions = new String[]{Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE};
         storagePermissions = new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
         myPhotoIcon = getResources().getDrawable(R.mipmap.logo);
+        changePhoto = findViewById(R.id.profileTextviewChangePhoto);
 
 
         profileImageView.setOnClickListener(new View.OnClickListener() {
@@ -112,6 +113,8 @@ public class ProfileActivity extends AppCompatActivity {
             clearButton.setVisibility(View.INVISIBLE);
             testButton.setVisibility(View.INVISIBLE);
             profileImageView.setVisibility(View.INVISIBLE);
+            changePhoto.setVisibility(View.INVISIBLE);
+
             // set the editText fields to uneditable or hidden
         }else{
             // get _id
