@@ -44,9 +44,17 @@
             android:hint="@string/profile_name"
             android:layout_centerHorizontal="true"
             android:ems="10" />
+        <TextView
+            android:id="@+id/profileTextviewChangePhoto"
+            android:layout_below="@id/profileTextViewUname"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/click_photo_to_update"
+            android:paddingBottom="20dp"/>
         <EditText
             android:id="@+id/profileEditTextFname"
-            android:layout_below="@+id/profileTextViewUname"
+            android:layout_below="@+id/profileTextviewChangePhoto"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:hint="@string/profile_first_name"

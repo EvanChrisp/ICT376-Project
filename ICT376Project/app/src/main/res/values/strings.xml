@@ -142,4 +142,5 @@
     <string name="name_on_card">Name on card</string>
     <string name="mm_yy">MM/YY</string>
     <string name="cvv">CVV/CVC</string>
+    <string name="click_photo_to_update">(Click photo to update)</string>
 </resources>
