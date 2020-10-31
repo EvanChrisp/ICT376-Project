@@ -36,7 +36,7 @@ public class CreateAccountTest {
         onView(withId(R.id.clickToRegisterUserPwdButton)).check(matches(isDisplayed()));
         onView(withId(R.id.clickToRegisterUserPwdButton)).perform(click());
 
-        onView(withId(R.id.usernameEt)).perform(typeText("Testerchild"));
+        onView(withId(R.id.usernameEt)).perform(typeText("Tester1"));
         onView(withId(R.id.passwordEt)).perform(typeText("Test1!"));
         onView(withId(R.id.rePasswordEt)).perform(typeText("Test1!"), closeSoftKeyboard());
         onView(withId(R.id.registerUserPwdButton)).perform(click());
