@@ -27,7 +27,7 @@ public class HomeMenuLatestItemSelectTest2 {
 
     @Test
     public void switchToFragment() {
-        onView(withId(R.id.latest2)).perform(click());
+        onView(withId(R.id.latest2)).perform(scrollTo()).perform(click());
         onView(withId(R.id.detailsName)).check(matches(isDisplayed()));
     }
 
