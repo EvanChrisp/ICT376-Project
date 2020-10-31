@@ -27,7 +27,7 @@ public class HomeMenuDealItemSelectTest3 {
 
     @Test
     public void switchToFragment() {
-        onView(withId(R.id.deal3)).perform(click());
+        onView(withId(R.id.deal3)).perform(scrollTo()).perform(click());
         onView(withId(R.id.detailsName)).check(matches(isDisplayed()));
     }
 
